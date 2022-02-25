@@ -1,0 +1,16 @@
+.tab_container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto auto auto;
+}
+.product_container {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 756px;
+}
+.product_section {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 24px;
+  grid-row-gap: 32px;
+}
