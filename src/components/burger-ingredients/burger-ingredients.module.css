@@ -6,8 +6,28 @@
 .product_container {
   overflow-x: hidden;
   overflow-y: scroll;
-  max-height: 756px;
+  height: 756px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+
+.product_container::-webkit-scrollbar {
+  display: none;
+}
+
+.track_vertical {
+  width: 8px !important;
+  height: 664px;
+  background-color: #2f2f37;
+  right: 0;
+}
+
+.thumb_vertical {
+  width: 8px !important;
+  background-color: #8585ad;
+  cursor: pointer;
+}
+
 .product_section {
   display: grid;
   grid-template-columns: auto auto;

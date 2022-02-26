@@ -1,18 +1,19 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerList from "./sub-components/burger-list";
-import data from "../utils/data";
 import styles from "./burger-ingredients.module.css";
+import { Scrollbars } from "react-custom-scrollbars";
 
-function BurgerIngredients() {
+const BurgerIngredients = (props) => {
   const [current, setCurrent] = React.useState("bun");
   let bunes = [];
   let sauces = [];
   let mains = [];
 
-  bunes = data.filter((item) => item.type === "bun");
-  sauces = data.filter((item) => item.type === "sauce");
-  mains = data.filter((item) => item.type === "main");
+  bunes = props.data.filter((item) => item.type === "bun");
+  sauces = props.data.filter((item) => item.type === "sauce");
+  mains = props.data.filter((item) => item.type === "main");
 
   return (
     <div className="burger_container">
@@ -35,20 +36,35 @@ function BurgerIngredients() {
         </div>
       </div>
       <div className={styles.product_container}>
-        <p className="text text_type_main-medium mt-10 mb-6">Булки</p>
-        <section className={styles.product_section}>
-          <BurgerList data={bunes} />
-        </section>
-        <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
-        <section className={styles.product_section}>
-          <BurgerList data={sauces} />
-        </section>
-        <p className="text text_type_main-medium mt-10 mb-6">Начинки</p>
-        <section className={styles.product_section}>
-          <BurgerList data={mains} />
-        </section>
+        <Scrollbars
+          renderTrackVertical={(props) => (
+            <div {...props} className={`${styles.track_vertical} mt-10`} />
+          )}
+          renderThumbVertical={(props) => (
+            <div {...props} className={styles.thumb_vertical} />
+          )}
+        >
+          <p className="text text_type_main-medium mt-10 mb-6">Булки</p>
+          <section className={styles.product_section}>
+            <BurgerList data={bunes} />
+          </section>
+          <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
+          <section className={styles.product_section}>
+            <BurgerList data={sauces} />
+          </section>
+          <p className="text text_type_main-medium mt-10 mb-6">Начинки</p>
+          <section className={styles.product_section}>
+            <BurgerList data={mains} />
+          </section>
+        </Scrollbars>
       </div>
     </div>
   );
-}
+};
+
+BurgerIngredients.propTypes = {
+  /** Main data */
+  data: PropTypes.array,
+};
+
 export default BurgerIngredients;
