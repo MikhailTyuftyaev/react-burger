@@ -5,7 +5,7 @@ import BurgerList from "./sub-components/burger-list";
 import styles from "./burger-ingredients.module.css";
 import { Scrollbars } from "react-custom-scrollbars";
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = ({ ...props }) => {
   const [current, setCurrent] = React.useState("bun");
   let bunes = [];
   let sauces = [];

@@ -4,10 +4,10 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const ConstructorList = (props) => {
-  return props.data.map(function (item) {
+const ConstructorList = ({ ...props }) => {
+  return props.data.map(function (item, index) {
     return (
-      <div style={{ display: "flex", alignItems: "center" }} key={item._id}>
+      <div style={{ display: "flex", alignItems: "center" }} key={index}>
         <div className="ml-2" style={{ cursor: "pointer" }}>
           <DragIcon type="primary" />
         </div>
