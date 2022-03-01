@@ -7,7 +7,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorList from "./sub-components/constructor-list";
 import styles from "./burger-constructor.module.css";
-import { Scrollbars } from "react-custom-scrollbars";
 import OrderDetails from "../order-details/order-detail";
 
 const BurgerConstructor = ({ ...props }) => {
@@ -30,7 +29,7 @@ const BurgerConstructor = ({ ...props }) => {
     <>
       <div className="burger_constructor">
         <div className={`${styles.constructor_container} mt-25`}>
-          <div className="ml-10 mr-5">
+          <div className="ml-10 mr-4">
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -40,22 +39,9 @@ const BurgerConstructor = ({ ...props }) => {
             />
           </div>
           <div className={styles.constructor_list}>
-            <Scrollbars
-              style={{ height: "464px" }}
-              renderView={(props) => (
-                <div {...props} className={styles.constructor_list} />
-              )}
-              renderTrackVertical={(props) => (
-                <div {...props} className={styles.track1_vertical} />
-              )}
-              renderThumbVertical={(props) => (
-                <div {...props} className={styles.thumb1_vertical} />
-              )}
-            >
-              <ConstructorList data={props.data} />
-            </Scrollbars>
+            <ConstructorList data={props.data} />
           </div>
-          <div className="ml-10 mr-5">
+          <div className="ml-10 mr-4">
             <ConstructorElement
               type="bottom"
               isLocked={true}

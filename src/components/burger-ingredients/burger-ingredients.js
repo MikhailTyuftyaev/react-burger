@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerList from "./sub-components/burger-list";
 import styles from "./burger-ingredients.module.css";
-import { Scrollbars } from "react-custom-scrollbars";
 
 const BurgerIngredients = ({ ...props }) => {
   const [current, setCurrent] = React.useState("bun");
@@ -36,27 +35,18 @@ const BurgerIngredients = ({ ...props }) => {
         </div>
       </div>
       <div className={styles.product_container}>
-        <Scrollbars
-          renderTrackVertical={(props) => (
-            <div {...props} className={`${styles.track_vertical} mt-10`} />
-          )}
-          renderThumbVertical={(props) => (
-            <div {...props} className={styles.thumb_vertical} />
-          )}
-        >
-          <p className="text text_type_main-medium mt-10 mb-6">Булки</p>
-          <section className={styles.product_section}>
-            <BurgerList data={bunes} />
-          </section>
-          <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
-          <section className={styles.product_section}>
-            <BurgerList data={sauces} />
-          </section>
-          <p className="text text_type_main-medium mt-10 mb-6">Начинки</p>
-          <section className={styles.product_section}>
-            <BurgerList data={mains} />
-          </section>
-        </Scrollbars>
+        <p className="text text_type_main-medium mb-6">Булки</p>
+        <section className={styles.product_section}>
+          <BurgerList data={bunes} />
+        </section>
+        <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
+        <section className={styles.product_section}>
+          <BurgerList data={sauces} />
+        </section>
+        <p className="text text_type_main-medium mt-10 mb-6">Начинки</p>
+        <section className={styles.product_section}>
+          <BurgerList data={mains} />
+        </section>
       </div>
     </div>
   );

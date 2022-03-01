@@ -7,11 +7,24 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
-body::-webkit-scrollbar {
-  display: none;
+
+html,
+body {
+  scrollbar-color: #8585ad #2f2f37; /* «цвет ползунка» «цвет полосы скроллбара» */
+  scrollbar-width: thin; /* толщина */
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #2f2f37;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  border-radius: 0;
+  box-shadow: none;
 }
 a {
   text-decoration: none;

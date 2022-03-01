@@ -12,7 +12,7 @@ const ConstructorList = ({ ...props }) => {
           <DragIcon type="primary" />
         </div>
 
-        <div className="ml-2 pr-8" style={{ width: "100%" }}>
+        <div className="ml-2 pr-2" style={{ width: "100%" }}>
           <ConstructorElement
             text={item.name}
             price={item.price}

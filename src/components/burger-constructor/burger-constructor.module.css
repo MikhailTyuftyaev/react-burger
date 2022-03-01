@@ -8,24 +8,8 @@
   max-height: 464px;
   overflow-x: hidden;
   overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.constructor_list::-webkit-scrollbar {
-  display: none;
-}
-
-.track1_vertical {
-  width: 8px !important;
-  height: 464px;
-  background-color: #2f2f37;
-  right: 0;
-}
-
-.thumb1_vertical {
-  width: 8px !important;
-  background-color: #8585ad;
-  cursor: pointer;
+  scrollbar-color: #8585ad #2f2f37;
+  scrollbar-width: thin;
 }
 
 .cta_container {
