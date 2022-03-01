@@ -3,16 +3,17 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./constructor-list.module.css";
 
 const ConstructorList = ({ ...props }) => {
   return props.data.map(function (item, index) {
     return (
-      <div style={{ display: "flex", alignItems: "center" }} key={index}>
-        <div className="ml-2" style={{ cursor: "pointer" }}>
+      <div className={styles.constructor_list} key={index}>
+        <div className={`${styles.icon_box} ml-2 `}>
           <DragIcon type="primary" />
         </div>
 
-        <div className="ml-2 pr-2" style={{ width: "100%" }}>
+        <div className={`${styles.element_box} ml-2 pr-2 `}>
           <ConstructorElement
             text={item.name}
             price={item.price}

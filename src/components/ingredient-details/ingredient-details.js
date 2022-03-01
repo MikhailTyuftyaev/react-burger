@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "../modal/modal";
 import PropTypes from "prop-types";
+import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ ...props }) => {
   return (
@@ -13,14 +14,7 @@ const IngredientDetails = ({ ...props }) => {
       <p className="text text_type_main-medium mt-4 pl-15 pr-15">
         {props.name}
       </p>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "auto auto auto auto",
-          gridColumnGap: "20px",
-        }}
-        className="mt-8 pl-15 pr-15"
-      >
+      <div className={`${styles.props_container} mt-8 pl-15 pr-15`}>
         <div>
           <p className="text text_type_main-default text_color_inactive">
             Калории,ккал
