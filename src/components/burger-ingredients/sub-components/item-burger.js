@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import styles from "./item-burger.module.css";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import {
@@ -49,4 +50,24 @@ const BurgerItem = ({ ...props }) => {
     </>
   );
 };
+
+BurgerItem.propTypes = {
+  /** Name burger */
+  title: PropTypes.string,
+  /** Path for image burger */
+  image: PropTypes.string,
+  /** Price burger */
+  price: PropTypes.number,
+  /** Path for large image burger */
+  imageLarge: PropTypes.string,
+  /** Burger calories */
+  calories: PropTypes.number,
+  /** Burger proteins */
+  proteins: PropTypes.number,
+  /** Burger fat */
+  fat: PropTypes.number,
+  /** Burger carbohydrates*/
+  carbohydrates: PropTypes.number,
+};
+
 export default BurgerItem;

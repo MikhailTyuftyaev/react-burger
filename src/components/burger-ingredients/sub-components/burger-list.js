@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import BurgerItem from "./item-burger";
 
 const BurgerList = ({ ...props }) => {
@@ -18,4 +19,10 @@ const BurgerList = ({ ...props }) => {
     );
   });
 };
+
+BurgerList.propTypes = {
+  /** Main data */
+  data: PropTypes.array,
+};
+
 export default BurgerList;

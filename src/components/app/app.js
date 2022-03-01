@@ -1,14 +1,11 @@
 import { React, useEffect, useState } from "react";
 import Main from "../main/main";
 import Header from "../app-header/app-header";
-import Modal from "../modal/modal";
 
 const App = () => {
-  const [state, setState] = useState([
-    {
-      data: [{ image_mobile: "" }],
-    },
-  ]);
+  const [state, setState] = useState({
+    data: [{ image_mobile: "" }],
+  });
 
   const url = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -17,9 +14,9 @@ const App = () => {
       try {
         const res = await fetch(url);
         const data = await res.json();
-        setState([data]);
+        setState(data);
       } catch (e) {
-        console.log("Произошла ошибка");
+        console.log("Произошла ошибка при загрузке данных");
       }
     };
     getData();
@@ -28,12 +25,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Main data={state[0].data} />
-      {state.visible && (
-        <Modal header="hello">
-          <p>I am Mike</p>
-        </Modal>
-      )}
+      <Main data={state.data} />
     </>
   );
 };

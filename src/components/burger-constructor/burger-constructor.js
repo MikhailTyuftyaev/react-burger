@@ -25,6 +25,16 @@ const BurgerConstructor = ({ ...props }) => {
       visible: false,
     });
   }
+
+  let sum = 0;
+  const total = props.data.map(function (item) {
+    return sum + parseInt(item.price, 10);
+  });
+
+  const result = total.reduce(function (sum, elem) {
+    return sum + elem;
+  }, 0);
+
   return (
     <>
       <div className="burger_constructor">
@@ -53,7 +63,9 @@ const BurgerConstructor = ({ ...props }) => {
         </div>
         <div className={`${styles.cta_container} mt-10`}>
           <div className={`${styles.price_block} mr-10`}>
-            <p className="text text_type_digits-medium mr-2">0</p>
+            <p className="text text_type_digits-medium mr-2">
+              {result ? result : "0"}
+            </p>
             <CurrencyIcon type="primary" />
           </div>
           <Button type="primary" size="large" onClick={handleClickBurger}>

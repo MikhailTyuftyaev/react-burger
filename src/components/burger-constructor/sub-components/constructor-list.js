@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   ConstructorElement,
   DragIcon,
@@ -6,7 +7,8 @@ import {
 import styles from "./constructor-list.module.css";
 
 const ConstructorList = ({ ...props }) => {
-  return props.data.map(function (item, index) {
+  const newData = props.data.filter((item) => item.type !== "bun");
+  return newData.map(function (item, index) {
     return (
       <div className={styles.constructor_list} key={index}>
         <div className={`${styles.icon_box} ml-2 `}>
@@ -23,6 +25,11 @@ const ConstructorList = ({ ...props }) => {
       </div>
     );
   });
+};
+
+ConstructorList.propTypes = {
+  /** Main data */
+  data: PropTypes.array,
 };
 
 export default ConstructorList;
