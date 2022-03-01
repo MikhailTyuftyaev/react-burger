@@ -11,8 +11,8 @@ body {
 
 html,
 body {
-  scrollbar-color: #8585ad #2f2f37; /* «цвет ползунка» «цвет полосы скроллбара» */
-  scrollbar-width: thin; /* толщина */
+  scrollbar-color: #8585ad #2f2f37;
+  scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar {
