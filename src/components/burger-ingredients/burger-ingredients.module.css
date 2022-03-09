@@ -1,0 +1,20 @@
+.tab_container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto auto auto;
+}
+.product_container {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 756px;
+  margin-top: 40px;
+  scrollbar-color: #8585ad #2f2f37;
+  scrollbar-width: thin;
+}
+
+.product_section {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 24px;
+  grid-row-gap: 32px;
+}

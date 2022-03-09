@@ -1,0 +1,11 @@
+.burger_item {
+  position: relative;
+  max-width: 272px;
+  text-align: center;
+  cursor: pointer;
+}
+.burger_price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

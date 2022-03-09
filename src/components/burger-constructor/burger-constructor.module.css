@@ -1,0 +1,35 @@
+.constructor_container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-row-gap: 16px;
+}
+.constructor_list {
+  composes: constructor_container;
+  max-height: 464px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-color: #8585ad #2f2f37;
+  scrollbar-width: thin;
+}
+
+.cta_container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.cta_container svg {
+  height: 36px;
+  width: 36px;
+}
+
+.price_block {
+  composes: cta_container;
+}
+
+:global(.constructor-element) {
+  max-width: none;
+  width: 100%;
+  min-height: unset;
+  height: 80px;
+}

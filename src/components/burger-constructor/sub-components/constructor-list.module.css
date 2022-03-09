@@ -1,0 +1,10 @@
+.constructor_list {
+  display: flex;
+  align-items: center;
+}
+.icon_box {
+  cursor: pointer;
+}
+.element_box {
+  width: 100%;
+}
