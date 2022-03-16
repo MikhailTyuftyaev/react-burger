@@ -1,31 +1,24 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Main from "../main/main";
 import Header from "../app-header/app-header";
+import {useSelector, useDispatch  } from 'react-redux';
+import { getItemsRequest } from "../../services/actions";
 
 const App = () => {
-  const [state, setState] = useState({
-    data: [{ image_mobile: "" }],
-  });
+  const dispatch = useDispatch();
 
-  const url = "https://norma.nomoreparties.space/api/ingredients";
+  const ingredients = useSelector(state => state.ingredients);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        setState(data);
-      } catch (e) {
-        console.log("Произошла ошибка при загрузке данных");
-      }
-    };
-    getData();
-  }, []);
+  useEffect(()=> {
+    dispatch(getItemsRequest());
+}, [dispatch])
+
+  console.log(ingredients);
 
   return (
     <>
       <Header />
-      <Main data={state.data} />
+      <Main data={ingredients.data} />
     </>
   );
 };
