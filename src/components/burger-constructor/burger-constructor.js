@@ -10,7 +10,7 @@ import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { ADD_ITEM } from "../../services/actions";
+import { ADD_ITEM, INCREASE_ITEM } from "../../services/actions";
 
 
 const BurgerConstructor = ({ ...props }) => {
@@ -58,6 +58,10 @@ const BurgerConstructor = ({ ...props }) => {
       type: ADD_ITEM,
       ...item
     });
+    dispatch({
+      type: INCREASE_ITEM,
+      ...item
+    });
   }
 
   const border = isHover ? '0px 0px 10px 0px rgba(76, 76, 255, 1)' : 'none';
@@ -65,7 +69,7 @@ const BurgerConstructor = ({ ...props }) => {
   return (
     <>
       <div className="burger_constructor">
-        <div className={`${styles.constructor_container} mt-25`} ref={dropTarget} style={{boxShadow: border}}>
+        <div className={`${styles.constructor_container} mt-25`} ref={dropTarget}>
           <div className="ml-10 mr-4">
             <ConstructorElement
               type="top"
@@ -75,7 +79,7 @@ const BurgerConstructor = ({ ...props }) => {
               thumbnail={ingredients.data[0].image_mobile}
             />
           </div>
-          <div className={styles.constructor_list}>
+          <div className={styles.constructor_list} style={{boxShadow: border}}>
             <div className={styles.plus_bg}>+</div>
             <ConstructorList />
           </div>

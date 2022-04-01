@@ -37,7 +37,7 @@ const BurgerItem = ({ ...props }) => {
     <>
       <div className={styles.burger_item} onClickCapture={handleClickBurger} style={{opacity}} ref={dragRef}>
         <img src={props.image} />
-        {props.count ? <Counter count={1} size="default" /> : null}
+        {props.count ? <Counter count={props.count} size="default" /> : null}
         <div className={`${styles.burger_price} mt-2`}>
           <p className="text text_type_digits-default mr-2">{props.price}</p>
           <CurrencyIcon type="primary" />

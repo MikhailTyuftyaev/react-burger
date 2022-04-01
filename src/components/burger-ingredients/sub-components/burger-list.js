@@ -16,6 +16,7 @@ const BurgerList = ({ ...props }) => {
         calories={item.calories}
         proteins={item.proteins}
         fat={item.fat}
+        count={item.__v}
         carbohydrates={item.carbohydrates}
       />
     );

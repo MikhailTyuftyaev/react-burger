@@ -5,14 +5,29 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-list.module.css";
-import { useSelector } from 'react-redux';
-import { nanoid } from 'nanoid'
+import { useDispatch, useSelector } from "react-redux";
+import { nanoid } from "nanoid";
+import { DELETE_ITEM, DECREASE_ITEM } from "../../../services/actions";
 
 const ConstructorList = ({ ...props }) => {
-  const constructorItems = useSelector(state => state.ingredients.constructorItems)
+  const dispatch = useDispatch();
+
+  const constructorItems = useSelector(
+    (state) => state.ingredients.constructorItems
+  );
+
+  const deleteItem = (item, index) => {
+    dispatch({
+      type: DELETE_ITEM,
+      index,
+    });
+    dispatch({
+      type: DECREASE_ITEM,
+      id: item,
+    });
+  };
 
   const newData = constructorItems.filter((item) => item.type !== "bun");
-  console.log(constructorItems)
   return newData.map(function (item, index) {
     return (
       <div className={styles.constructor_list} key={nanoid()}>
@@ -25,6 +40,7 @@ const ConstructorList = ({ ...props }) => {
             text={item.name}
             price={item.price}
             thumbnail={item.image_mobile}
+            handleClose={() => deleteItem(item._id, index)}
           />
         </div>
       </div>

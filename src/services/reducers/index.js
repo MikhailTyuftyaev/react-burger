@@ -44,6 +44,27 @@ export const getItemsReducer = (state = initialState, action) => {
         itemsRequest: false,
       };
     }
+    case INCREASE_ITEM: {
+      return {
+        ...state,
+        data: [...state.data].map(item =>
+          item._id === action.id ? { ...item, __v: ++item.__v } : item
+        )
+      };
+    }
+    case DECREASE_ITEM: {
+      return {
+        ...state,
+        data: [...state.data].map(item =>
+          item._id === action.id ? { ...item, __v: --item.__v } : item
+        )
+      };
+    }
+    case DELETE_ITEM: {
+      return { 
+        ...state, 
+        constructorItems: [ ...state.constructorItems.filter((item, index) => index !== action.index)]}
+    };
     case ADD_ITEM: {
       return {
         ...state,
