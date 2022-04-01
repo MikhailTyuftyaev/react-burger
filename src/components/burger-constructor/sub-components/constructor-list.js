@@ -5,12 +5,17 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-list.module.css";
+import { useSelector } from 'react-redux';
+import { nanoid } from 'nanoid'
 
 const ConstructorList = ({ ...props }) => {
-  const newData = props.data.filter((item) => item.type !== "bun");
+  const constructorItems = useSelector(state => state.ingredients.constructorItems)
+
+  const newData = constructorItems.filter((item) => item.type !== "bun");
+  console.log(constructorItems)
   return newData.map(function (item, index) {
     return (
-      <div className={styles.constructor_list} key={index}>
+      <div className={styles.constructor_list} key={nanoid()}>
         <div className={`${styles.icon_box} ml-2 `}>
           <DragIcon type="primary" />
         </div>

@@ -6,6 +6,7 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrag } from 'react-dnd';
 
 const BurgerItem = ({ ...props }) => {
   const [modal, isModal] = useState({
@@ -24,9 +25,17 @@ const BurgerItem = ({ ...props }) => {
     });
   }
 
+  const [{opacity}, dragRef] = useDrag({
+    type: "bun",
+    item: {id: props.id},
+    collect: monitor => ({
+            opacity: monitor.isDragging() ? 0.5 : 1,
+    })
+  });
+
   return (
     <>
-      <div className={styles.burger_item} onClickCapture={handleClickBurger}>
+      <div className={styles.burger_item} onClickCapture={handleClickBurger} style={{opacity}} ref={dragRef}>
         <img src={props.image} />
         {props.count ? <Counter count={1} size="default" /> : null}
         <div className={`${styles.burger_price} mt-2`}>

@@ -8,8 +8,16 @@ import {
 import ConstructorList from "./sub-components/constructor-list";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import { ADD_ITEM } from "../../services/actions";
+
 
 const BurgerConstructor = ({ ...props }) => {
+
+  const dispatch = useDispatch();
+  const ingredients = useSelector(state => state.ingredients)
+
   const [modal, isModal] = useState({
     visible: false,
   });
@@ -27,7 +35,7 @@ const BurgerConstructor = ({ ...props }) => {
   }
 
   let sum = 0;
-  const total = props.data.map(function (item) {
+  const total = ingredients.data.map(function (item) {
     return sum + parseInt(item.price, 10);
   });
 
@@ -35,29 +43,49 @@ const BurgerConstructor = ({ ...props }) => {
     return sum + elem;
   }, 0);
 
+  const [{isHover}, dropTarget] = useDrop({
+    accept: "bun",
+    drop(item) {
+      movePostponedItem(item);
+    },
+    collect: monitor => ({
+      isHover: monitor.isOver()
+    })
+  });
+
+  const movePostponedItem = (item) => {
+    dispatch({
+      type: ADD_ITEM,
+      ...item
+    });
+  }
+
+  const border = isHover ? '0px 0px 10px 0px rgba(76, 76, 255, 1)' : 'none';
+
   return (
     <>
       <div className="burger_constructor">
-        <div className={`${styles.constructor_container} mt-25`}>
+        <div className={`${styles.constructor_container} mt-25`} ref={dropTarget} style={{boxShadow: border}}>
           <div className="ml-10 mr-4">
             <ConstructorElement
               type="top"
               isLocked={true}
-              text="Краторная булка N-200i (верх)"
-              price={props.data[0].price}
-              thumbnail={props.data[0].image_mobile}
+              text={`${ingredients.data[0].name} (верх)`}
+              price={ingredients.data[0].price}
+              thumbnail={ingredients.data[0].image_mobile}
             />
           </div>
           <div className={styles.constructor_list}>
-            <ConstructorList data={props.data} />
+            <div className={styles.plus_bg}>+</div>
+            <ConstructorList />
           </div>
           <div className="ml-10 mr-4">
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text="Краторная булка N-200i (низ)"
-              price={props.data[0].price}
-              thumbnail={props.data[0].image_mobile}
+              text={`${ingredients.data[0].name} (низ)`}
+              price={ingredients.data[0].price}
+              thumbnail={ingredients.data[0].image_mobile}
             />
           </div>
         </div>

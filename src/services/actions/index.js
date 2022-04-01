@@ -9,14 +9,17 @@ export const CREATE_ORDER = "CREATE_ORDER";
 export const INCREASE_ITEM = "INCREASE_ITEM";
 export const DECREASE_ITEM = "DECREASE_ITEM";
 
+export const ADD_ITEM = "ADD_ITEM"
+
 export const DELETE_ITEM = "DELETE_ITEM";
 
 export function getItemsRequest() {
+  const url = "https://norma.nomoreparties.space/api/ingredients"
   return function (dispatch) {
     dispatch({
       type: GET_ITEMS_REQUEST,
     });
-    fetch("https://norma.nomoreparties.space/api/ingredients")
+    fetch(url)
       .then((res) => res.json())
       .then((res) => {
         if (res && res.success) {

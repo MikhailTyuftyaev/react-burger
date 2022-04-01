@@ -6,6 +6,7 @@ import {
   CREATE_ORDER,
   INCREASE_ITEM,
   DECREASE_ITEM,
+  ADD_ITEM,
   DELETE_ITEM,
   getItemsRequest,
 } from "../actions";
@@ -15,6 +16,9 @@ const initialState = {
   data: [{price: "", image_mobile: ""}],
   itemsRequest: false,
   itemsFailed: false,
+  constructorItems: [],
+  currentItem: {},
+  order: {}
 };
 
 export const getItemsReducer = (state = initialState, action) => {
@@ -38,6 +42,12 @@ export const getItemsReducer = (state = initialState, action) => {
         ...state,
         itemsFailed: true,
         itemsRequest: false,
+      };
+    }
+    case ADD_ITEM: {
+      return {
+        ...state,
+        constructorItems:  [ ...state.constructorItems, ...state.data.filter(item => item._id === action.id)]
       };
     }
     default: {

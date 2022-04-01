@@ -3,16 +3,20 @@ import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerList from "./sub-components/burger-list";
 import styles from "./burger-ingredients.module.css";
+import { useSelector } from 'react-redux';
 
 const BurgerIngredients = ({ ...props }) => {
+
+  const ingredients = useSelector(state => state.ingredients)
+
   const [current, setCurrent] = React.useState("bun");
   let bunes = [];
   let sauces = [];
   let mains = [];
 
-  bunes = props.data.filter((item) => item.type === "bun");
-  sauces = props.data.filter((item) => item.type === "sauce");
-  mains = props.data.filter((item) => item.type === "main");
+  bunes = ingredients.data.filter((item) => item.type === "bun");
+  sauces = ingredients.data.filter((item) => item.type === "sauce");
+  mains = ingredients.data.filter((item) => item.type === "main");
 
   return (
     <div className="burger_container">
