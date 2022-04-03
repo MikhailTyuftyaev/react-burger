@@ -44,7 +44,7 @@ const BurgerConstructor = ({ ...props }) => {
   }, 0);
 
   const [{isHover}, dropTarget] = useDrop({
-    accept: "bun",
+    accept: "ingredient",
     drop(item) {
       movePostponedItem(item);
     },
