@@ -2,22 +2,23 @@ import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
-  GET_CURRENT_ITEMS,
   CREATE_ORDER,
   INCREASE_ITEM,
   DECREASE_ITEM,
   ADD_ITEM,
   DELETE_ITEM,
-  getItemsRequest,
 } from "../actions";
 import { combineReducers } from 'redux';
+import { getModalItemsReducer } from '../reducers/modal'
 
-const initialState = {
+export const initialState = {
   data: [{price: "", image_mobile: ""}],
   itemsRequest: false,
   itemsFailed: false,
+  bun: [],
+  ingredients: [],
   constructorItems: [],
-  currentItem: {},
+  currentItem: [],
   order: {}
 };
 
@@ -68,6 +69,7 @@ export const getItemsReducer = (state = initialState, action) => {
     case ADD_ITEM: {
       return {
         ...state,
+        //[state.data[action.index].type]: [ ...state.ingredients, ...state.data.filter(item => item._id === action.id) ],
         constructorItems:  [ ...state.constructorItems, ...state.data.filter(item => item._id === action.id)]
       };
     }
@@ -78,5 +80,6 @@ export const getItemsReducer = (state = initialState, action) => {
 };
 
 export const rootReducer = combineReducers({
-  ingredients: getItemsReducer
+  ingredients: getItemsReducer,
+  modal: getModalItemsReducer
 });

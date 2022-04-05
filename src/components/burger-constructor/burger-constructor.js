@@ -56,7 +56,7 @@ const BurgerConstructor = ({ ...props }) => {
   const movePostponedItem = (item) => {
     dispatch({
       type: ADD_ITEM,
-      ...item
+      ...item,
     });
     dispatch({
       type: INCREASE_ITEM,

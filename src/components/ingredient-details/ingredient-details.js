@@ -5,11 +5,7 @@ import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ ...props }) => {
   return (
-    <Modal
-      header={props.header}
-      isModal={props.isModal}
-      onClose={props.onClose}
-    >
+    <>
       <img src={props.image} />
       <p className="text text_type_main-medium mt-4 pl-15 pr-15">
         {props.name}
@@ -48,7 +44,7 @@ const IngredientDetails = ({ ...props }) => {
           </p>
         </div>
       </div>
-    </Modal>
+      </>
   );
 };
 export default IngredientDetails;

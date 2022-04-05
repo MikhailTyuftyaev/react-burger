@@ -6,36 +6,58 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDrag } from 'react-dnd';
+import { useDrag } from "react-dnd";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ADD_CURRENT_ITEM,
+  DELETE_CURRENT_ITEM,
+} from "../../../services/actions/modal";
+import Modal from "../../modal/modal";
 
 const BurgerItem = ({ ...props }) => {
+  const dispatch = useDispatch();
+  const modalItem = useSelector((state) => state.modal.currentItem);
+
   const [modal, isModal] = useState({
     visible: false,
   });
 
-  function handleClickBurger() {
+  function handleClickBurger(item) {
+    dispatch({
+      type: ADD_CURRENT_ITEM,
+      item,
+    });
     isModal({
       visible: true,
     });
   }
 
-  function onClose() {
+  function onClose(item) {
+    dispatch({
+      type: DELETE_CURRENT_ITEM,
+      item,
+    });
     isModal({
       visible: false,
     });
   }
 
-  const [{opacity}, dragRef] = useDrag({
+  const [{ opacity }, dragRef] = useDrag({
     type: "ingredient",
-    item: {id: props.id},
-    collect: monitor => ({
-            opacity: monitor.isDragging() ? 0.5 : 1,
-    })
+    item: { id: props.id },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+    }),
   });
 
   return (
     <>
-      <div className={styles.burger_item} onClickCapture={handleClickBurger} style={{opacity}} ref={dragRef}>
+      <div
+        className={styles.burger_item}
+        onClick={() => handleClickBurger(props)}
+        style={{ opacity }}
+        ref={dragRef}
+      >
         <img src={props.image} />
         {props.count ? <Counter count={props.count} size="default" /> : null}
         <div className={`${styles.burger_price} mt-2`}>
@@ -45,17 +67,20 @@ const BurgerItem = ({ ...props }) => {
 
         <p className="text text_type_main-default  mt-2 mb-6">{props.title}</p>
       </div>
-      <IngredientDetails
+      <Modal
         header="Детали ингредиента"
-        isModal={modal}
         onClose={onClose}
-        image={props.imageLarge}
-        name={props.title}
-        calories={props.calories}
-        proteins={props.proteins}
-        fat={props.fat}
-        carbohydrates={props.carbohydrates}
-      />
+        isModal={modal}
+      >
+        <IngredientDetails
+          image={modalItem.imageLarge}
+          name={modalItem.title}
+          calories={modalItem.calories}
+          proteins={modalItem.proteins}
+          fat={modalItem.fat}
+          carbohydrates={modalItem.carbohydrates}
+        />
+      </Modal>
     </>
   );
 };
