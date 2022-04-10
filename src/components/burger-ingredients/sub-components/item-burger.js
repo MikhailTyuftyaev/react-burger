@@ -14,7 +14,7 @@ import {
 } from "../../../services/actions/modal";
 import Modal from "../../modal/modal";
 
-const BurgerItem = ({ ...props }) => {
+const BurgerItem = ({ item, ...props }) => {
   const dispatch = useDispatch();
   const modalItem = useSelector((state) => state.modal.currentItem);
 
@@ -44,7 +44,7 @@ const BurgerItem = ({ ...props }) => {
 
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredient",
-    item: { id: props.id },
+    item,
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
     }),

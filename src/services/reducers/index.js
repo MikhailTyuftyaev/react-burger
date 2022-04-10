@@ -5,8 +5,10 @@ import {
   CREATE_ORDER,
   INCREASE_ITEM,
   DECREASE_ITEM,
+  ADD_BUN,
   ADD_ITEM,
   DELETE_ITEM,
+  UPDATE_ITEM
 } from "../actions";
 import { combineReducers } from 'redux';
 import { getModalItemsReducer } from '../reducers/modal'
@@ -15,10 +17,8 @@ export const initialState = {
   data: [{price: "", image_mobile: ""}],
   itemsRequest: false,
   itemsFailed: false,
-  bun: [],
+  buns: [],
   ingredients: [],
-  constructorItems: [],
-  currentItem: [],
   order: {}
 };
 
@@ -34,7 +34,8 @@ export const getItemsReducer = (state = initialState, action) => {
     case GET_ITEMS_SUCCESS: {
       return {
         ...state,
-        data: action.data,
+        data: action.data,  ...action.data[0].__v= 2,
+        buns: action.data[0],
         itemsRequest: false,
       };
     }
@@ -49,7 +50,10 @@ export const getItemsReducer = (state = initialState, action) => {
       return {
         ...state,
         data: [...state.data].map(item =>
-          item._id === action.id ? { ...item, __v: ++item.__v } : item
+          item._id === action.item._id && action.item.type !== "bun" ? { ...item, __v: ++item.__v } : item
+        ),
+        data: [...state.data].map(item =>
+          item._id !== action.item._id && action.item.type === "bun" ? { ...item, __v: 0 } : item
         )
       };
     }
@@ -64,13 +68,22 @@ export const getItemsReducer = (state = initialState, action) => {
     case DELETE_ITEM: {
       return { 
         ...state, 
-        constructorItems: [ ...state.constructorItems.filter((item, index) => index !== action.index)]}
+        ingredients: [ ...state.ingredients.filter((item, index) => index !== action.index)]}
     };
+    case ADD_BUN: {
+      return {
+        ...state,
+        data: [...state.data].map(item =>
+          item._id === action.item._id && action.item.type === "bun" ? { ...item, __v: 2 } : item
+        ),
+        buns:  action.item,
+        
+      };
+    }
     case ADD_ITEM: {
       return {
         ...state,
-        //[state.data[action.index].type]: [ ...state.ingredients, ...state.data.filter(item => item._id === action.id) ],
-        constructorItems:  [ ...state.constructorItems, ...state.data.filter(item => item._id === action.id)]
+        ingredients:  [ ...state.ingredients, action.item]
       };
     }
     default: {

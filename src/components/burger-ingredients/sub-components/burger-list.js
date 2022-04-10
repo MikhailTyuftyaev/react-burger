@@ -10,6 +10,7 @@ const BurgerList = ({ ...props }) => {
         title={item.name}
         key={nanoid()}
         id={item._id}
+        item={item}
         image={item.image}
         price={item.price}
         imageLarge={item.image_large}

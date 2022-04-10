@@ -7,16 +7,16 @@ import { useSelector } from 'react-redux';
 
 const BurgerIngredients = ({ ...props }) => {
 
-  const ingredients = useSelector(state => state.ingredients)
+  const ingredients = useSelector(state => state.ingredients.data)
 
   const [current, setCurrent] = React.useState("bun");
-  let bunes = [];
+  let buns = [];
   let sauces = [];
   let mains = [];
 
-  bunes = ingredients.data.filter((item) => item.type === "bun");
-  sauces = ingredients.data.filter((item) => item.type === "sauce");
-  mains = ingredients.data.filter((item) => item.type === "main");
+  buns = ingredients.filter((item) => item.type === "bun");
+  sauces = ingredients.filter((item) => item.type === "sauce");
+  mains = ingredients.filter((item) => item.type === "main");
 
   return (
     <div className="burger_container">
@@ -41,7 +41,7 @@ const BurgerIngredients = ({ ...props }) => {
       <div className={styles.product_container}>
         <p className="text text_type_main-medium mb-6">Булки</p>
         <section className={styles.product_section}>
-          <BurgerList data={bunes} />
+          <BurgerList data={buns} />
         </section>
         <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
         <section className={styles.product_section}>

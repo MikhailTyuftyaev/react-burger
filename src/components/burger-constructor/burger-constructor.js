@@ -10,13 +10,14 @@ import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { ADD_ITEM, INCREASE_ITEM } from "../../services/actions";
+import { ADD_ITEM, ADD_BUN, INCREASE_ITEM } from "../../services/actions";
 
 
 const BurgerConstructor = ({ ...props }) => {
 
   const dispatch = useDispatch();
-  const ingredients = useSelector(state => state.ingredients)
+  const ingredients = useSelector(state => state.ingredients.data)
+  const buns = useSelector(state => state.ingredients.buns)
 
   const [modal, isModal] = useState({
     visible: false,
@@ -35,8 +36,12 @@ const BurgerConstructor = ({ ...props }) => {
   }
 
   let sum = 0;
-  const total = ingredients.data.map(function (item) {
-    return sum + parseInt(item.price, 10);
+  const total = ingredients.map(function (item) {
+    if(item.__v > 0) {
+      return sum + ((parseInt(item.price, 10)*item.__v));
+    } else {
+      return 0
+    }
   });
 
   const result = total.reduce(function (sum, elem) {
@@ -54,13 +59,20 @@ const BurgerConstructor = ({ ...props }) => {
   });
 
   const movePostponedItem = (item) => {
-    dispatch({
-      type: ADD_ITEM,
-      ...item,
-    });
+    if (item.type === "bun") {
+      dispatch({
+        type: ADD_BUN,
+        item: {...item},
+      });
+    }else{
+      dispatch({
+        type: ADD_ITEM,
+        item: {...item},
+      });
+    }
     dispatch({
       type: INCREASE_ITEM,
-      ...item
+      item: {...item}
     });
   }
 
@@ -74,9 +86,9 @@ const BurgerConstructor = ({ ...props }) => {
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={`${ingredients.data[0].name} (верх)`}
-              price={ingredients.data[0].price}
-              thumbnail={ingredients.data[0].image_mobile}
+              text={`${buns.name} (верх)`}
+              price={buns.price}
+              thumbnail={buns.image_mobile}
             />
           </div>
           <div className={styles.constructor_list} style={{boxShadow: border}}>
@@ -87,9 +99,9 @@ const BurgerConstructor = ({ ...props }) => {
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={`${ingredients.data[0].name} (низ)`}
-              price={ingredients.data[0].price}
-              thumbnail={ingredients.data[0].image_mobile}
+              text={`${buns.name} (низ)`}
+              price={buns.price}
+              thumbnail={buns.image_mobile}
             />
           </div>
         </div>

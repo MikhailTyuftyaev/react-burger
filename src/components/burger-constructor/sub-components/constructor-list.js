@@ -13,7 +13,7 @@ const ConstructorList = ({ ...props }) => {
   const dispatch = useDispatch();
 
   const constructorItems = useSelector(
-    (state) => state.ingredients.constructorItems
+    (state) => state.ingredients.ingredients
   );
 
   const deleteItem = (item, index) => {
@@ -27,8 +27,7 @@ const ConstructorList = ({ ...props }) => {
     });
   };
 
-  const newData = constructorItems.filter((item) => item.type !== "bun");
-  return newData.map(function (item, index) {
+  return constructorItems.map(function (item, index) {
     return (
       <div className={styles.constructor_list} key={nanoid()}>
         <div className={`${styles.icon_box} ml-2 `}>
