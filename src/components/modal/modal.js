@@ -52,8 +52,6 @@ class Modal extends React.Component {
 export default Modal;
 
 Modal.propTypes = {
-  /** Children elements */
-  children: PropTypes.array,
   /** Main text in header in modal window*/
   header: PropTypes.string,
   /** Function for close modal window*/
