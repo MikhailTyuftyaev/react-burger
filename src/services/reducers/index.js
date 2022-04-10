@@ -8,7 +8,7 @@ import {
   ADD_BUN,
   ADD_ITEM,
   DELETE_ITEM,
-  UPDATE_ITEM
+  MOVE_ITEM
 } from "../actions";
 import { combineReducers } from 'redux';
 import { getModalItemsReducer } from '../reducers/modal'
