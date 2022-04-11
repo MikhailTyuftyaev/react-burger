@@ -86,6 +86,14 @@ export const getItemsReducer = (state = initialState, action) => {
         ingredients:  [ ...state.ingredients, action.item]
       };
     }
+    case MOVE_ITEM: {
+      let ingredients = [...state.ingredients];
+      ingredients.splice(action.hoverIndex, 0, ingredients.splice(action.dragIndex, 1)[0]);
+      return {
+          ...state,
+          ingredients: [...ingredients],
+      };
+    }
     default: {
       return state;
     }
