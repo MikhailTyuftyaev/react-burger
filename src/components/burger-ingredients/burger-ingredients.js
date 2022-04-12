@@ -9,7 +9,7 @@ import Section from "./sub-components/section";
 const BurgerIngredients = ({ ...props }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
-  const [current, setCurrent] = React.useState("bun");
+  const [current, setCurrent] = useState("bun");
   let buns = [];
   let sauces = [];
   let mains = [];
@@ -18,16 +18,13 @@ const BurgerIngredients = ({ ...props }) => {
   sauces = ingredients.filter((item) => item.type === "sauce");
   mains = ingredients.filter((item) => item.type === "main");
 
+  const domRef = useRef(null);
   const refs = [];
-  const tabRefs = [];
 
   // create and track refs for later use
-  const newRef = () => {
-    const ref = createRef();
-
-    refs.push(ref);
-
-    return ref;
+  const newRef = (el) => {
+    refs.push(el);
+    return el;
   };
 
   useEffect(() => {
@@ -35,28 +32,29 @@ const BurgerIngredients = ({ ...props }) => {
       (entries) => {
         for (let entry of entries) {
           // if 90% of the section is visible
-          if (entry.isIntersecting) {
+          if (entry.intersectionRatio && entry.isIntersecting) {
             // update the active state to the visible section
             setCurrent(entry.target.id);
+            console.log(entry.target.id)
           }
         }
       },
       {
-        threshold: 0.5
+        root: domRef.current,
+        threshold: 0
       }
     );
     
     refs.forEach((ref) =>
       // observe the refs that were applied to the sections
-      observer.observe(ref.current)
+      observer.observe(ref)
     );
 
+
     return () => {
-      refs.forEach((ref) => ref.current && observer.unobserve(ref.current));
+      refs.forEach((ref) => ref && observer.unobserve(ref));
     };
   }, []);
-
-  //console.log("current", current);
 
   return (
     <div className="burger_container">
@@ -78,20 +76,20 @@ const BurgerIngredients = ({ ...props }) => {
           </Tab>
         </div>
       </div>
-      <div className={styles.product_container}>
-        <Section id="bun" ref={newRef()}>
+      <div className={styles.product_container} ref={domRef}>
+        <Section id="bun">
           <p className="text text_type_main-medium mb-6">Булки</p>
           <section className={styles.product_section}>
             <BurgerList data={buns} />
           </section>
         </Section>
-        <Section id="sauce" ref={newRef()}>
+        <Section id="sauce" sectionRef={(el) => newRef(el)}>
           <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
           <section className={styles.product_section}>
             <BurgerList data={sauces} />
           </section>
         </Section>
-        <Section id="filling" ref={newRef()}>
+        <Section id="filling" sectionRef={(el) => newRef(el)}>
           <p className="text text_type_main-medium mt-10 mb-6">Начинки</p>
           <section className={styles.product_section}>
             <BurgerList data={mains} />

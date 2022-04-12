@@ -13,8 +13,14 @@ export const DELETE_ITEM = "DELETE_ITEM";
 
 export const MOVE_ITEM = "MOVE_ITEM";
 
+export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
+export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
+export const GET_ORDER_FAILED = "GET__ORDER_FAILED";
+
+
+const url = "https://norma.nomoreparties.space/api/ingredients"
+
 export function getItemsRequest() {
-  const url = "https://norma.nomoreparties.space/api/ingredients"
   return function (dispatch) {
     dispatch({
       type: GET_ITEMS_REQUEST,

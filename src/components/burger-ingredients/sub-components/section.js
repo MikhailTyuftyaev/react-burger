@@ -1,8 +1,8 @@
-import React, { forwardRef } from "react";
+import React from "react";
 
-const Section = forwardRef(({ id, children }, ref) => {
+const Section = (({ id, children, sectionRef}) => {
     return (
-      <div ref={ref} id={id}>
+      <div ref={sectionRef} id={id}>
         {children}
       </div>
     );
