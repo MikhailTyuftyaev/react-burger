@@ -8,18 +8,25 @@ import {
   ADD_BUN,
   ADD_ITEM,
   DELETE_ITEM,
-  MOVE_ITEM
+  MOVE_ITEM,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
+  CLEAR_ORDER_ARRAY,
 } from "../actions";
-import { combineReducers } from 'redux';
-import { getModalItemsReducer } from '../reducers/modal'
+import { combineReducers } from "redux";
+import { getModalItemsReducer } from "../reducers/modal";
+import { act } from "react-dom/test-utils";
 
 export const initialState = {
-  data: [{price: "", image_mobile: ""}],
+  data: [{ price: "", image_mobile: "" }],
   itemsRequest: false,
   itemsFailed: false,
   buns: [],
   ingredients: [],
-  order: {}
+  order: null,
+  orderRequest: false,
+  orderFailed: false,
 };
 
 export const getItemsReducer = (state = initialState, action) => {
@@ -34,7 +41,8 @@ export const getItemsReducer = (state = initialState, action) => {
     case GET_ITEMS_SUCCESS: {
       return {
         ...state,
-        data: action.data,  ...action.data[0].__v= 2,
+        data: action.data,
+        ...(action.data[0].__v = 2),
         buns: action.data[0],
         itemsRequest: false,
       };
@@ -49,49 +57,94 @@ export const getItemsReducer = (state = initialState, action) => {
     case INCREASE_ITEM: {
       return {
         ...state,
-        data: [...state.data].map(item =>
-          item._id === action.item._id && action.item.type !== "bun" ? { ...item, __v: ++item.__v } : item
+        data: [...state.data].map((item) =>
+          item._id === action.item._id && action.item.type !== "bun"
+            ? { ...item, __v: ++item.__v }
+            : item
         ),
-        data: [...state.data].map(item =>
-          item._id !== action.item._id && action.item.type === "bun" ? { ...item, __v: 0 } : item
-        )
+        data: [...state.data].map((item) =>
+          item._id !== action.item._id && action.item.type === "bun"
+            ? { ...item, __v: 0 }
+            : item
+        ),
       };
     }
     case DECREASE_ITEM: {
       return {
         ...state,
-        data: [...state.data].map(item =>
+        data: [...state.data].map((item) =>
           item._id === action.id ? { ...item, __v: --item.__v } : item
-        )
+        ),
       };
     }
     case DELETE_ITEM: {
-      return { 
-        ...state, 
-        ingredients: [ ...state.ingredients.filter((item, index) => index !== action.index)]}
-    };
+      return {
+        ...state,
+        ingredients: [
+          ...state.ingredients.filter((item, index) => index !== action.index),
+        ],
+      };
+    }
     case ADD_BUN: {
       return {
         ...state,
-        data: [...state.data].map(item =>
-          item._id === action.item._id && action.item.type === "bun" ? { ...item, __v: 2 } : item
+        data: [...state.data].map((item) =>
+          item._id === action.item._id && action.item.type === "bun"
+            ? { ...item, __v: 2 }
+            : item
         ),
-        buns:  action.item,
-        
+        buns: action.item,
       };
     }
     case ADD_ITEM: {
       return {
         ...state,
-        ingredients:  [ ...state.ingredients, action.item]
+        ingredients: [...state.ingredients, action.item],
       };
     }
     case MOVE_ITEM: {
       let ingredients = [...state.ingredients];
-      ingredients.splice(action.hoverIndex, 0, ingredients.splice(action.dragIndex, 1)[0]);
+      ingredients.splice(
+        action.hoverIndex,
+        0,
+        ingredients.splice(action.dragIndex, 1)[0]
+      );
       return {
-          ...state,
-          ingredients: [...ingredients],
+        ...state,
+        ingredients: [...ingredients],
+      };
+    }
+    case GET_ORDER_REQUEST: {
+      return {
+        ...state,
+        orderRequest: true,
+        orderFailed: false,
+      };
+    }
+    case GET_ORDER_SUCCESS: {
+      return {
+        ...state,
+        order: action.order,
+        orderRequest: false,
+      };
+    }
+    case GET_ORDER_FAILED: {
+      return {
+        ...state,
+        orderFailed: true,
+        orderRequest: false,
+      };
+    }
+    case CLEAR_ORDER_ARRAY: {
+      return {
+        ...state,
+        data: [...state.data].map((item) =>
+          item.type !== "bun"
+            ? { ...item, __v: 0 }
+            : item
+        ),
+        buns: state.data[0],
+        ingredients: []
       };
     }
     default: {
@@ -102,5 +155,5 @@ export const getItemsReducer = (state = initialState, action) => {
 
 export const rootReducer = combineReducers({
   ingredients: getItemsReducer,
-  modal: getModalItemsReducer
+  modal: getModalItemsReducer,
 });

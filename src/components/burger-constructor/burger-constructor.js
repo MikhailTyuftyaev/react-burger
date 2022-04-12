@@ -10,7 +10,7 @@ import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { ADD_ITEM, ADD_BUN, INCREASE_ITEM } from "../../services/actions";
+import { ADD_ITEM, ADD_BUN, INCREASE_ITEM, sendOrderRequest } from "../../services/actions";
 
 
 const BurgerConstructor = ({ ...props }) => {
@@ -24,16 +24,24 @@ const BurgerConstructor = ({ ...props }) => {
   });
 
   function handleClickBurger() {
-    isModal({
-      visible: true,
-    });
+    dispatch(sendOrderRequest(orderRequest));
+      isModal({
+        visible: true,
+      });
+
   }
 
   function onClose() {
     isModal({
       visible: false,
     });
-  }
+  } 
+
+
+  const orderArray = ingredients.filter((item) => item.__v > 0);
+  const orderRequest = orderArray.map(function (item) {
+    return item._id
+  });
 
   let sum = 0;
   const total = ingredients.map(function (item) {
