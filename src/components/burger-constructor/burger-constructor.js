@@ -19,6 +19,8 @@ const BurgerConstructor = ({ ...props }) => {
   const ingredients = useSelector(state => state.ingredients.data)
   const buns = useSelector(state => state.ingredients.buns)
 
+  console.log(buns[0])
+
   const [modal, isModal] = useState({
     visible: false,
   });
@@ -91,6 +93,7 @@ const BurgerConstructor = ({ ...props }) => {
       <div className="burger_constructor">
         <div className={`${styles.constructor_container} mt-25`} ref={dropTarget}>
           <div className="ml-10 mr-4">
+          {buns[0] !== null ? 
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -98,19 +101,25 @@ const BurgerConstructor = ({ ...props }) => {
               price={buns.price}
               thumbnail={buns.image_mobile}
             />
+            : <p className="text text_type_main-default text_color_inactive">
+              Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа
+              </p>}
           </div>
           <div className={styles.constructor_list} style={{boxShadow: border}}>
             <div className={styles.plus_bg}>+</div>
             <ConstructorList />
           </div>
           <div className="ml-10 mr-4">
+          {buns[0] !== null ? 
             <ConstructorElement
               type="bottom"
               isLocked={true}
               text={`${buns.name} (низ)`}
               price={buns.price}
               thumbnail={buns.image_mobile}
-            />
+            /> : <p className="text text_type_main-default text_color_inactive">
+              Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа
+              </p>}
           </div>
         </div>
         <div className={`${styles.cta_container} mt-10`}>

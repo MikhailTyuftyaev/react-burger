@@ -22,7 +22,7 @@ export const initialState = {
   data: [{ price: "", image_mobile: "" }],
   itemsRequest: false,
   itemsFailed: false,
-  buns: [],
+  buns: [null],
   ingredients: [],
   order: null,
   orderRequest: false,
@@ -42,8 +42,6 @@ export const getItemsReducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.data,
-        ...(action.data[0].__v = 2),
-        buns: action.data[0],
         itemsRequest: false,
       };
     }
