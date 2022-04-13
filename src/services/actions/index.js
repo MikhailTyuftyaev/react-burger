@@ -1,8 +1,8 @@
+import { baseUrl } from "../../components/utils/constants";
+
 export const GET_ITEMS_REQUEST = "GET_ITEMS_REQUEST";
 export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
 export const GET_ITEMS_FAILED = "GET__ITEMS_FAILED";
-
-export const CREATE_ORDER = "CREATE_ORDER";
 
 export const INCREASE_ITEM = "INCREASE_ITEM";
 export const DECREASE_ITEM = "DECREASE_ITEM";
@@ -19,14 +19,14 @@ export const GET_ORDER_FAILED = "GET__ORDER_FAILED";
 
 export const CLEAR_ORDER_ARRAY = "CLEAR_ORDER_ARRAY";
 
-const url = "https://norma.nomoreparties.space/api/ingredients";
+
 
 export function getItemsRequest() {
   return function (dispatch) {
     dispatch({
       type: GET_ITEMS_REQUEST,
     });
-    fetch(url)
+    fetch(baseUrl + "/ingredients")
       .then((res) => res.json())
       .then((res) => {
         if (res && res.success) {
@@ -48,14 +48,12 @@ export function getItemsRequest() {
   };
 }
 
-const sendUrl = "https://norma.nomoreparties.space/api/orders";
-
 export function sendOrderRequest(constructorIngredients) {
   return function (dispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
-    fetch(sendUrl, {
+    fetch(baseUrl + "/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8"
