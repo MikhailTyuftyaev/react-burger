@@ -10,6 +10,7 @@ import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
+import { v4 as uuidv4 } from 'uuid';
 import { ADD_ITEM, ADD_BUN, INCREASE_ITEM, sendOrderRequest } from "../../services/actions";
 
 
@@ -67,20 +68,21 @@ const BurgerConstructor = ({ ...props }) => {
   });
 
   const movePostponedItem = (item) => {
+    const uuid = uuidv4();
     if (item.type === "bun") {
       dispatch({
         type: ADD_BUN,
-        item: {...item},
+        item: {...item, uuid: uuid},
       });
     }else{
       dispatch({
         type: ADD_ITEM,
-        item: {...item},
+        item: {...item, uuid: uuid},
       });
     }
     dispatch({
       type: INCREASE_ITEM,
-      item: {...item}
+      item: {...item, uuid: uuid}
     });
   }
 

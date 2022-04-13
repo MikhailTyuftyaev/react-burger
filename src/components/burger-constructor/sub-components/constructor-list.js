@@ -2,10 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import {useSelector } from "react-redux";
 import ConstructorItem from "./constructor-item"
-import { nanoid } from "nanoid";
 
 const ConstructorList = ({ ...props }) => {
-
   const constructorItems = useSelector(
     (state) => state.ingredients.ingredients
   );
@@ -15,7 +13,8 @@ const ConstructorList = ({ ...props }) => {
       <ConstructorItem 
         index={index}
         id={item._id}
-        key={nanoid()}
+        key={item.uuid}
+        uiKey={item.uuid}
         name={item.name}
         price={item.price}
         thumbnail={item.image_mobile}

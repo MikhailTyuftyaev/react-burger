@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import BurgerItem from "./item-burger";
-import { nanoid } from 'nanoid'
 
 const BurgerList = ({ ...props }) => {
   return props.data.map(function (item) {
     return (
       <BurgerItem
         title={item.name}
-        key={nanoid()}
+        key={item._id}
         id={item._id}
         item={item}
         image={item.image}

@@ -78,7 +78,7 @@ export const getItemsReducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: [
-          ...state.ingredients.filter((item, index) => index !== action.index),
+          ...state.ingredients.filter((item) => item.uuid !== action.uuid),
         ],
       };
     }
@@ -87,7 +87,7 @@ export const getItemsReducer = (state = initialState, action) => {
         ...state,
         data: [...state.data].map((item) =>
           item._id === action.item._id && action.item.type === "bun"
-            ? { ...item, __v: 2 }
+            ? { ...item, __v: 2}
             : item
         ),
         buns: action.item,

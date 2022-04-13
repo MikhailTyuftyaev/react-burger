@@ -13,10 +13,10 @@ const ConstructorItem = ({ index, id, ...props }) => {
     const ref = useRef(null);
     const dispatch = useDispatch();
 
-    const deleteItem = (item, index) => {
+    const deleteItem = (item, uuid) => {
         dispatch({
           type: DELETE_ITEM,
-          index,
+          uuid,
         });
         dispatch({
           type: DECREASE_ITEM,
@@ -85,7 +85,7 @@ const ConstructorItem = ({ index, id, ...props }) => {
             text={props.name}
             price={props.price}
             thumbnail={props.thumbnail}
-            handleClose={() => deleteItem(id, index)}
+            handleClose={() => deleteItem(id, props.uiKey)}
           />
         </div>
       </div>
