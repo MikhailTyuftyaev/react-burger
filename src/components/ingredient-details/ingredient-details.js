@@ -50,10 +50,16 @@ const IngredientDetails = ({ ...props }) => {
 export default IngredientDetails;
 
 IngredientDetails.propTypes = {
-  /** Main text in header in modal window*/
-  header: PropTypes.string,
-  /** State for open/close modal window*/
-  isModal: PropTypes.object,
-  /** Function for close modal window*/
-  onClose: PropTypes.func,
+  /** Item src path to image */
+  image: PropTypes.string,
+  /** Item name */
+  name: PropTypes.string,
+  /** Item calories */
+  calories: PropTypes.number,
+  /** Item proteins */
+  proteins: PropTypes.number,
+  /** Item fat */
+  fat: PropTypes.number,
+  /** Item carbohydrates */
+  carbohydrates: PropTypes.number,
 };
