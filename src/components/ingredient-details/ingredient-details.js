@@ -51,15 +51,15 @@ export default IngredientDetails;
 
 IngredientDetails.propTypes = {
   /** Item src path to image */
-  image: PropTypes.string,
+  image: PropTypes.string.isRequired,
   /** Item name */
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   /** Item calories */
-  calories: PropTypes.number,
+  calories: PropTypes.number.isRequired,
   /** Item proteins */
-  proteins: PropTypes.number,
+  proteins: PropTypes.number.isRequired,
   /** Item fat */
-  fat: PropTypes.number,
+  fat: PropTypes.number.isRequired,
   /** Item carbohydrates */
-  carbohydrates: PropTypes.number,
+  carbohydrates: PropTypes.number.isRequired,
 };

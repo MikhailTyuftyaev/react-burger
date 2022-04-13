@@ -43,7 +43,7 @@ OrderDetails.propTypes = {
   /** Main text in header in modal window*/
   header: PropTypes.string,
   /** State for open/close modal window*/
-  isModal: PropTypes.object,
+  isModal: PropTypes.object.isRequired,
   /** Function for close modal window*/
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
 };

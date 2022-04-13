@@ -94,17 +94,17 @@ const ConstructorItem = ({ index, id, ...props }) => {
 
 ConstructorItem.propTypes = {
     /** Item index */
-    index: PropTypes.number,
+    index: PropTypes.number.isRequired,
     /** Item _id */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
     /** Item uuid */
-    uiKey: PropTypes.string,
+    uiKey: PropTypes.string.isRequired,
     /** Item name */
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     /** Item name */
-    price: PropTypes.number,
+    price: PropTypes.number.isRequired,
     /** Item src path to thumbnail image */
-    thumbnail: PropTypes.string,
+    thumbnail: PropTypes.string.isRequired,
   };
   
 export default ConstructorItem;

@@ -87,27 +87,27 @@ const BurgerItem = ({ item, ...props }) => {
 
 BurgerItem.propTypes = {
   /** Name burger */
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   /** Item _id */
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
   /** Item parameters */
-  item: PropTypes.object,
+  item: PropTypes.object.isRequired,
   /** Path for image burger */
-  image: PropTypes.string,
+  image: PropTypes.string.isRequired,
   /** Price burger */
-  price: PropTypes.number,
+  price: PropTypes.number.isRequired,
   /** Path for large image burger */
-  imageLarge: PropTypes.string,
+  imageLarge: PropTypes.string.isRequired,
   /** Burger calories */
-  calories: PropTypes.number,
+  calories: PropTypes.number.isRequired,
   /** Burger proteins */
-  proteins: PropTypes.number,
+  proteins: PropTypes.number.isRequired,
   /** Burger fat */
-  fat: PropTypes.number,
+  fat: PropTypes.number.isRequired,
   /** Burger count */
-  count: PropTypes.number,
+  count: PropTypes.number.isRequired,
   /** Burger carbohydrates*/
-  carbohydrates: PropTypes.number,
+  carbohydrates: PropTypes.number.isRequired,
 };
 
 export default BurgerItem;

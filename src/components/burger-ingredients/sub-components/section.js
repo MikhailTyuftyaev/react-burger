@@ -11,9 +11,9 @@ const Section = (({ id, children, sectionRef}) => {
 
   Section.propTypes = {
     /** Section id */
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
     /** Section ref */
-    sectionRef: PropTypes.func,
+    sectionRef: PropTypes.func.isRequired,
   };
   
 
