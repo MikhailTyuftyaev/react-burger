@@ -35,7 +35,6 @@ const BurgerIngredients = ({ ...props }) => {
           if (entry.intersectionRatio && entry.isIntersecting) {
             // update the active state to the visible section
             setCurrent(entry.target.id);
-            console.log(entry.target.id)
           }
         }
       },

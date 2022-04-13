@@ -1,4 +1,5 @@
 import { baseUrl } from "../../components/utils/constants";
+import { checkResponse } from "../../components/utils/utils";
 
 export const GET_ITEMS_REQUEST = "GET_ITEMS_REQUEST";
 export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
@@ -27,7 +28,7 @@ export function getItemsRequest() {
       type: GET_ITEMS_REQUEST,
     });
     fetch(baseUrl + "/ingredients")
-      .then((res) => res.json())
+      .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -60,7 +61,7 @@ export function sendOrderRequest(constructorIngredients) {
       },
       body: JSON.stringify({ "ingredients": constructorIngredients}),
     })
-      .then((res) => res.json())
+      .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
           dispatch({

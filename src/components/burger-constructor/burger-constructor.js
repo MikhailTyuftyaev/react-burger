@@ -19,8 +19,6 @@ const BurgerConstructor = ({ ...props }) => {
   const ingredients = useSelector(state => state.ingredients.data)
   const buns = useSelector(state => state.ingredients.buns)
 
-  console.log(buns[0])
-
   const [modal, isModal] = useState({
     visible: false,
   });
