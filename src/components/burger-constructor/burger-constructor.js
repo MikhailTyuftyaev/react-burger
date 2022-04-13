@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import {
   ConstructorElement,
   Button,
@@ -137,11 +136,6 @@ const BurgerConstructor = ({ ...props }) => {
       </div>
     </>
   );
-};
-
-BurgerConstructor.propTypes = {
-  /** Main data */
-  data: PropTypes.array,
 };
 
 export default BurgerConstructor;

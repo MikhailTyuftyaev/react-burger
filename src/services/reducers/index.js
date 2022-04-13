@@ -15,7 +15,6 @@ import {
 } from "../actions";
 import { combineReducers } from "redux";
 import { getModalItemsReducer } from "../reducers/modal";
-import { act } from "react-dom/test-utils";
 
 export const initialState = {
   data: [{ price: "", image_mobile: "" }],

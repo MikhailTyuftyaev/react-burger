@@ -1,5 +1,4 @@
 import React, {createRef, useRef, useState, useEffect} from "react";
-import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerList from "./sub-components/burger-list";
 import styles from "./burger-ingredients.module.css";
@@ -97,11 +96,6 @@ const BurgerIngredients = ({ ...props }) => {
       </div>
     </div>
   );
-};
-
-BurgerIngredients.propTypes = {
-  /** Main data */
-  data: PropTypes.array,
 };
 
 export default BurgerIngredients;

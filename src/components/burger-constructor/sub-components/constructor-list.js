@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {useSelector } from "react-redux";
 import ConstructorItem from "./constructor-item"
 
@@ -21,11 +20,6 @@ const ConstructorList = ({ ...props }) => {
       />
     );
   });
-};
-
-ConstructorList.propTypes = {
-  /** Main data */
-  data: PropTypes.array,
 };
 
 export default ConstructorList;

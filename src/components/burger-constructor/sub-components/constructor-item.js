@@ -97,6 +97,14 @@ ConstructorItem.propTypes = {
     index: PropTypes.number,
     /** Item _id */
     id: PropTypes.string,
+    /** Item uuid */
+    uiKey: PropTypes.string,
+    /** Item name */
+    name: PropTypes.string,
+    /** Item name */
+    price: PropTypes.number,
+    /** Item src path to thumbnail image */
+    thumbnail: PropTypes.string,
   };
   
 export default ConstructorItem;

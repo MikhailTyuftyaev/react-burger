@@ -88,6 +88,10 @@ const BurgerItem = ({ item, ...props }) => {
 BurgerItem.propTypes = {
   /** Name burger */
   title: PropTypes.string,
+  /** Item _id */
+  id: PropTypes.string,
+  /** Item parameters */
+  item: PropTypes.object,
   /** Path for image burger */
   image: PropTypes.string,
   /** Price burger */
@@ -100,6 +104,8 @@ BurgerItem.propTypes = {
   proteins: PropTypes.number,
   /** Burger fat */
   fat: PropTypes.number,
+  /** Burger count */
+  count: PropTypes.number,
   /** Burger carbohydrates*/
   carbohydrates: PropTypes.number,
 };
