@@ -13,7 +13,7 @@ const Section = (({ id, children, sectionRef}) => {
     /** Section id */
     id: PropTypes.string.isRequired,
     /** Section ref */
-    sectionRef: PropTypes.func.isRequired,
+    sectionRef: PropTypes.func,
   };
   
 

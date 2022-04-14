@@ -53,7 +53,7 @@ export default Modal;
 
 Modal.propTypes = {
   /** Main text in header in modal window*/
-  header: PropTypes.string.isRequired,
+  header: PropTypes.string,
   /** Function for close modal window*/
   onClose: PropTypes.func.isRequired,
 };
