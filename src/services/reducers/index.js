@@ -17,7 +17,7 @@ import { combineReducers } from "redux";
 import { getModalItemsReducer } from "../reducers/modal";
 
 export const initialState = {
-  data: [{ price: "", image_mobile: "" }],
+  data: [],
   itemsRequest: false,
   itemsFailed: false,
   buns: [],
@@ -135,11 +135,11 @@ export const getItemsReducer = (state = initialState, action) => {
       return {
         ...state,
         data: [...state.data].map((item) =>
-          item.type !== "bun"
+          item.type
             ? { ...item, __v: 0 }
             : item
         ),
-        buns: state.data[0],
+        buns: [],
         ingredients: []
       };
     }
