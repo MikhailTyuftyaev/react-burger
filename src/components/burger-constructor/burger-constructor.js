@@ -17,7 +17,10 @@ const BurgerConstructor = ({ ...props }) => {
 
   const dispatch = useDispatch();
   const ingredients = useSelector(state => state.ingredients.data)
+  const constructorItems = useSelector(state => state.ingredients.ingredients)
   const buns = useSelector(state => state.ingredients.buns)
+
+  console.log(constructorItems)
 
   const [modal, isModal] = useState({
     visible: false,
@@ -92,7 +95,7 @@ const BurgerConstructor = ({ ...props }) => {
       <div className="burger_constructor">
         <div className={`${styles.constructor_container} mt-25`} ref={dropTarget}>
           <div className="ml-10 mr-4">
-          {buns[0] !== null ? 
+          {buns.length !== 0 ? 
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -109,7 +112,7 @@ const BurgerConstructor = ({ ...props }) => {
             <ConstructorList />
           </div>
           <div className="ml-10 mr-4">
-          {buns[0] !== null ? 
+          {buns.length !== 0 ? 
             <ConstructorElement
               type="bottom"
               isLocked={true}
@@ -128,7 +131,7 @@ const BurgerConstructor = ({ ...props }) => {
             </p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large" onClick={handleClickBurger}>
+          <Button type="primary" size="large" onClick={handleClickBurger} disabled={(buns.length === 0) || (constructorItems.length === 0)}>
             Оформить заказ
           </Button>
         </div>

@@ -20,7 +20,7 @@ export const initialState = {
   data: [{ price: "", image_mobile: "" }],
   itemsRequest: false,
   itemsFailed: false,
-  buns: [null],
+  buns: [],
   ingredients: [],
   order: null,
   orderRequest: false,
