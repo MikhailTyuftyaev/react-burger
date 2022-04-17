@@ -24,7 +24,7 @@ const Modal = ({ children, header, onClose, isModal }) => {
     <>
       {isModal && (
         <>
-          <ModalOverlay isModal={isModal} onClick={onClose} />
+          <ModalOverlay onClick={onClose} />
           <div className={`${styles.modal} pt-10 pr-10 pl-10 pb-15`}>
             <div className={styles.modal_header}>
               <p className="text text_type_main-large">
