@@ -1,44 +1,29 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "./item-burger.module.css";
-import IngredientDetails from "../../ingredient-details/ingredient-details";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   ADD_CURRENT_ITEM,
-  DELETE_CURRENT_ITEM,
+  OPEN_MODAL,
 } from "../../../services/actions/modal";
-import Modal from "../../modal/modal";
 
 const BurgerItem = ({ item, ...props }) => {
   const dispatch = useDispatch();
-  const modalItem = useSelector((state) => state.modal.currentItem);
 
-  const [modal, isModal] = useState({
-    visible: false,
-  });
 
   function handleClickBurger(item) {
     dispatch({
       type: ADD_CURRENT_ITEM,
       item,
     });
-    isModal({
-      visible: true,
-    });
-  }
-
-  function onClose(item) {
     dispatch({
-      type: DELETE_CURRENT_ITEM,
-      item,
-    });
-    isModal({
-      visible: false,
+      type: OPEN_MODAL,
+      ingredientModal: true,
     });
   }
 
@@ -67,20 +52,6 @@ const BurgerItem = ({ item, ...props }) => {
 
         <p className="text text_type_main-default  mt-2 mb-6">{props.title}</p>
       </div>
-      <Modal
-        header="Детали ингредиента"
-        onClose={onClose}
-        isModal={modal}
-      >
-        <IngredientDetails
-          image={modalItem.imageLarge}
-          name={modalItem.title}
-          calories={modalItem.calories}
-          proteins={modalItem.proteins}
-          fat={modalItem.fat}
-          carbohydrates={modalItem.carbohydrates}
-        />
-      </Modal>
     </>
   );
 };

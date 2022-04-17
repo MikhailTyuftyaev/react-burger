@@ -1,5 +1,4 @@
 import React from "react";
-import Modal from "../modal/modal";
 import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
 

@@ -2,11 +2,20 @@ import React, {createRef, useRef, useState, useEffect} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerList from "./sub-components/burger-list";
 import styles from "./burger-ingredients.module.css";
-import { useSelector } from "react-redux";
 import Section from "./sub-components/section";
+import {
+  CLOSE_MODAL,
+  DELETE_CURRENT_ITEM,
+} from "../../services/actions/modal";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import { useDispatch, useSelector } from "react-redux";
 
 const BurgerIngredients = ({ ...props }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
+  const modalItem = useSelector((state) => state.modal.currentItem);
+  const modal = useSelector((state) => state.modal.ingredientModal);
+  const dispatch = useDispatch();
 
   const [current, setCurrent] = useState("bun");
   let buns = [];
@@ -54,7 +63,18 @@ const BurgerIngredients = ({ ...props }) => {
     };
   }, []);
 
+  function onClose() {
+    dispatch({
+      type: DELETE_CURRENT_ITEM
+    });
+    dispatch({
+      type: CLOSE_MODAL,
+      ingredientModal: false,
+    });
+  }
+
   return (
+    <>
     <div className="burger_container">
       <p className="text text_type_main-large mt-10 mb-4">Соберите бургер</p>
       <div className="tab-container">
@@ -95,6 +115,21 @@ const BurgerIngredients = ({ ...props }) => {
         </Section>
       </div>
     </div>
+    <Modal
+        header="Детали ингредиента"
+        onClose={onClose}
+        isModal={modal}
+      >
+        <IngredientDetails
+          image={modalItem.imageLarge}
+          name={modalItem.title}
+          calories={modalItem.calories}
+          proteins={modalItem.proteins}
+          fat={modalItem.fat}
+          carbohydrates={modalItem.carbohydrates}
+        />
+      </Modal>
+    </>
   );
 };
 

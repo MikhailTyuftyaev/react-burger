@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ConstructorElement,
   Button,
@@ -17,6 +17,10 @@ import {
   INCREASE_ITEM,
   sendOrderRequest,
 } from "../../services/actions";
+import {
+  OPEN_MODAL,
+  CLOSE_MODAL,
+} from "../../services/actions/modal";
 
 const BurgerConstructor = ({ ...props }) => {
   const dispatch = useDispatch();
@@ -25,21 +29,20 @@ const BurgerConstructor = ({ ...props }) => {
     (state) => state.ingredients.ingredients
   );
   const buns = useSelector((state) => state.ingredients.buns);
-
-  const [modal, isModal] = useState({
-    visible: false,
-  });
+  const modal = useSelector((state) => state.modal.orderModal);
 
   function handleClickBurger() {
     dispatch(sendOrderRequest(orderRequest));
-    isModal({
-      visible: true,
+    dispatch({
+      type: OPEN_MODAL,
+      orderModal: true,
     });
   }
 
   function onClose() {
-    isModal({
-      visible: false,
+    dispatch({
+      type: CLOSE_MODAL,
+      orderModal: false,
     });
   }
 
