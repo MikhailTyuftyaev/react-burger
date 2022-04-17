@@ -10,7 +10,7 @@ const OrderDetails = ({ ...props }) => {
       <p
         className={`${styles.main_text} text text_type_digits-large mt-4 pr-15 pl-15 `}
       >
-        {order ? order : "ERROR"}
+        {order ? order : "Loading"}
       </p>
       {order && (
         <>
