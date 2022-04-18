@@ -1,64 +1,145 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../modal/modal";
 import ConstructorList from "./sub-components/constructor-list";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from "uuid";
+import {
+  ADD_ITEM,
+  ADD_BUN,
+  INCREASE_ITEM,
+  sendOrderRequest,
+} from "../../services/actions";
+import {
+  OPEN_MODAL,
+  CLOSE_MODAL,
+} from "../../services/actions/modal";
 
 const BurgerConstructor = ({ ...props }) => {
-  const [modal, isModal] = useState({
-    visible: false,
-  });
+  const dispatch = useDispatch();
+  const ingredients = useSelector((state) => state.ingredients.data);
+  const constructorItems = useSelector(
+    (state) => state.ingredients.ingredients
+  );
+  const buns = useSelector((state) => state.ingredients.buns);
+  const modal = useSelector((state) => state.modal.orderModal);
 
   function handleClickBurger() {
-    isModal({
-      visible: true,
+    dispatch(sendOrderRequest(orderRequest));
+    dispatch({
+      type: OPEN_MODAL,
+      orderModal: true,
     });
   }
 
   function onClose() {
-    isModal({
-      visible: false,
+    dispatch({
+      type: CLOSE_MODAL,
+      orderModal: false,
     });
   }
 
+  const orderArray = ingredients.filter((item) => item.__v > 0);
+  const orderRequest = orderArray.map(function (item) {
+    return item._id;
+  });
+
   let sum = 0;
-  const total = props.data.map(function (item) {
-    return sum + parseInt(item.price, 10);
+  const total = ingredients.map(function (item) {
+    if (item.__v > 0) {
+      return sum + parseInt(item.price, 10) * item.__v;
+    } else {
+      return 0;
+    }
   });
 
   const result = total.reduce(function (sum, elem) {
     return sum + elem;
   }, 0);
 
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      movePostponedItem(item);
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
+
+  const movePostponedItem = (item) => {
+    const uuid = uuidv4();
+    if (item.type === "bun") {
+      dispatch({
+        type: ADD_BUN,
+        item: { ...item, uuid: uuid },
+      });
+    } else {
+      dispatch({
+        type: ADD_ITEM,
+        item: { ...item, uuid: uuid },
+      });
+    }
+    dispatch({
+      type: INCREASE_ITEM,
+      item: { ...item, uuid: uuid },
+    });
+  };
+
+  const border = isHover ? "0px 0px 10px 0px rgba(76, 76, 255, 1)" : "none";
+
   return (
     <>
       <div className="burger_constructor">
-        <div className={`${styles.constructor_container} mt-25`}>
+        <div
+          className={`${styles.constructor_container} mt-25`}
+          ref={dropTarget}
+        >
           <div className="ml-10 mr-4">
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text="Краторная булка N-200i (верх)"
-              price={props.data[0].price}
-              thumbnail={props.data[0].image_mobile}
-            />
+            {buns.length !== 0 ? (
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={`${buns.name} (верх)`}
+                price={buns.price}
+                thumbnail={buns.image_mobile}
+              />
+            ) : (
+              <p className="text text_type_main-default text_color_inactive">
+                Пожалуйста, перенесите сюда булку и ингредиенты для создания
+                заказа
+              </p>
+            )}
           </div>
-          <div className={styles.constructor_list}>
-            <ConstructorList data={props.data} />
+          <div
+            className={styles.constructor_list}
+            style={{ boxShadow: border }}
+          >
+            <div className={styles.plus_bg}>+</div>
+            <ConstructorList />
           </div>
           <div className="ml-10 mr-4">
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text="Краторная булка N-200i (низ)"
-              price={props.data[0].price}
-              thumbnail={props.data[0].image_mobile}
-            />
+            {buns.length !== 0 ? (
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text={`${buns.name} (низ)`}
+                price={buns.price}
+                thumbnail={buns.image_mobile}
+              />
+            ) : (
+              <p className="text text_type_main-default text_color_inactive">
+                Пожалуйста, перенесите сюда булку и ингредиенты для создания
+                заказа
+              </p>
+            )}
           </div>
         </div>
         <div className={`${styles.cta_container} mt-10`}>
@@ -68,19 +149,21 @@ const BurgerConstructor = ({ ...props }) => {
             </p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large" onClick={handleClickBurger}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={handleClickBurger}
+            disabled={buns.length === 0 || constructorItems.length === 0}
+          >
             Оформить заказ
           </Button>
         </div>
-        <OrderDetails isModal={modal} onClose={onClose} />
       </div>
+      <Modal isModal={modal} onClose={onClose}>
+        <OrderDetails />
+      </Modal>
     </>
   );
-};
-
-BurgerConstructor.propTypes = {
-  /** Main data */
-  data: PropTypes.array,
 };
 
 export default BurgerConstructor;

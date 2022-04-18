@@ -1,15 +1,10 @@
 import React from "react";
-import Modal from "../modal/modal";
 import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ ...props }) => {
   return (
-    <Modal
-      header={props.header}
-      isModal={props.isModal}
-      onClose={props.onClose}
-    >
+    <>
       <img src={props.image} />
       <p className="text text_type_main-medium mt-4 pl-15 pr-15">
         {props.name}
@@ -48,16 +43,22 @@ const IngredientDetails = ({ ...props }) => {
           </p>
         </div>
       </div>
-    </Modal>
+      </>
   );
 };
 export default IngredientDetails;
 
 IngredientDetails.propTypes = {
-  /** Main text in header in modal window*/
-  header: PropTypes.string,
-  /** State for open/close modal window*/
-  isModal: PropTypes.object,
-  /** Function for close modal window*/
-  onClose: PropTypes.func,
+  /** Item src path to image */
+  image: PropTypes.string,
+  /** Item name */
+  name: PropTypes.string,
+  /** Item calories */
+  calories: PropTypes.number,
+  /** Item proteins */
+  proteins: PropTypes.number,
+  /** Item fat */
+  fat: PropTypes.number,
+  /** Item carbohydrates */
+  carbohydrates: PropTypes.number,
 };

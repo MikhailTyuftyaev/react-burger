@@ -1,34 +1,50 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "./item-burger.module.css";
-import IngredientDetails from "../../ingredient-details/ingredient-details";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrag } from "react-dnd";
+import { useDispatch } from "react-redux";
+import {
+  ADD_CURRENT_ITEM,
+  OPEN_MODAL,
+} from "../../../services/actions/modal";
 
-const BurgerItem = ({ ...props }) => {
-  const [modal, isModal] = useState({
-    visible: false,
+const BurgerItem = ({ item, ...props }) => {
+  const dispatch = useDispatch();
+
+
+  function handleClickBurger(item) {
+    dispatch({
+      type: ADD_CURRENT_ITEM,
+      item,
+    });
+    dispatch({
+      type: OPEN_MODAL,
+      ingredientModal: true,
+    });
+  }
+
+  const [{ opacity }, dragRef] = useDrag({
+    type: "ingredient",
+    item,
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+    }),
   });
-
-  function handleClickBurger() {
-    isModal({
-      visible: true,
-    });
-  }
-
-  function onClose() {
-    isModal({
-      visible: false,
-    });
-  }
 
   return (
     <>
-      <div className={styles.burger_item} onClickCapture={handleClickBurger}>
+      <div
+        className={styles.burger_item}
+        onClick={() => handleClickBurger(props)}
+        style={{ opacity }}
+        ref={dragRef}
+      >
         <img src={props.image} />
-        {props.count ? <Counter count={1} size="default" /> : null}
+        {props.count ? <Counter count={props.count} size="default" /> : null}
         <div className={`${styles.burger_price} mt-2`}>
           <p className="text text_type_digits-default mr-2">{props.price}</p>
           <CurrencyIcon type="primary" />
@@ -36,38 +52,33 @@ const BurgerItem = ({ ...props }) => {
 
         <p className="text text_type_main-default  mt-2 mb-6">{props.title}</p>
       </div>
-      <IngredientDetails
-        header="Детали ингредиента"
-        isModal={modal}
-        onClose={onClose}
-        image={props.imageLarge}
-        name={props.title}
-        calories={props.calories}
-        proteins={props.proteins}
-        fat={props.fat}
-        carbohydrates={props.carbohydrates}
-      />
     </>
   );
 };
 
 BurgerItem.propTypes = {
   /** Name burger */
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  /** Item _id */
+  id: PropTypes.string.isRequired,
+  /** Item parameters */
+  item: PropTypes.object.isRequired,
   /** Path for image burger */
-  image: PropTypes.string,
+  image: PropTypes.string.isRequired,
   /** Price burger */
-  price: PropTypes.number,
+  price: PropTypes.number.isRequired,
   /** Path for large image burger */
-  imageLarge: PropTypes.string,
+  imageLarge: PropTypes.string.isRequired,
   /** Burger calories */
-  calories: PropTypes.number,
+  calories: PropTypes.number.isRequired,
   /** Burger proteins */
-  proteins: PropTypes.number,
+  proteins: PropTypes.number.isRequired,
   /** Burger fat */
-  fat: PropTypes.number,
+  fat: PropTypes.number.isRequired,
+  /** Burger count */
+  count: PropTypes.number.isRequired,
   /** Burger carbohydrates*/
-  carbohydrates: PropTypes.number,
+  carbohydrates: PropTypes.number.isRequired,
 };
 
 export default BurgerItem;

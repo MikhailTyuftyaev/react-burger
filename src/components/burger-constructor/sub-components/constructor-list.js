@@ -1,35 +1,25 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {
-  ConstructorElement,
-  DragIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./constructor-list.module.css";
+import {useSelector } from "react-redux";
+import ConstructorItem from "./constructor-item"
 
 const ConstructorList = ({ ...props }) => {
-  const newData = props.data.filter((item) => item.type !== "bun");
-  return newData.map(function (item, index) {
-    return (
-      <div className={styles.constructor_list} key={index}>
-        <div className={`${styles.icon_box} ml-2 `}>
-          <DragIcon type="primary" />
-        </div>
+  const constructorItems = useSelector(
+    (state) => state.ingredients.ingredients
+  );
 
-        <div className={`${styles.element_box} ml-2 pr-2 `}>
-          <ConstructorElement
-            text={item.name}
-            price={item.price}
-            thumbnail={item.image_mobile}
-          />
-        </div>
-      </div>
+  return constructorItems.map(function (item, index) {
+    return (
+      <ConstructorItem 
+        index={index}
+        id={item._id}
+        key={item.uuid}
+        uiKey={item.uuid}
+        name={item.name}
+        price={item.price}
+        thumbnail={item.image_mobile}
+      />
     );
   });
-};
-
-ConstructorList.propTypes = {
-  /** Main data */
-  data: PropTypes.array,
 };
 
 export default ConstructorList;

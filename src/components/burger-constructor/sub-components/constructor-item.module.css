@@ -1,6 +1,7 @@
 .constructor_list {
   display: flex;
   align-items: center;
+  z-index: 2;
 }
 .icon_box {
   cursor: pointer;
