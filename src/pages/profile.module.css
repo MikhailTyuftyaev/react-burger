@@ -1,0 +1,29 @@
+.wrapper{
+    max-width: 1240px;
+    margin: 120px auto;
+    display: flex;
+    align-items: flex-start;
+}
+.tabs{
+    max-width: 320px;
+}
+.tabs p:not(:last-child){
+    cursor: pointer;
+}
+.tabs_container{
+    display: flex;
+  width: 480px;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.cta{
+    display: inline-block;
+    text-align: right;
+}
+
+.cta :global(button){
+    width: fit-content;
+    display: inline-block;
+}
