@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { HomePage, LoginPage, RegisterPage, ForgotPage } from './pages';
+import { HomePage, LoginPage, RegisterPage, ForgotPage, ResetPage} from './pages';
 
 export default function App() {
     return (
@@ -16,6 +16,9 @@ export default function App() {
           </Route>
           <Route path="/forgot-password" exact={true}>
             <ForgotPage />
+          </Route>
+          <Route path="/reset-password" exact={true}>
+            <ResetPage />
           </Route>
         </Switch>
       </Router>
