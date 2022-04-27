@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeader from "../components/app-header/app-header";
+import { useHistory } from 'react-router-dom';
 import styles from "./login.module.css";
 
 export function ResetPage() {
+  const history = useHistory(); 
+
+  const login = useCallback(
+    () => {
+        history.replace({ pathname: '/login' });
+    },
+    [history]
+  ); 
   return (
     <>
       <AppHeader />
@@ -24,7 +33,7 @@ export function ResetPage() {
         <div className={`${styles.cta} mt-15`}>
           <p className="text text_type_main-default text_color_inactive">
             Вспомнили пароль?
-            <Button type="secondary" size="medium">
+            <Button type="secondary" size="medium" onClick={login}>
               Войти
             </Button>
           </p>

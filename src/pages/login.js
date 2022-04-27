@@ -1,12 +1,28 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeader from "../components/app-header/app-header";
+import { useHistory } from 'react-router-dom'; 
 import styles from "./login.module.css";
 
 export function LoginPage() {
+  const history = useHistory(); 
+
+  const register = useCallback(
+    () => {
+        history.replace({ pathname: '/register' });
+    },
+    [history]
+  ); 
+
+  const forgot = useCallback(
+    () => {
+        history.replace({ pathname: '/forgot-password' });
+    },
+    [history]
+  ); 
   return (
     <>
       <AppHeader />
@@ -20,13 +36,13 @@ export function LoginPage() {
         <div className={`${styles.cta} mt-15`}>
           <p className="text text_type_main-default text_color_inactive">
             Вы — новый пользователь?
-            <Button type="secondary" size="medium">
+            <Button type="secondary" size="medium" onClick={register}>
               Зарегестрироваться
             </Button>
           </p>
           <p className="text text_type_main-default text_color_inactive mt-4">
             Забыли пароль?
-            <Button type="secondary" size="medium">
+            <Button type="secondary" size="medium" onClick={forgot}>
                 Восстановить пароль
             </Button>
           </p>
