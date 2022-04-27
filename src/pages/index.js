@@ -4,5 +4,6 @@ import { RegisterPage } from './register'
 import { ForgotPage } from './forgot'
 import { ResetPage } from './reset'
 import { ProfilePage } from './profile'
+import { IngredientsPage } from './ingredients'
 
-export { HomePage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage};
+export { HomePage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage};
