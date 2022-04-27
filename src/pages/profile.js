@@ -3,13 +3,11 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import AppHeader from "../components/app-header/app-header";
 import styles from "./profile.module.css";
 
 export function ProfilePage() {
   return (
     <>
-      <AppHeader />
       <div className={styles.wrapper}>
         <div className={`${styles.tabs} mr-15`}>
             <p className="text text_type_main-medium pt-4 pb-4">Профиль</p>

@@ -3,7 +3,6 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import AppHeader from "../components/app-header/app-header";
 import { useHistory } from 'react-router-dom'; 
 import styles from "./login.module.css";
 
@@ -18,7 +17,6 @@ export function RegisterPage() {
   ); 
   return (
     <>
-      <AppHeader />
       <div className={styles.wrapper}>
         <p className="text text_type_main-medium">Регистрация</p>
         <Input type={"text"} placeholder={"Имя"} />

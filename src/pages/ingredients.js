@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
-import AppHeader from "../components/app-header/app-header";
 import styles from "./ingredients.module.css";
 import { getItemsRequest } from "../services/actions";
 
@@ -22,7 +21,6 @@ export function IngredientsPage() {
 
   return (
     <>
-      <AppHeader />
       <div className={styles.wrapper}>
       <p className="text text_type_main-large">
         Детали ингредиента

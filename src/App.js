@@ -1,8 +1,12 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { HomePage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage} from './pages';
+import AppHeader from './components/app-header/app-header';
 
 export default function App() {
     return (
+
+      <>
+      <AppHeader/>
       <Router>
         <Switch>
           <Route path="/" exact={true}>
@@ -28,5 +32,6 @@ export default function App() {
           </Route>
         </Switch>
       </Router>
+      </>
     );
   }
