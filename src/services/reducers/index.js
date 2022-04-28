@@ -15,6 +15,7 @@ import {
 } from "../actions";
 import { combineReducers } from "redux";
 import { getModalItemsReducer } from "../reducers/modal";
+import { authReducer } from "../reducers/auth"
 
 export const initialState = {
   data: [],
@@ -152,4 +153,5 @@ export const getItemsReducer = (state = initialState, action) => {
 export const rootReducer = combineReducers({
   ingredients: getItemsReducer,
   modal: getModalItemsReducer,
+  auth: authReducer
 });
