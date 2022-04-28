@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import {
   Input,
   Button,
@@ -8,6 +8,7 @@ import styles from "./login.module.css";
 
 export function ForgotPage() {
   const history = useHistory(); 
+  const [emailValue, setEmailValue] = useState('');
 
   const login = useCallback(
     () => {
@@ -18,7 +19,12 @@ export function ForgotPage() {
   return (
       <div className={styles.wrapper}>
         <p className="text text_type_main-medium">Восстановление пароля</p>
-        <Input type={"email"} placeholder={"Укажите e-mail"} />
+        <Input 
+          type={"email"} 
+          placeholder={"Укажите e-mail"} 
+          onChange={e => setEmailValue(e.target.value)}
+          value={emailValue}
+          />
         <Button type="primary" size="medium">
           Восстановить
         </Button>
