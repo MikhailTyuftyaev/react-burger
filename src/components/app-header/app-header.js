@@ -30,9 +30,12 @@ function AppHeader() {
           <ListIcon type="secondary" />
           Лента заказов
         </NavLink>
-        <a href="#" className={styles.logo}>
+        <NavLink 
+            exact 
+            to={{ pathname: `/` }} 
+            className={styles.logo}>
           <Logo />
-        </a>
+        </NavLink>
         <NavLink
           to={{ pathname: `/profile` }}
           className={`${styles.icon_button + " text text_type_main-default"}`}
