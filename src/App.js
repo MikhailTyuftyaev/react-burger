@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { HomePage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage} from './pages';
+import { HomePage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404} from './pages';
 import AppHeader from './components/app-header/app-header';
 
 export default function App() {
@@ -29,6 +29,9 @@ export default function App() {
           </Route>
           <Route path="/ingredients/:id" exact={true}>
             <IngredientsPage />
+          </Route>
+          <Route>
+            <NotFound404/>
           </Route>
         </Switch>
       </Router>
