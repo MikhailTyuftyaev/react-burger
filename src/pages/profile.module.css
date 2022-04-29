@@ -27,3 +27,7 @@
     width: fit-content;
     display: inline-block;
 }
+
+.active {
+  color: #f2f2f3;
+}
