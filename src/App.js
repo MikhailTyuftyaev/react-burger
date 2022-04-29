@@ -6,8 +6,8 @@ export default function App() {
     return (
 
       <>
-      <AppHeader/>
       <Router>
+      <AppHeader/>
         <Switch>
           <Route path="/" exact={true}>
             <HomePage />
