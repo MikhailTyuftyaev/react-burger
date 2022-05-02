@@ -1,9 +1,11 @@
-import { checkResponse } from "../../components/utils/utils";
+import { checkResponse, setCookie } from "../../components/utils/utils";
 import { baseUrl } from "../../components/utils/constants";
 
 export const REGISTER_ACCOUNT_REQUEST = "REGISTER_ACCOUNT_REQUEST";
 export const REGISTER_ACCOUNT_SUCCESS = "REGISTER_ACCOUNT_SUCCESS";
 export const REGISTER_ACCOUNT_FAILED = "REGISTER_ACCOUNT_FAILED";
+
+export const SAVE_REGISTER_ACCOUNT = "SAVE_REGISTER_ACCOUNT";
 
 export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
 export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
@@ -63,9 +65,16 @@ export function sendRegisterRequest(name, email, pass) {
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
-        console.log(res);
+        let accessToken = res.accessToken.split('Bearer ')[1];
+        setCookie('accessToken', accessToken);
+        setCookie('refreshToken', res.refreshToken);
+        dispatch({
+          type: SAVE_REGISTER_ACCOUNT,
+          email: res.user.email,
+          name: res.user.name
+        });
         dispatch({ 
-            type: REGISTER_ACCOUNT_FAILED 
+            type: REGISTER_ACCOUNT_SUCCESS 
         });
         } else {
             dispatch({ 

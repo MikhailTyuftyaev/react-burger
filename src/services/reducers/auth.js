@@ -3,12 +3,16 @@ import {
     REGISTER_ACCOUNT_SUCCESS,
     REGISTER_ACCOUNT_FAILED,
 
+    SAVE_REGISTER_ACCOUNT,
+
     FORGOT_PASSWORD_REQUEST,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED
 } from '../actions/auth';
 
 const initialState = {
+    account: null,
+
     registerAccountRequest: true,
     registerAccountFailed: false,
 
@@ -37,6 +41,15 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 registerAccountRequest: false,
                 registerAccountFailed: true
+            };
+        }
+        case SAVE_REGISTER_ACCOUNT:{
+            return {
+                ...state,
+                account: {
+                    "email": action.email,
+                    "name": action.name
+                }
             };
         }
         case FORGOT_PASSWORD_REQUEST: {

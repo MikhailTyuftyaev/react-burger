@@ -12,13 +12,10 @@ export function ForgotPage() {
   const history = useHistory();
   const [emailValue, setEmailValue] = useState("");
 
-  const auth = useSelector((state) => state.auth)
-
   const dispatch = useDispatch();
 
   const sendRequest = (emailValue) => {
     dispatch(sendForgotPasswordRequest(emailValue));
-    console.log(auth);
   };
 
   const login = useCallback(() => {
