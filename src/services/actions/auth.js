@@ -5,6 +5,10 @@ export const REGISTER_ACCOUNT_REQUEST = "REGISTER_ACCOUNT_REQUEST";
 export const REGISTER_ACCOUNT_SUCCESS = "REGISTER_ACCOUNT_SUCCESS";
 export const REGISTER_ACCOUNT_FAILED = "REGISTER_ACCOUNT_FAILED";
 
+export const LOGIN_ACCOUNT_REQUEST = 'LOGIN_ACCOUNT_REQUEST';
+export const LOGIN_ACCOUNT_SUCCESS = 'LOGIN_ACCOUNT_SUCCESS';
+export const LOGIN_ACCOUNT_FAILED = 'LOGIN_ACCOUNT_FAILED';
+
 export const SAVE_REGISTER_ACCOUNT = "SAVE_REGISTER_ACCOUNT";
 
 export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
@@ -28,7 +32,6 @@ export function sendForgotPasswordRequest(emailValue) {
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
-        console.log(res);
         dispatch({ 
             type: FORGOT_PASSWORD_SUCCESS 
         });
@@ -85,6 +88,50 @@ export function sendRegisterRequest(name, email, pass) {
       .catch((err) => {
         dispatch({ 
             type: REGISTER_ACCOUNT_FAILED 
+        });
+      });
+  };
+}
+
+export function sendLoginRequest(email, pass){
+  return function (dispatch) {
+    dispatch({ 
+        type: LOGIN_ACCOUNT_REQUEST 
+    });
+    fetch(baseUrl + "/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: pass, 
+      }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res && res.success) {
+        let accessToken = res.accessToken.split('Bearer ')[1];
+        setCookie('accessToken', accessToken);
+        setCookie('refreshToken', res.refreshToken);
+        console.log(res);
+        dispatch({
+          type: SAVE_REGISTER_ACCOUNT,
+          email: res.user.email,
+          name: res.user.name
+        });
+        dispatch({ 
+            type: LOGIN_ACCOUNT_SUCCESS 
+        });
+        } else {
+            dispatch({ 
+                type: LOGIN_ACCOUNT_FAILED 
+            });
+        }
+      })
+      .catch((err) => {
+        dispatch({ 
+            type: LOGIN_ACCOUNT_FAILED 
         });
       });
   };

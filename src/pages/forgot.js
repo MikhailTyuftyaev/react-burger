@@ -4,7 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch} from "react-redux";
 import { sendForgotPasswordRequest } from '../services/actions/auth'
 import styles from "./login.module.css";
 
