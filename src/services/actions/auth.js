@@ -15,6 +15,10 @@ export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
 export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
 export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
 
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
+
 export function sendForgotPasswordRequest(emailValue) {
   return function (dispatch) {
     dispatch({ 
@@ -31,6 +35,7 @@ export function sendForgotPasswordRequest(emailValue) {
     })
       .then(checkResponse)
       .then((res) => {
+        console.log(res);
         if (res && res.success) {
         dispatch({ 
             type: FORGOT_PASSWORD_SUCCESS 
@@ -136,3 +141,40 @@ export function sendLoginRequest(email, pass){
       });
   };
 }
+
+export function sendResetPasswordRequest(pass, token){
+  return function (dispatch) {
+    dispatch({ 
+        type: RESET_PASSWORD_REQUEST 
+    });
+    fetch(baseUrl + "/password-reset/reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify({
+        password: pass,
+        token: token, 
+      }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        console.log(res);
+        if (res && res.success) {
+        dispatch({ 
+            type: RESET_PASSWORD_SUCCESS 
+        });
+        } else {
+            dispatch({ 
+                type: RESET_PASSWORD_FAILED 
+            });
+        }
+      })
+      .catch((err) => {
+        dispatch({ 
+            type: RESET_PASSWORD_FAILED 
+        });
+      });
+  };
+}
+
