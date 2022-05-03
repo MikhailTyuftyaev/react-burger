@@ -1,13 +1,28 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
+
+  const auth = useSelector((state)=> state.auth.account);
+
+  const [nameValue, setNameValue] = useState(auth ? auth.name : "");
+  const [emailValue, setEmailValue] = useState(auth ? auth.email : "");
+  const [passValue, setPassValue] = useState("");
+
+  const dispatch = useDispatch();
+
+  useEffect(()=> {
+    dispatch(getUserRequest());
+}, [dispatch])
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -47,20 +62,23 @@ export function ProfilePage() {
                 type={"text"}
                 placeholder={"Имя"}
                 icon={"EditIcon"}
-                value={"Марк"}
+                onChange={(e) => setNameValue(e.target.value)}
+                value={nameValue}
                 className="text_color_inactive"
               />
               <Input
                 type={"email"}
                 placeholder={"E-mail"}
                 icon={"EditIcon"}
-                value={"mail@stellar.burgers"}
+                onChange={(e) => setEmailValue(e.target.value)}
+                value={emailValue}
               />
               <Input
                 type={"password"}
                 placeholder={"Пароль"}
                 icon={"EditIcon"}
-                value={"123123123"}
+                onChange={(e) => setPassValue(e.target.value)}
+                value={passValue}
               />
               <div className={styles.cta}>
                 <Button type="secondary" size="medium">

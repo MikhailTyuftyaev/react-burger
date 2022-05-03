@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Main from "../main/main";
-import Header from "../app-header/app-header";
 import { useDispatch  } from 'react-redux';
 import { getItemsRequest } from "../../services/actions";
 

@@ -1,4 +1,4 @@
-import { checkResponse, setCookie } from "../../components/utils/utils";
+import { checkResponse, setCookie, getCookie } from "../../components/utils/utils";
 import { baseUrl } from "../../components/utils/constants";
 
 export const REGISTER_ACCOUNT_REQUEST = "REGISTER_ACCOUNT_REQUEST";
@@ -18,6 +18,10 @@ export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
 export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
+
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILED = 'GET_USER_FAILED';
 
 export function sendForgotPasswordRequest(emailValue) {
   return function (dispatch) {
@@ -177,4 +181,36 @@ export function sendResetPasswordRequest(pass, token){
       });
   };
 }
+
+
+export function getUserRequest() {
+  return function (dispatch) {
+    dispatch({ 
+      type: GET_USER_REQUEST 
+    });
+    fetch(baseUrl + "/auth/user", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+          Authorization: 'Bearer ' + getCookie('accessToken')
+        }
+      })
+      .then(checkResponse)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: SAVE_REGISTER_ACCOUNT,
+            email: res.user.email,
+            name: res.user.name
+          });
+          dispatch({ 
+            type: GET_USER_SUCCESS 
+          });
+          }
+        })
+      .catch((err) => {
+        dispatch({ type: GET_USER_FAILED })
+      })
+  }
+};
 
