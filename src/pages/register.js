@@ -3,9 +3,9 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useHistory } from 'react-router-dom'; 
+import { useHistory, Redirect } from 'react-router-dom'; 
 import styles from "./login.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sendRegisterRequest } from "../services/actions/auth"
 
 export function RegisterPage() {
@@ -20,12 +20,17 @@ export function RegisterPage() {
     dispatch(sendRegisterRequest(name, email, pass));
   }
 
+  const isRegistered = useSelector((state) => state.auth.isRegistered);
+
   const login = useCallback(
     () => {
         history.replace({ pathname: '/login' });
     },
     [history]
   ); 
+  if (isRegistered) {
+    return <Redirect to='/login' />;
+  }
   return (
     <>
       <div className={styles.wrapper}>

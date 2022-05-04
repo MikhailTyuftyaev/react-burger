@@ -25,6 +25,7 @@ import {
 const initialState = {
     account: null,
 
+    isRegistered: false,
     registerAccountRequest: true,
     registerAccountFailed: false,
 
@@ -47,6 +48,7 @@ export const authReducer = (state = initialState, action) => {
         case REGISTER_ACCOUNT_REQUEST: {
             return {
                 ...state,
+                isRegistered: false,
                 registerAccountRequest: true,
                 registerAccountFailed: false
             };
@@ -54,6 +56,7 @@ export const authReducer = (state = initialState, action) => {
         case REGISTER_ACCOUNT_SUCCESS: {
             return {
                 ...state,
+                isRegistered: true,
                 registerAccountRequest: false,
                 registerAccountFailed: false
             };
@@ -61,6 +64,7 @@ export const authReducer = (state = initialState, action) => {
         case REGISTER_ACCOUNT_FAILED: {
             return {
                 ...state,
+                isRegistered: false,
                 registerAccountRequest: false,
                 registerAccountFailed: true
             };
