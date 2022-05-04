@@ -28,6 +28,7 @@ const initialState = {
     registerAccountRequest: true,
     registerAccountFailed: false,
 
+    isLoggedIn: false,
     loginAccountRequest: false,
     loginAccountFailed: false,
 
@@ -74,6 +75,7 @@ export const authReducer = (state = initialState, action) => {
         case LOGIN_ACCOUNT_SUCCESS: {
             return {
                 ...state,
+                isLoggedIn: true,
                 loginAccountRequest: false,
                 loginAccountFailed: false,
             };
@@ -146,6 +148,7 @@ export const authReducer = (state = initialState, action) => {
         case GET_USER_SUCCESS: {
             return {
                 ...state,
+                isLoggedIn: true,
                 getUserRequest: false,
                 getUserFailed: false,
             };

@@ -3,8 +3,8 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useHistory } from 'react-router-dom'; 
-import { useDispatch } from "react-redux";
+import { useHistory, Redirect } from 'react-router-dom'; 
+import { useDispatch, useSelector } from "react-redux";
 import { sendLoginRequest } from '../services/actions/auth'
 import styles from "./login.module.css";
 
@@ -14,6 +14,8 @@ export function LoginPage() {
 
   const [emailValue, setEmailValue] = useState("");
   const [passValue, setPassValue] = useState("");
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const login = (email, pass) => {
     dispatch(sendLoginRequest(email, pass));
@@ -32,6 +34,10 @@ export function LoginPage() {
     },
     [history]
   ); 
+
+  if (isLoggedIn) {
+    return <Redirect to='/' />;
+  }
   return (
       <div className={styles.wrapper}>
         <p className="text text_type_main-medium">Вход</p>
