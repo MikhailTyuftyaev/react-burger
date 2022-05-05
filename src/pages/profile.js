@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {
   Input,
   Button,
@@ -6,7 +6,7 @@ import {
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import {saveAccountDataRequest } from "../services/actions/auth";
+import {getUserRequest, saveAccountDataRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
@@ -21,6 +21,13 @@ export function ProfilePage() {
 
   const saveAccountData = (name, email, pass) => {
     dispatch(saveAccountDataRequest(name, email, pass));
+  }
+
+  const getUserData = () => {
+    dispatch(getUserRequest())
+    setNameValue(auth.name)
+    setEmailValue(auth.email)
+    setPassValue("")
   }
 
   return (
@@ -81,7 +88,7 @@ export function ProfilePage() {
                 value={passValue}
               />
               <div className={styles.cta}>
-                <Button type="secondary" size="medium">
+                <Button type="secondary" size="medium" onClick={()=> getUserData()}>
                   Отмена
                 </Button>
                 <Button 
