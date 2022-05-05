@@ -61,7 +61,7 @@ export function LoginPage() {
           <p className="text text_type_main-default text_color_inactive">
             Вы — новый пользователь?
             <Button type="secondary" size="medium" onClick={register}>
-              Зарегестрироваться
+              Зарегистрироваться
             </Button>
           </p>
           <p className="text text_type_main-default text_color_inactive mt-4">

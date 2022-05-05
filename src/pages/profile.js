@@ -6,7 +6,7 @@ import {
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserRequest, saveAccountDataRequest } from "../services/actions/auth";
+import {saveAccountDataRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
@@ -22,10 +22,6 @@ export function ProfilePage() {
   const saveAccountData = (name, email, pass) => {
     dispatch(saveAccountDataRequest(name, email, pass));
   }
-
-  useEffect(()=> {
-    dispatch(getUserRequest());
-}, [dispatch])
 
   return (
     <>
