@@ -6,7 +6,7 @@ import {
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserRequest } from "../services/actions/auth";
+import { getUserRequest, saveAccountDataRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
@@ -18,6 +18,10 @@ export function ProfilePage() {
   const [passValue, setPassValue] = useState("");
 
   const dispatch = useDispatch();
+
+  const saveAccountData = (name, email, pass) => {
+    dispatch(saveAccountDataRequest(name, email, pass));
+  }
 
   useEffect(()=> {
     dispatch(getUserRequest());
@@ -84,7 +88,10 @@ export function ProfilePage() {
                 <Button type="secondary" size="medium">
                   Отмена
                 </Button>
-                <Button type="primary" size="medium">
+                <Button 
+                  type="primary" 
+                  size="medium"
+                  onClick={() => saveAccountData(nameValue, emailValue, passValue)}>
                   Сохранить
                 </Button>
               </div>

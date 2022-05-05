@@ -1,13 +1,17 @@
-import { checkResponse, setCookie, getCookie } from "../../components/utils/utils";
+import {
+  checkResponse,
+  setCookie,
+  getCookie,
+} from "../../components/utils/utils";
 import { baseUrl } from "../../components/utils/constants";
 
 export const REGISTER_ACCOUNT_REQUEST = "REGISTER_ACCOUNT_REQUEST";
 export const REGISTER_ACCOUNT_SUCCESS = "REGISTER_ACCOUNT_SUCCESS";
 export const REGISTER_ACCOUNT_FAILED = "REGISTER_ACCOUNT_FAILED";
 
-export const LOGIN_ACCOUNT_REQUEST = 'LOGIN_ACCOUNT_REQUEST';
-export const LOGIN_ACCOUNT_SUCCESS = 'LOGIN_ACCOUNT_SUCCESS';
-export const LOGIN_ACCOUNT_FAILED = 'LOGIN_ACCOUNT_FAILED';
+export const LOGIN_ACCOUNT_REQUEST = "LOGIN_ACCOUNT_REQUEST";
+export const LOGIN_ACCOUNT_SUCCESS = "LOGIN_ACCOUNT_SUCCESS";
+export const LOGIN_ACCOUNT_FAILED = "LOGIN_ACCOUNT_FAILED";
 
 export const SAVE_REGISTER_ACCOUNT = "SAVE_REGISTER_ACCOUNT";
 
@@ -15,18 +19,22 @@ export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
 export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
 export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
 
-export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
-export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
+export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
+export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
 
-export const GET_USER_REQUEST = 'GET_USER_REQUEST';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_FAILED = 'GET_USER_FAILED';
+export const GET_USER_REQUEST = "GET_USER_REQUEST";
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_FAILED = "GET_USER_FAILED";
+
+export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
 
 export function sendForgotPasswordRequest(emailValue) {
   return function (dispatch) {
-    dispatch({ 
-        type: FORGOT_PASSWORD_REQUEST 
+    dispatch({
+      type: FORGOT_PASSWORD_REQUEST,
     });
     fetch(baseUrl + "/password-reset", {
       method: "POST",
@@ -41,18 +49,18 @@ export function sendForgotPasswordRequest(emailValue) {
       .then((res) => {
         console.log(res);
         if (res && res.success) {
-        dispatch({ 
-            type: FORGOT_PASSWORD_SUCCESS 
-        });
+          dispatch({
+            type: FORGOT_PASSWORD_SUCCESS,
+          });
         } else {
-            dispatch({ 
-                type: FORGOT_PASSWORD_FAILED 
-            });
+          dispatch({
+            type: FORGOT_PASSWORD_FAILED,
+          });
         }
       })
       .catch((err) => {
-        dispatch({ 
-            type: FORGOT_PASSWORD_FAILED 
+        dispatch({
+          type: FORGOT_PASSWORD_FAILED,
         });
       });
   };
@@ -60,8 +68,8 @@ export function sendForgotPasswordRequest(emailValue) {
 
 export function sendRegisterRequest(name, email, pass) {
   return function (dispatch) {
-    dispatch({ 
-        type: REGISTER_ACCOUNT_REQUEST 
+    dispatch({
+      type: REGISTER_ACCOUNT_REQUEST,
     });
     fetch(baseUrl + "/auth/register", {
       method: "POST",
@@ -70,42 +78,42 @@ export function sendRegisterRequest(name, email, pass) {
       },
       body: JSON.stringify({
         email: email,
-        password: pass, 
-        name: name
+        password: pass,
+        name: name,
       }),
     })
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
-        let accessToken = res.accessToken.split('Bearer ')[1];
-        setCookie('accessToken', accessToken);
-        setCookie('refreshToken', res.refreshToken);
-        dispatch({
-          type: SAVE_REGISTER_ACCOUNT,
-          email: res.user.email,
-          name: res.user.name
-        });
-        dispatch({ 
-            type: REGISTER_ACCOUNT_SUCCESS 
-        });
+          let accessToken = res.accessToken.split("Bearer ")[1];
+          setCookie("accessToken", accessToken);
+          setCookie("refreshToken", res.refreshToken);
+          dispatch({
+            type: SAVE_REGISTER_ACCOUNT,
+            email: res.user.email,
+            name: res.user.name,
+          });
+          dispatch({
+            type: REGISTER_ACCOUNT_SUCCESS,
+          });
         } else {
-            dispatch({ 
-                type: REGISTER_ACCOUNT_FAILED 
-            });
+          dispatch({
+            type: REGISTER_ACCOUNT_FAILED,
+          });
         }
       })
       .catch((err) => {
-        dispatch({ 
-            type: REGISTER_ACCOUNT_FAILED 
+        dispatch({
+          type: REGISTER_ACCOUNT_FAILED,
         });
       });
   };
 }
 
-export function sendLoginRequest(email, pass){
+export function sendLoginRequest(email, pass) {
   return function (dispatch) {
-    dispatch({ 
-        type: LOGIN_ACCOUNT_REQUEST 
+    dispatch({
+      type: LOGIN_ACCOUNT_REQUEST,
     });
     fetch(baseUrl + "/auth/login", {
       method: "POST",
@@ -114,42 +122,42 @@ export function sendLoginRequest(email, pass){
       },
       body: JSON.stringify({
         email: email,
-        password: pass, 
+        password: pass,
       }),
     })
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
-        let accessToken = res.accessToken.split('Bearer ')[1];
-        setCookie('accessToken', accessToken);
-        setCookie('refreshToken', res.refreshToken);
-        console.log(res);
-        dispatch({
-          type: SAVE_REGISTER_ACCOUNT,
-          email: res.user.email,
-          name: res.user.name
-        });
-        dispatch({ 
-            type: LOGIN_ACCOUNT_SUCCESS 
-        });
+          let accessToken = res.accessToken.split("Bearer ")[1];
+          setCookie("accessToken", accessToken);
+          setCookie("refreshToken", res.refreshToken);
+          console.log(res);
+          dispatch({
+            type: SAVE_REGISTER_ACCOUNT,
+            email: res.user.email,
+            name: res.user.name,
+          });
+          dispatch({
+            type: LOGIN_ACCOUNT_SUCCESS,
+          });
         } else {
-            dispatch({ 
-                type: LOGIN_ACCOUNT_FAILED 
-            });
+          dispatch({
+            type: LOGIN_ACCOUNT_FAILED,
+          });
         }
       })
       .catch((err) => {
-        dispatch({ 
-            type: LOGIN_ACCOUNT_FAILED 
+        dispatch({
+          type: LOGIN_ACCOUNT_FAILED,
         });
       });
   };
 }
 
-export function sendResetPasswordRequest(pass, token){
+export function sendResetPasswordRequest(pass, token) {
   return function (dispatch) {
-    dispatch({ 
-        type: RESET_PASSWORD_REQUEST 
+    dispatch({
+      type: RESET_PASSWORD_REQUEST,
     });
     fetch(baseUrl + "/password-reset/reset", {
       method: "POST",
@@ -158,59 +166,93 @@ export function sendResetPasswordRequest(pass, token){
       },
       body: JSON.stringify({
         password: pass,
-        token: token, 
+        token: token,
       }),
     })
       .then(checkResponse)
       .then((res) => {
         console.log(res);
         if (res && res.success) {
-        dispatch({ 
-            type: RESET_PASSWORD_SUCCESS 
-        });
+          dispatch({
+            type: RESET_PASSWORD_SUCCESS,
+          });
         } else {
-            dispatch({ 
-                type: RESET_PASSWORD_FAILED 
-            });
+          dispatch({
+            type: RESET_PASSWORD_FAILED,
+          });
         }
       })
       .catch((err) => {
-        dispatch({ 
-            type: RESET_PASSWORD_FAILED 
+        dispatch({
+          type: RESET_PASSWORD_FAILED,
         });
       });
   };
 }
 
-
 export function getUserRequest() {
   return function (dispatch) {
-    dispatch({ 
-      type: GET_USER_REQUEST 
+    dispatch({
+      type: GET_USER_REQUEST,
     });
     fetch(baseUrl + "/auth/user", {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-          Authorization: 'Bearer ' + getCookie('accessToken')
-        }
-      })
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: "Bearer " + getCookie("accessToken"),
+      },
+    })
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
           dispatch({
             type: SAVE_REGISTER_ACCOUNT,
             email: res.user.email,
-            name: res.user.name
+            name: res.user.name,
           });
-          dispatch({ 
-            type: GET_USER_SUCCESS 
+          dispatch({
+            type: GET_USER_SUCCESS,
           });
-          }
-        })
-      .catch((err) => {
-        dispatch({ type: GET_USER_FAILED })
+        }
       })
-  }
-};
+      .catch((err) => {
+        dispatch({ type: GET_USER_FAILED });
+      });
+  };
+}
 
+export function saveAccountDataRequest(name, email, pass) {
+  return function (dispatch) {
+    dispatch({
+      type: UPDATE_USER_REQUEST,
+    });
+    fetch(baseUrl + "/auth/user", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: "Bearer " + getCookie("accessToken"),
+      },
+      body: JSON.stringify({
+        email: email,
+        password: pass,
+        name: name,
+      }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: SAVE_REGISTER_ACCOUNT,
+            email: res.user.email,
+            name: res.user.name,
+          });
+          dispatch({
+            type: UPDATE_USER_SUCCESS,
+          });
+        }
+      })
+      .catch((err) => {
+        dispatch({ type: UPDATE_USER_FAILED });
+      });
+  };
+}
