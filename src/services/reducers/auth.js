@@ -23,7 +23,11 @@ import {
 
     UPDATE_USER_REQUEST,
     UPDATE_USER_SUCCESS,
-    UPDATE_USER_FAILED
+    UPDATE_USER_FAILED,
+
+    LOGOUT_ACCOUNT_REQUEST,
+    LOGOUT_ACCOUNT_SUCCESS,
+    LOGOUT_ACCOUNT_FAILED
 } from '../actions/auth';
 
 const initialState = {
@@ -48,6 +52,10 @@ const initialState = {
 
     updateAccountRequest: false,
     updateAccountFailed: false,
+
+    isLoggedOut: false,
+    logoutAccountRequest: false,
+    logoutAccountFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -190,6 +198,32 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 updateAccountRequest: false,
                 updateAccountFailed: true,
+            };
+        }
+        case LOGOUT_ACCOUNT_REQUEST: {
+            return {
+                ...state,
+                isLoggedOut: false,
+                logoutAccountRequest: true,
+                logoutAccountFailed: false,
+            };
+        }
+        case LOGOUT_ACCOUNT_SUCCESS: {
+            return {
+                ...state,
+                isRegistered: false,
+                isLoggedIn: false,
+                isLoggedOut: true,
+                logoutAccountRequest: false,
+                logoutAccountFailed: false,
+            };
+        }
+        case LOGOUT_ACCOUNT_FAILED: {
+            return {
+                ...state,
+                isLoggedOut: false,
+                logoutAccountRequest: false,
+                logoutAccountFailed: true,
             };
         }
         default: {

@@ -3,15 +3,16 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
+import { Route, Switch, NavLink, useRouteMatch, Redirect } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import {getUserRequest, saveAccountDataRequest } from "../services/actions/auth";
+import {getUserRequest, saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
 
   const auth = useSelector((state)=> state.auth.account);
+  const isLoggedOut = useSelector((state) => state.auth.isLoggedOut)
 
   const [nameValue, setNameValue] = useState(auth ? auth.name : "");
   const [emailValue, setEmailValue] = useState(auth ? auth.email : "");
@@ -30,6 +31,12 @@ export function ProfilePage() {
     setPassValue("")
   }
 
+  const logout = () => {
+    dispatch(sendLogoutRequest())
+  }
+  if (isLoggedOut) {
+    return <Redirect to='/login' />;
+  }
   return (
     <>
       <div className={styles.wrapper}>
@@ -49,13 +56,12 @@ export function ProfilePage() {
           >
             История заказов
           </NavLink>
-          <NavLink
-            to={`${path}/exit`}
+          <p
             className="text text_type_main-medium text_color_inactive pt-4 pb-4"
-            activeClassName={styles.active}
+            onClick={()=> logout()}
           >
             Выход
-          </NavLink>
+          </p>
           <div className={`${styles.cta} mt-20`}>
             <p className="text text_type_main-default text_color_inactive">
               В этом разделе вы можете изменить свои персональные данные

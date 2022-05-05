@@ -31,6 +31,10 @@ export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
 
+export const LOGOUT_ACCOUNT_REQUEST = "LOGOUT_ACCOUNT_REQUEST";
+export const LOGOUT_ACCOUNT_SUCCESS = "LOGOUT_ACCOUNT_SUCCESS";
+export const LOGOUT_ACCOUNT_FAILED = "LOGOUT_ACCOUNT_FAILED";
+
 export function sendForgotPasswordRequest(emailValue) {
   return function (dispatch) {
     dispatch({
@@ -253,6 +257,39 @@ export function saveAccountDataRequest(name, email, pass) {
       })
       .catch((err) => {
         dispatch({ type: UPDATE_USER_FAILED });
+      });
+  };
+}
+
+
+export function sendLogoutRequest() {
+  return function (dispatch) {
+    dispatch({
+      type: LOGOUT_ACCOUNT_REQUEST,
+    });
+    fetch(baseUrl + "/auth/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify({
+        token: getCookie("refreshToken")
+      }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res && res.success) {
+          setCookie("accessToken", '', { expires: -1 });
+          setCookie("refreshToken", '', { expires: -1 });
+          dispatch({
+            type: LOGOUT_ACCOUNT_SUCCESS,
+          });
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: LOGOUT_ACCOUNT_FAILED,
+        });
       });
   };
 }
