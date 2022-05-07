@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useState, useEffect} from "react";
 import {
   Input,
   Button,
@@ -6,7 +6,7 @@ import {
 import { useHistory, Redirect } from 'react-router-dom'; 
 import styles from "./login.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { sendRegisterRequest } from "../services/actions/auth"
+import { sendRegisterRequest, getUserRequest } from "../services/actions/auth"
 
 export function RegisterPage() {
   const history = useHistory(); 
@@ -20,6 +20,7 @@ export function RegisterPage() {
     dispatch(sendRegisterRequest(name, email, pass));
   }
 
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isRegistered = useSelector((state) => state.auth.isRegistered);
 
   const login = useCallback(
@@ -28,9 +29,14 @@ export function RegisterPage() {
     },
     [history]
   ); 
+  useEffect(() => {
+    dispatch(getUserRequest());
+  }, [dispatch]);
   if (isRegistered) {
-    return <Redirect to='/login' />;
-  }
+    return <Redirect to='/' />;
+  } else if (isLoggedIn) {
+    return <Redirect to='/' />;
+  } else {
   return (
     <>
       <div className={styles.wrapper}>
@@ -68,4 +74,5 @@ export function RegisterPage() {
       </div>
     </>
   );
+}
 }
