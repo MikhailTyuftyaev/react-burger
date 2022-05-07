@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect } from 'react-router-dom'; 
 import { useDispatch, useSelector } from "react-redux";
-import { sendLoginRequest } from '../services/actions/auth'
+import { sendLoginRequest, getUserRequest } from '../services/actions/auth'
 import styles from "./login.module.css";
 
 export function LoginPage() {
@@ -35,10 +35,15 @@ export function LoginPage() {
     [history]
   ); 
 
+  useEffect(() => {
+    dispatch(getUserRequest());
+  }, [dispatch]);
+
   if (isLoggedIn) {
     return <Redirect to='/' />;
   }
-  return (
+  else {
+    return (
       <div className={styles.wrapper}>
         <p className="text text_type_main-medium">Вход</p>
         <Input 
@@ -73,4 +78,5 @@ export function LoginPage() {
         </div>
       </div>
   );
+}
 }
