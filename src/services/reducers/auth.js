@@ -41,9 +41,11 @@ const initialState = {
     loginAccountRequest: false,
     loginAccountFailed: false,
 
+    isForgotReset: false,
     forgotPasswordRequest: false,
     forgotPasswordFailed: false,
 
+    isPasswordReset: false,
     resetPasswordRequest: false,
     resetPasswordFailed: false,
 
@@ -125,6 +127,7 @@ export const authReducer = (state = initialState, action) => {
         case FORGOT_PASSWORD_SUCCESS: {
             return {
                 ...state,
+                isForgotReset: true,
                 forgotPasswordRequest: false,
                 forgotPasswordFailed: false
             };
@@ -132,6 +135,7 @@ export const authReducer = (state = initialState, action) => {
         case FORGOT_PASSWORD_FAILED: {
             return {
                 ...state,
+                isForgotReset: false,
                 forgotPasswordRequest: false,
                 forgotPasswordFailed: true
             };
@@ -146,6 +150,8 @@ export const authReducer = (state = initialState, action) => {
         case RESET_PASSWORD_SUCCESS: {
             return {
                 ...state,
+                isPasswordReset: true,
+                isForgotReset: false,
                 resetPasswordRequest: false,
                 resetPasswordFailed: false
             };
@@ -153,6 +159,7 @@ export const authReducer = (state = initialState, action) => {
         case RESET_PASSWORD_FAILED: {
             return {
                 ...state,
+                isPasswordReset: false,
                 resetPasswordRequest: false,
                 resetPasswordFailed: true
             };
@@ -214,6 +221,8 @@ export const authReducer = (state = initialState, action) => {
                 isRegistered: false,
                 isLoggedIn: false,
                 isLoggedOut: true,
+                isForgotReset: false,
+                isPasswordReset: false,
                 logoutAccountRequest: false,
                 logoutAccountFailed: false,
             };

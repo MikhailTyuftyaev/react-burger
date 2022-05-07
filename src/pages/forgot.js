@@ -14,6 +14,7 @@ export function ForgotPage() {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isForgotReset = useSelector((state) => state.auth.isForgotReset)
 
   const sendRequest = (emailValue) => {
     dispatch(sendForgotPasswordRequest(emailValue));
@@ -27,10 +28,12 @@ export function ForgotPage() {
     dispatch(getUserRequest());
   }, [dispatch]);
 
-  
+
   if(isLoggedIn){
     return <Redirect to='/' />;
-  } else {
+  } else if (isForgotReset){
+    return <Redirect to='/reset-password' />;
+  }else{
   return (
     <div className={styles.wrapper}>
       <p className="text text_type_main-medium">Восстановление пароля</p>
