@@ -33,7 +33,7 @@ export function RegisterPage() {
     dispatch(getUserRequest());
   }, [dispatch]);
   if (isRegistered) {
-    return <Redirect to='/' />;
+    return <Redirect to='/login' />;
   } else if (isLoggedIn) {
     return <Redirect to='/' />;
   } else {
