@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useHistory } from "react-router-dom";
-import { useDispatch} from "react-redux";
-import { sendForgotPasswordRequest } from '../services/actions/auth'
+import { useHistory, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { sendForgotPasswordRequest, getUserRequest } from '../services/actions/auth'
 import styles from "./login.module.css";
 
 export function ForgotPage() {
@@ -13,6 +13,7 @@ export function ForgotPage() {
   const [emailValue, setEmailValue] = useState("");
 
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const sendRequest = (emailValue) => {
     dispatch(sendForgotPasswordRequest(emailValue));
@@ -21,6 +22,15 @@ export function ForgotPage() {
   const login = useCallback(() => {
     history.replace({ pathname: "/login" });
   }, [history]);
+
+  useEffect(() => {
+    dispatch(getUserRequest());
+  }, [dispatch]);
+
+  
+  if(isLoggedIn){
+    return <Redirect to='/' />;
+  } else {
   return (
     <div className={styles.wrapper}>
       <p className="text text_type_main-medium">Восстановление пароля</p>
@@ -47,4 +57,5 @@ export function ForgotPage() {
       </div>
     </div>
   );
+}
 }
