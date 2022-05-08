@@ -11,9 +11,11 @@ import {
   ADD_CURRENT_ITEM,
   OPEN_MODAL,
 } from "../../../services/actions/modal";
+import { Link, useLocation } from "react-router-dom"
 
 const BurgerItem = ({ item, ...props }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
 
   function handleClickBurger(item) {
@@ -36,7 +38,12 @@ const BurgerItem = ({ item, ...props }) => {
   });
 
   return (
-    <>
+    <Link
+      to={{
+        pathname: `/ingredients/${props.id}`,
+        state: { background: location },
+      }}
+    >
       <div
         className={styles.burger_item}
         onClick={() => handleClickBurger(props)}
@@ -52,7 +59,7 @@ const BurgerItem = ({ item, ...props }) => {
 
         <p className="text text_type_main-default  mt-2 mb-6">{props.title}</p>
       </div>
-    </>
+    </Link>
   );
 };
 

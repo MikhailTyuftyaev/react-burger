@@ -1,13 +1,28 @@
-import React from "react";
+import React , { useEffect, useState, useCallback } from 'react';
 import PropTypes from "prop-types";
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { getItemsRequest } from '../../services/actions';
 import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ ...props }) => {
+
+  const dispatch = useDispatch();
+
+    useEffect(()=> {
+        dispatch(getItemsRequest());
+    }, [dispatch])
+
+  const { id } = useParams();
+    const ingredients = useSelector((state) => state.ingredients.data);
+    const currentItem = ingredients.find(({ _id }) => _id === id);
+    console.log(currentItem);
+
   return (
     <>
-      <img src={props.image} />
+      <img src={props.image || currentItem ? currentItem.image_large : ""} />
       <p className="text text_type_main-medium mt-4 pl-15 pr-15">
-        {props.name}
+        {props.name || currentItem ? currentItem.name : ""}
       </p>
       <div className={`${styles.props_container} mt-8 pl-15 pr-15`}>
         <div>
@@ -15,7 +30,7 @@ const IngredientDetails = ({ ...props }) => {
             Калории,ккал
           </p>
           <p className="text text_type_digits-default text_color_inactive mt-2">
-            {props.calories}
+            {props.calories || currentItem ? currentItem.calories : ""}
           </p>
         </div>
         <div>
@@ -23,7 +38,7 @@ const IngredientDetails = ({ ...props }) => {
             Белки, г
           </p>
           <p className="text text_type_digits-default text_color_inactive mt-2">
-            {props.proteins}
+            {props.proteins || currentItem ? currentItem.proteins : ""}
           </p>
         </div>
         <div>
@@ -31,7 +46,7 @@ const IngredientDetails = ({ ...props }) => {
             Жиры, г
           </p>
           <p className="text text_type_digits-default text_color_inactive mt-2">
-            {props.fat}
+            {props.fat || currentItem ? currentItem.fat : ""}
           </p>
         </div>
         <div>
@@ -39,7 +54,7 @@ const IngredientDetails = ({ ...props }) => {
             Углеводы, г
           </p>
           <p className="text text_type_digits-default text_color_inactive mt-2">
-            {props.carbohydrates}
+            {props.carbohydrates || currentItem ? currentItem.carbohydrates : ""}
           </p>
         </div>
       </div>
