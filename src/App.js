@@ -1,8 +1,11 @@
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import Modal from './components/modal/modal';
 import IngredientDetails from './components/ingredient-details/ingredient-details';
 import { HomePage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404} from './pages';
 import { useDispatch, useSelector } from 'react-redux';
+import { getItemsRequest } from "./services/actions/index";
+import { getUserRequest } from "./services/actions/auth";
 import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
 } from './services/actions/modal';
 import AppHeader from './components/app-header/app-header';
@@ -26,6 +29,11 @@ export default function App() {
       });
       history.goBack();
     }
+
+    useEffect(()=> {
+      dispatch(getItemsRequest());
+      dispatch(getUserRequest());
+  }, [dispatch])
 
     return (
       <>

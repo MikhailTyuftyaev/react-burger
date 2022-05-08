@@ -12,6 +12,13 @@
   scrollbar-width: thin;
 }
 
+.product_container a, 
+.product_container a:hover, 
+.product_container a:visited, 
+.product_container a:active{
+  color: inherit;
+}
+
 .product_section {
   display: grid;
   grid-template-columns: auto auto;

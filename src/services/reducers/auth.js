@@ -218,6 +218,7 @@ export const authReducer = (state = initialState, action) => {
         case LOGOUT_ACCOUNT_SUCCESS: {
             return {
                 ...state,
+                account: null,
                 isRegistered: false,
                 isLoggedIn: false,
                 isLoggedOut: true,

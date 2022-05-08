@@ -21,17 +21,24 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
 } from "../../services/actions/modal";
+import { useHistory } from 'react-router-dom';
 
 const BurgerConstructor = ({ ...props }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const ingredients = useSelector((state) => state.ingredients.data);
   const constructorItems = useSelector(
     (state) => state.ingredients.ingredients
   );
   const buns = useSelector((state) => state.ingredients.buns);
   const modal = useSelector((state) => state.modal.orderModal);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   function handleClickBurger() {
+    if (!isLoggedIn) {
+      history.push({ pathname: '/login', state: { prevPathname: history.location.pathname } });
+      return;
+    }
     dispatch(sendOrderRequest(orderRequest));
     dispatch({
       type: OPEN_MODAL,
