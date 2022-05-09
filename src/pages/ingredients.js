@@ -1,23 +1,15 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import styles from "./ingredients.module.css";
-import { getItemsRequest } from "../services/actions";
-
 export function IngredientsPage() {
-
-    const dispatch = useDispatch();
-
-    useEffect(()=> {
-        dispatch(getItemsRequest());
-    }, [dispatch])
 
     const { id } = useParams();
     const ingredients = useSelector((state) => state.ingredients.data);
+    const itemsRequest = useSelector((state)=> state.ingredients.itemsRequest)
+    const itemsFailed = useSelector((state) => state.ingredients.itemsFailed);
     const currentItem = ingredients.find(({ _id }) => _id === id);
-    console.log(currentItem)
-    
 
   return (
     <>
@@ -25,7 +17,7 @@ export function IngredientsPage() {
       <p className="text text_type_main-large">
         Детали ингредиента
     </p>
-      {currentItem ? 
+      {ingredients.length !== 0 && currentItem && !itemsRequest && !itemsFailed ? 
         <IngredientDetails
             image={currentItem.image_large}
             name={currentItem.name}
