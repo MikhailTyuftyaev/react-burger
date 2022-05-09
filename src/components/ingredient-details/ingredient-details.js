@@ -1,22 +1,14 @@
-import React , { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import { getItemsRequest } from '../../services/actions';
+import { useSelector } from "react-redux";
 import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ ...props }) => {
 
-  const dispatch = useDispatch();
-
-    useEffect(()=> {
-        dispatch(getItemsRequest());
-    }, [dispatch])
-
   const { id } = useParams();
     const ingredients = useSelector((state) => state.ingredients.data);
     const currentItem = ingredients.find(({ _id }) => _id === id);
-    console.log(currentItem);
 
   return (
     <>
