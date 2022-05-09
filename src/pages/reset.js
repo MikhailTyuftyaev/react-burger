@@ -61,7 +61,7 @@ export function ResetPage() {
     </>
   );
 }else if (isPasswordReset){
- return <Redirect to='/' />;
+ return <Redirect to='/login' />;
 } else {
   return <Redirect to='/forgot-password' />;
 }
