@@ -15,6 +15,7 @@ import {
   ADD_ITEM,
   ADD_BUN,
   INCREASE_ITEM,
+  CLEAR_ORDER_NUMBER,
   sendOrderRequest,
 } from "../../services/actions";
 import {
@@ -51,6 +52,9 @@ const BurgerConstructor = ({ ...props }) => {
       type: CLOSE_MODAL,
       orderModal: false,
     });
+    dispatch({
+      type: CLEAR_ORDER_NUMBER
+    })
   }
 
   const orderArray = ingredients.filter((item) => item.__v > 0);
