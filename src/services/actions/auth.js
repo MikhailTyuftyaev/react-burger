@@ -222,12 +222,10 @@ export function getUserRequest() {
         }
       })
       .catch((err) => {
-        if (
-          err.message === "jwt expired" ||
-          err.message === "Token is invalid"
-        ) {
-          dispatch(updateTokenRequest())
-          dispatch(getUserRequest())
+        if (err === 'Ошибка 403') {
+          dispatch(updateTokenRequest()).then(()=>{
+            dispatch(getUserRequest())
+          })
         } else {
           console.log(err);
           dispatch({ type: GET_USER_FAILED });
@@ -236,7 +234,7 @@ export function getUserRequest() {
   };
 }
 
-export function saveAccountDataRequest(name, email, pass) {
+export function saveAccountDataRequest(name, email) {
   return function (dispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST,
@@ -249,7 +247,6 @@ export function saveAccountDataRequest(name, email, pass) {
       },
       body: JSON.stringify({
         email: email,
-        password: pass,
         name: name,
       }),
     })
@@ -267,12 +264,10 @@ export function saveAccountDataRequest(name, email, pass) {
         }
       })
       .catch((err) => {
-        if (
-          err.message === "jwt expired" ||
-          err.message === "Token is invalid"
-        ) {
-          dispatch(updateTokenRequest())
-          dispatch(saveAccountDataRequest(name, email, pass))
+        if (err === 'Ошибка 403') {
+          dispatch(updateTokenRequest()).then(()=>{
+            dispatch(saveAccountDataRequest(name, email))
+          })
         } else{
           console.log(err);
           dispatch({ type: UPDATE_USER_FAILED });
@@ -319,7 +314,7 @@ export function updateTokenRequest() {
     dispatch({ 
       type: UPDATE_TOKEN_REQUEST 
     });
-    fetch(baseUrl + "/auth/token", {
+    return fetch(baseUrl + "/auth/token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",

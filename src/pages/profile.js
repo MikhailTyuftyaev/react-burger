@@ -99,7 +99,7 @@ export function ProfilePage() {
                 <Button 
                   type="primary" 
                   size="medium"
-                  onClick={() => saveAccountData(nameValue, emailValue, passValue)}>
+                  onClick={() => saveAccountData(nameValue, emailValue)}>
                   Сохранить
                 </Button>
               </div>
