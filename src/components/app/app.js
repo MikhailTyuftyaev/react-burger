@@ -6,6 +6,7 @@ import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, Ingredient
 import { useDispatch, useSelector } from 'react-redux';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
+import { getCookie } from '../utils/utils';
 import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
 } from '../../services/actions/modal';
 import AppHeader from '../app-header/app-header';
@@ -33,7 +34,10 @@ export default function App() {
 
     useEffect(()=> {
       dispatch(getItemsRequest());
-      dispatch(getUserRequest());
+      const accessToken = getCookie("accessToken");
+      if (accessToken){
+        dispatch(getUserRequest());
+      }
   }, [dispatch])
 
     return (
