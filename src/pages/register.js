@@ -6,7 +6,7 @@ import {
 import { useHistory, Redirect } from 'react-router-dom'; 
 import styles from "./login.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { sendRegisterRequest, getUserRequest } from "../services/actions/auth"
+import { sendRegisterRequest } from "../services/actions/auth"
 
 export function RegisterPage() {
   const history = useHistory(); 
@@ -29,9 +29,6 @@ export function RegisterPage() {
     },
     [history]
   ); 
-  useEffect(() => {
-    dispatch(getUserRequest());
-  }, [dispatch]);
   if (isRegistered) {
     return <Redirect to='/login' />;
   } else if (isLoggedIn) {

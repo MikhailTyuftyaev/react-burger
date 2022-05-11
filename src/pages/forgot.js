@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { sendForgotPasswordRequest, getUserRequest } from '../services/actions/auth'
+import { sendForgotPasswordRequest} from '../services/actions/auth'
 import styles from "./login.module.css";
 
 export function ForgotPage() {
@@ -23,10 +23,6 @@ export function ForgotPage() {
   const login = useCallback(() => {
     history.replace({ pathname: "/login" });
   }, [history]);
-
-  useEffect(() => {
-    dispatch(getUserRequest());
-  }, [dispatch]);
 
 
   if(isLoggedIn){

@@ -6,7 +6,7 @@ import {
 import { Route, Switch, NavLink, useRouteMatch, Redirect } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import {getUserRequest, saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
+import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
@@ -26,7 +26,6 @@ export function ProfilePage() {
   }
 
   const getUserData = () => {
-    dispatch(getUserRequest())
     setNameValue(auth.name)
     setEmailValue(auth.email)
     setPassValue("")
