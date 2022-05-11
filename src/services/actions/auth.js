@@ -35,6 +35,11 @@ export const LOGOUT_ACCOUNT_REQUEST = "LOGOUT_ACCOUNT_REQUEST";
 export const LOGOUT_ACCOUNT_SUCCESS = "LOGOUT_ACCOUNT_SUCCESS";
 export const LOGOUT_ACCOUNT_FAILED = "LOGOUT_ACCOUNT_FAILED";
 
+export const UPDATE_TOKEN_REQUEST = "UPDATE_TOKEN_REQUEST";
+export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
+export const UPDATE_TOKEN_FAILED = "UPDATE_TOKEN_REQUEST";
+
+
 export function sendForgotPasswordRequest(emailValue) {
   return function (dispatch) {
     dispatch({
@@ -51,7 +56,6 @@ export function sendForgotPasswordRequest(emailValue) {
     })
       .then(checkResponse)
       .then((res) => {
-        console.log(res);
         if (res && res.success) {
           dispatch({
             type: FORGOT_PASSWORD_SUCCESS,
@@ -135,7 +139,6 @@ export function sendLoginRequest(email, pass) {
           let accessToken = res.accessToken.split("Bearer ")[1];
           setCookie("accessToken", accessToken);
           setCookie("refreshToken", res.refreshToken);
-          console.log(res);
           dispatch({
             type: SAVE_REGISTER_ACCOUNT,
             email: res.user.email,
@@ -175,7 +178,6 @@ export function sendResetPasswordRequest(pass, token) {
     })
       .then(checkResponse)
       .then((res) => {
-        console.log(res);
         if (res && res.success) {
           dispatch({
             type: RESET_PASSWORD_SUCCESS,
@@ -220,7 +222,16 @@ export function getUserRequest() {
         }
       })
       .catch((err) => {
-        dispatch({ type: GET_USER_FAILED });
+        if (
+          err.message === "jwt expired" ||
+          err.message === "Token is invalid"
+        ) {
+          dispatch(updateTokenRequest())
+          dispatch(getUserRequest())
+        } else {
+          console.log(err);
+          dispatch({ type: GET_USER_FAILED });
+        }
       });
   };
 }
@@ -256,11 +267,20 @@ export function saveAccountDataRequest(name, email, pass) {
         }
       })
       .catch((err) => {
-        dispatch({ type: UPDATE_USER_FAILED });
+        if (
+          err.message === "jwt expired" ||
+          err.message === "Token is invalid"
+        ) {
+          dispatch(updateTokenRequest())
+          dispatch(saveAccountDataRequest(name, email, pass))
+        } else{
+          console.log(err);
+          dispatch({ type: UPDATE_USER_FAILED });
+        }
+          
       });
   };
 }
-
 
 export function sendLogoutRequest() {
   return function (dispatch) {
@@ -292,4 +312,35 @@ export function sendLogoutRequest() {
         });
       });
   };
+}
+
+export function updateTokenRequest() {
+  return function (dispatch) {
+    dispatch({ 
+      type: UPDATE_TOKEN_REQUEST 
+    });
+    fetch(baseUrl + "/auth/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify({
+        token: getCookie("refreshToken")
+      }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res && res.success) {
+          let accessToken = res.accessToken.split("Bearer ")[1];
+          setCookie("accessToken", accessToken);
+          setCookie("refreshToken", res.refreshToken);
+          dispatch({
+            type: UPDATE_TOKEN_SUCCESS,
+          });
+        }
+      })
+      .catch((err) => {
+        dispatch({ type: UPDATE_TOKEN_FAILED });
+      })
+  }
 }
