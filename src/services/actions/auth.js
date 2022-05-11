@@ -222,7 +222,7 @@ export function getUserRequest() {
         }
       })
       .catch((err) => {
-        if (err === 'Ошибка 403') {
+        if ((err.message === 'jwt expired') || (err.message === 'Token is invalid')) {
           dispatch(updateTokenRequest()).then(()=>{
             dispatch(getUserRequest())
           })
@@ -264,7 +264,7 @@ export function saveAccountDataRequest(name, email) {
         }
       })
       .catch((err) => {
-        if (err === 'Ошибка 403') {
+        if ((err.message === 'jwt expired') || (err.message === 'Token is invalid')) {
           dispatch(updateTokenRequest()).then(()=>{
             dispatch(saveAccountDataRequest(name, email))
           })
