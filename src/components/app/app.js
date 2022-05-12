@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../utils/utils';
+import { ProtectedRoute } from '../protected-route/protected-route';
 import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
 } from '../../services/actions/modal';
 import AppHeader from '../app-header/app-header';
@@ -59,9 +60,9 @@ export default function App() {
           <Route path="/reset-password" exact={true}>
             <ResetPage />
           </Route>
-          <Route path="/profile" exact={true}>
+          <ProtectedRoute path="/profile" exact={true}>
             <ProfilePage />
-          </Route>
+          </ProtectedRoute>
           <Route path="/ingredients/:id" exact={true}>
             <IngredientsPage />
           </Route>

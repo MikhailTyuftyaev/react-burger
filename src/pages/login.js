@@ -3,7 +3,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useHistory, Redirect } from 'react-router-dom'; 
+import { useHistory, Redirect, useLocation } from 'react-router-dom'; 
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginRequest } from '../services/actions/auth'
 import styles from "./login.module.css";
@@ -11,6 +11,7 @@ import styles from "./login.module.css";
 export function LoginPage() {
   const dispatch = useDispatch();
   const history = useHistory(); 
+  const location = useLocation();
 
   const [emailValue, setEmailValue] = useState("");
   const [passValue, setPassValue] = useState("");
@@ -36,7 +37,12 @@ export function LoginPage() {
   ); 
 
   if (isLoggedIn) {
-    return <Redirect to='/' />;
+    const { from } = location.state || { from: { pathname: '/' } }
+    return (
+      <Redirect
+        to={from}
+      />
+    );
   }
   else {
     return (

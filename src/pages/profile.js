@@ -3,7 +3,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Route, Switch, NavLink, useRouteMatch, Redirect } from "react-router-dom";
+import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
@@ -12,8 +12,6 @@ export function ProfilePage() {
   const { path } = useRouteMatch();
 
   const auth = useSelector((state)=> state.auth.account);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isLoggedOut = useSelector((state) => state.auth.isLoggedOut);
 
   const [nameValue, setNameValue] = useState(auth ? auth.name : "");
   const [emailValue, setEmailValue] = useState(auth ? auth.email : "");
@@ -34,7 +32,6 @@ export function ProfilePage() {
   const logout = () => {
     dispatch(sendLogoutRequest())
   }
-  if (isLoggedIn){
   return (
     <>
       <div className={styles.wrapper}>
@@ -108,10 +105,4 @@ export function ProfilePage() {
       </div>
     </>
   );
-}else if (isLoggedOut) {
-  return <Redirect to='/login' />;
-}
-else{
-  return <Redirect to='/login' />;
-}
 }
