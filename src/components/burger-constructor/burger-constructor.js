@@ -15,23 +15,31 @@ import {
   ADD_ITEM,
   ADD_BUN,
   INCREASE_ITEM,
+  CLEAR_ORDER_NUMBER,
   sendOrderRequest,
 } from "../../services/actions";
 import {
   OPEN_MODAL,
   CLOSE_MODAL,
 } from "../../services/actions/modal";
+import { useHistory } from 'react-router-dom';
 
 const BurgerConstructor = ({ ...props }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const ingredients = useSelector((state) => state.ingredients.data);
   const constructorItems = useSelector(
     (state) => state.ingredients.ingredients
   );
   const buns = useSelector((state) => state.ingredients.buns);
   const modal = useSelector((state) => state.modal.orderModal);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   function handleClickBurger() {
+    if (!isLoggedIn) {
+      history.push({ pathname: '/login', state: { prevPathname: history.location.pathname } });
+      return;
+    }
     dispatch(sendOrderRequest(orderRequest));
     dispatch({
       type: OPEN_MODAL,
@@ -44,6 +52,9 @@ const BurgerConstructor = ({ ...props }) => {
       type: CLOSE_MODAL,
       orderModal: false,
     });
+    dispatch({
+      type: CLEAR_ORDER_NUMBER
+    })
   }
 
   const orderArray = ingredients.filter((item) => item.__v > 0);

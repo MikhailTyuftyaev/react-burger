@@ -12,9 +12,11 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
   CLEAR_ORDER_ARRAY,
+  CLEAR_ORDER_NUMBER
 } from "../actions";
 import { combineReducers } from "redux";
 import { getModalItemsReducer } from "../reducers/modal";
+import { authReducer } from "../reducers/auth"
 
 export const initialState = {
   data: [],
@@ -143,6 +145,12 @@ export const getItemsReducer = (state = initialState, action) => {
         ingredients: []
       };
     }
+    case CLEAR_ORDER_NUMBER: {
+      return {
+        ...state,
+        order: null,
+      }
+    }
     default: {
       return state;
     }
@@ -152,4 +160,5 @@ export const getItemsReducer = (state = initialState, action) => {
 export const rootReducer = combineReducers({
   ingredients: getItemsReducer,
   modal: getModalItemsReducer,
+  auth: authReducer
 });

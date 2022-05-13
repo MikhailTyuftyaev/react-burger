@@ -5,36 +5,45 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from 'react-router-dom';
 import styles from "./app-header.module.css";
+
 
 function AppHeader() {
   return (
     <header>
       <nav>
-        <a
-          href="#"
-          className={`${styles.icon_button_1 + " text text_type_main-default"}`}
+        <NavLink
+          exact 
+          to={{ pathname: `/` }}
+          className={`${styles.icon_button + " text text_type_main-default"}`}
+          activeClassName={styles.active}
         >
-          <BurgerIcon type="primary" />
+          <BurgerIcon type="secondary" />
           Конструктор
-        </a>
-        <a
-          href="#"
-          className={`${styles.icon_button_2 + " text text_type_main-default"}`}
+        </NavLink>
+        <NavLink
+          to={{ pathname: `/order-list` }}
+          className={`${styles.icon_button + " text text_type_main-default"}`}
+          activeClassName={styles.active}
         >
           <ListIcon type="secondary" />
           Лента заказов
-        </a>
-        <a href="#" className={styles.logo}>
+        </NavLink>
+        <NavLink 
+            exact 
+            to={{ pathname: `/` }} 
+            className={styles.logo}>
           <Logo />
-        </a>
-        <a
-          href="#"
-          className={`${styles.icon_button_2 + " text text_type_main-default"}`}
+        </NavLink>
+        <NavLink
+          to={{ pathname: `/profile` }}
+          className={`${styles.icon_button + " text text_type_main-default"}`}
+          activeClassName={styles.active}
         >
           <ProfileIcon type="secondary" />
           Личный кабинет
-        </a>
+        </NavLink>
       </nav>
     </header>
   );
