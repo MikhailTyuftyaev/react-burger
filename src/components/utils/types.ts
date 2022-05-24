@@ -3,3 +3,7 @@ export type TModal = {
     isModal: boolean;
     onClose: () => void;
 }
+
+export type TModalOverlay = {
+    onClick: () => void;
+}
