@@ -1,5 +1,6 @@
 import { baseUrl } from "../../components/utils/constants";
 import { checkResponse } from "../../components/utils/utils";
+import { TDispatch } from "../../components/utils/types";
 
 export const GET_ITEMS_REQUEST = "GET_ITEMS_REQUEST";
 export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
@@ -24,7 +25,7 @@ export const CLEAR_ORDER_NUMBER = "CLEAR_ORDER_NUMBER";
 
 
 export function getItemsRequest() {
-  return function (dispatch) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: GET_ITEMS_REQUEST,
     });
@@ -50,8 +51,8 @@ export function getItemsRequest() {
   };
 }
 
-export function sendOrderRequest(constructorIngredients) {
-  return function (dispatch) {
+export function sendOrderRequest(constructorIngredients: Array<string[]>) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
