@@ -1,5 +1,5 @@
 export type TModal = {
     header?: string;
-    isModal?: boolean;
+    isModal: boolean;
     onClose: () => void;
 }
