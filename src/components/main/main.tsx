@@ -8,7 +8,7 @@ import { DndProvider } from 'react-dnd'
 const Main = () => {
   return (
     <DndProvider backend={HTML5Backend}>
-      <main>
+      <main className={styles.main}>
         <BurgerIngredients />
         <BurgerConstructor />
       </main>
