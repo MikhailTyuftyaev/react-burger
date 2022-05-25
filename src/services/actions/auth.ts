@@ -224,9 +224,8 @@ export function getUserRequest() {
       })
       .catch((err) => {
         if ((err.message === 'jwt expired') || (err.message === 'Token is invalid')) {
-          dispatch(updateTokenRequest()).then(()=>{
-            dispatch(getUserRequest())
-          })
+          dispatch(updateTokenRequest())
+          dispatch(getUserRequest())
         } else {
           console.log(err);
           dispatch({ type: GET_USER_FAILED });
@@ -266,9 +265,8 @@ export function saveAccountDataRequest(name: string, email: string) {
       })
       .catch((err) => {
         if ((err.message === 'jwt expired') || (err.message === 'Token is invalid')) {
-          dispatch(updateTokenRequest()).then(()=>{
-            dispatch(saveAccountDataRequest(name, email))
-          })
+          dispatch(updateTokenRequest())
+          dispatch(saveAccountDataRequest(name, email))
         } else{
           console.log(err);
           dispatch({ type: UPDATE_USER_FAILED });
