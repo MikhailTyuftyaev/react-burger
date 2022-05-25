@@ -4,6 +4,7 @@ import {
   getCookie,
 } from "../../components/utils/utils";
 import { baseUrl } from "../../components/utils/constants";
+import { TDispatch } from "../../components/utils/types";
 
 export const REGISTER_ACCOUNT_REQUEST = "REGISTER_ACCOUNT_REQUEST";
 export const REGISTER_ACCOUNT_SUCCESS = "REGISTER_ACCOUNT_SUCCESS";
@@ -40,8 +41,8 @@ export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
 export const UPDATE_TOKEN_FAILED = "UPDATE_TOKEN_REQUEST";
 
 
-export function sendForgotPasswordRequest(emailValue) {
-  return function (dispatch) {
+export function sendForgotPasswordRequest(emailValue: string) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST,
     });
@@ -74,8 +75,8 @@ export function sendForgotPasswordRequest(emailValue) {
   };
 }
 
-export function sendRegisterRequest(name, email, pass) {
-  return function (dispatch) {
+export function sendRegisterRequest(name: string, email: string, pass: string) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: REGISTER_ACCOUNT_REQUEST,
     });
@@ -118,8 +119,8 @@ export function sendRegisterRequest(name, email, pass) {
   };
 }
 
-export function sendLoginRequest(email, pass) {
-  return function (dispatch) {
+export function sendLoginRequest(email: string, pass: string) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: LOGIN_ACCOUNT_REQUEST,
     });
@@ -161,8 +162,8 @@ export function sendLoginRequest(email, pass) {
   };
 }
 
-export function sendResetPasswordRequest(pass, token) {
-  return function (dispatch) {
+export function sendResetPasswordRequest(pass: string, token: string) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
     });
@@ -197,7 +198,7 @@ export function sendResetPasswordRequest(pass, token) {
 }
 
 export function getUserRequest() {
-  return function (dispatch) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: GET_USER_REQUEST,
     });
@@ -234,8 +235,8 @@ export function getUserRequest() {
   };
 }
 
-export function saveAccountDataRequest(name, email) {
-  return function (dispatch) {
+export function saveAccountDataRequest(name: string, email: string) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST,
     });
@@ -278,7 +279,7 @@ export function saveAccountDataRequest(name, email) {
 }
 
 export function sendLogoutRequest() {
-  return function (dispatch) {
+  return function (dispatch: TDispatch) {
     dispatch({
       type: LOGOUT_ACCOUNT_REQUEST,
     });
@@ -310,7 +311,7 @@ export function sendLogoutRequest() {
 }
 
 export function updateTokenRequest() {
-  return function (dispatch) {
+  return function (dispatch: TDispatch) {
     dispatch({ 
       type: UPDATE_TOKEN_REQUEST 
     });
