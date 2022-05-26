@@ -1,4 +1,5 @@
 import { store } from '../../services/store';
+import { Location } from "history";
 import { rootReducer } from '../../services/reducers';
 import {
     TypedUseSelectorHook,
@@ -14,6 +15,12 @@ export type TModal = {
 export type TModalOverlay = {
     onClick: () => void;
 }
+
+export type TLocation = {
+    from: Location;
+    background?: Location;
+}
+
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type RootState = ReturnType<typeof rootReducer>; 
 export type TDispatch = typeof store.dispatch;
