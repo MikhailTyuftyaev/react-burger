@@ -16,6 +16,15 @@ export type TModalOverlay = {
     onClick: () => void;
 }
 
+export type TConstructorItem = {
+    id: string,
+    index: number,
+    name: string,
+    price: number,
+    thumbnail: string,
+    uiKey: string,
+}
+
 export type TLocation = {
     from: Location;
     background?: Location;

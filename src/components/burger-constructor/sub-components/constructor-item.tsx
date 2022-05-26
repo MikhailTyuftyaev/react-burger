@@ -1,5 +1,4 @@
-import React, {useRef} from "react";
-import PropTypes from "prop-types";
+import React, { FC, useRef} from "react";
 import {
   ConstructorElement,
   DragIcon,
@@ -8,12 +7,13 @@ import styles from "./constructor-item.module.css";
 import { useDispatch} from "react-redux";
 import { useDrag, useDrop } from 'react-dnd'
 import { DELETE_ITEM, DECREASE_ITEM, MOVE_ITEM } from "../../../services/actions";
+import { TConstructorItem } from "../../utils/types";
 
-const ConstructorItem = ({ index, id, ...props }) => {
-    const ref = useRef(null);
+const ConstructorItem: FC<TConstructorItem> = ({ index, id, name, price, thumbnail, uiKey }) => {
+    const ref = useRef<HTMLInputElement>(null);
     const dispatch = useDispatch();
 
-    const deleteItem = (item, uuid) => {
+    const deleteItem = (item:string , uuid: string) => {
         dispatch({
           type: DELETE_ITEM,
           uuid,
@@ -42,7 +42,7 @@ const ConstructorItem = ({ index, id, ...props }) => {
                 handlerId: monitor.getHandlerId(),
             };
         },
-        hover(item, monitor) {
+        hover(item: any, monitor) {
             if (!ref.current) {
                 return;
             }
@@ -54,7 +54,7 @@ const ConstructorItem = ({ index, id, ...props }) => {
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            const hoverClientY = (clientOffset?.y ?? 0) - hoverBoundingRect.top;
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }
@@ -82,29 +82,14 @@ const ConstructorItem = ({ index, id, ...props }) => {
 
         <div className={`${styles.element_box} ml-2 pr-2 `}>
           <ConstructorElement
-            text={props.name}
-            price={props.price}
-            thumbnail={props.thumbnail}
-            handleClose={() => deleteItem(id, props.uiKey)}
+            text={name}
+            price={price}
+            thumbnail={thumbnail}
+            handleClose={() => deleteItem(id, uiKey)}
           />
         </div>
       </div>
     );
 };
-
-ConstructorItem.propTypes = {
-    /** Item index */
-    index: PropTypes.number.isRequired,
-    /** Item _id */
-    id: PropTypes.string.isRequired,
-    /** Item uuid */
-    uiKey: PropTypes.string.isRequired,
-    /** Item name */
-    name: PropTypes.string.isRequired,
-    /** Item name */
-    price: PropTypes.number.isRequired,
-    /** Item src path to thumbnail image */
-    thumbnail: PropTypes.string.isRequired,
-  };
   
 export default ConstructorItem;
