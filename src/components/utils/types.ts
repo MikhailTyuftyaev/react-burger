@@ -45,6 +45,38 @@ export type TLocation = {
     from: Location;
     background?: Location;
 }
+export type TIngredientId = Pick<TItem, '_id'> | string;
+
+export type TOrder = {
+    name: string;
+    ingredients: Array<TIngredientId>;
+    _id: string;
+    status: string;
+    number: number;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type TOrderObject = {
+    name: string;
+    order: TOrder;
+    success: boolean;
+};
+
+export type TitemsState = {
+    data: TItem[],
+    itemsRequest: boolean,
+    itemsFailed: boolean,
+    buns: object,
+    ingredients: TItem[],
+    order: TOrderObject[],
+    orderRequest: boolean,
+    orderFailed: boolean,
+}
+
+export type  TGeneralBurgersActions = {
+
+}
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type TDispatch = typeof store.dispatch;

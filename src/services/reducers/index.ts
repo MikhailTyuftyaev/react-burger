@@ -15,21 +15,49 @@ import {
   CLEAR_ORDER_NUMBER
 } from "../actions";
 import { combineReducers } from "redux";
-import { getModalItemsReducer } from "../reducers/modal";
-import { authReducer } from "../reducers/auth"
+import { getModalItemsReducer } from "./modal";
+import { authReducer } from "./auth"
+import { TitemsState, TItem, TOrderObject } from "../../components/utils/types";
 
-export const initialState = {
+export interface IGetItemsReducer {
+  readonly type: 
+  typeof GET_ITEMS_REQUEST | 
+  typeof GET_ITEMS_SUCCESS |
+  typeof GET_ITEMS_FAILED |
+  typeof INCREASE_ITEM |
+  typeof DECREASE_ITEM |
+  typeof ADD_BUN |
+  typeof ADD_ITEM |
+  typeof DELETE_ITEM |
+  typeof MOVE_ITEM |
+  typeof GET_ORDER_REQUEST |
+  typeof GET_ORDER_SUCCESS |
+  typeof GET_ORDER_FAILED |
+  typeof CLEAR_ORDER_ARRAY |
+  typeof CLEAR_ORDER_NUMBER;
+  data: TItem[];
+  item: TItem;
+  id: TItem["_id"];
+  uuid: TItem["uuid"];
+  dragIndex: number;
+  hoverIndex: number;
+  order: TOrderObject[];
+}
+
+export const initialState: TitemsState = {
   data: [],
   itemsRequest: false,
   itemsFailed: false,
   buns: [],
   ingredients: [],
-  order: null,
+  order: [],
   orderRequest: false,
   orderFailed: false,
 };
 
-export const getItemsReducer = (state = initialState, action) => {
+
+
+export const getItemsReducer = (state = initialState, action: IGetItemsReducer): TitemsState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {
@@ -58,12 +86,7 @@ export const getItemsReducer = (state = initialState, action) => {
         data: [...state.data].map((item) =>
           item._id === action.item._id && action.item.type !== "bun"
             ? { ...item, __v: ++item.__v }
-            : item
-        ),
-        data: [...state.data].map((item) =>
-          item._id !== action.item._id && action.item.type === "bun"
-            ? { ...item, __v: 0 }
-            : item
+            : { ...item, __v: item.__v }
         ),
       };
     }
@@ -89,7 +112,7 @@ export const getItemsReducer = (state = initialState, action) => {
         data: [...state.data].map((item) =>
           item._id === action.item._id && action.item.type === "bun"
             ? { ...item, __v: 2}
-            : item
+            : { ...item, __v: 0}
         ),
         buns: action.item,
       };
@@ -148,7 +171,7 @@ export const getItemsReducer = (state = initialState, action) => {
     case CLEAR_ORDER_NUMBER: {
       return {
         ...state,
-        order: null,
+        order: [],
       }
     }
     default: {
