@@ -1,13 +1,12 @@
 import React from "react";
-import {useSelector } from "react-redux";
+import { useAppSelector, RootState, TItem } from "../../utils/types";
 import ConstructorItem from "./constructor-item"
 
 const ConstructorList = ({ ...props }) => {
-  const constructorItems = useSelector(
-    (state) => state.ingredients.ingredients
-  );
+  const constructorItems = useAppSelector(
+    (state: RootState) => state.ingredients.ingredients);
 
-  return constructorItems.map(function (item, index) {
+  return constructorItems.map(function (item: TItem, index: number) {
     return (
       <ConstructorItem 
         index={index}

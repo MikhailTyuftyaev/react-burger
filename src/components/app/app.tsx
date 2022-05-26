@@ -4,7 +4,7 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404} from '../../pages';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../utils/types';
+import { useAppSelector } from '../utils/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../utils/utils';
@@ -22,7 +22,7 @@ const App: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let background = location.state && location.state.background;
-    const modalItem = useSelector((state) => state.modal.currentItem);
+    const modalItem = useAppSelector((state) => state.modal.currentItem);
 
     function onClose() {
       dispatch({

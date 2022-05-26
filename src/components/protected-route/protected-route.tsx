@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { Route, Redirect, RouteProps } from "react-router-dom";
-import { useSelector, RootState } from '../utils/types';
+import { useAppSelector, RootState } from '../utils/types';
 import { IisLoggedin } from '../utils/interfaces';
 
 export const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
-  const isLoggedIn: IisLoggedin = useSelector((state: RootState) => state.auth['isLoggedIn']);
+  const isLoggedIn: IisLoggedin = useAppSelector((state: RootState) => state.auth['isLoggedIn']);
 
   if (!isLoggedIn) {
     return (

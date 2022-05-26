@@ -16,6 +16,22 @@ export type TModalOverlay = {
     onClick: () => void;
 }
 
+export type TItem = {
+    _id: string,
+    name: string,
+    type: string,
+    proteins: number,
+    fat: number,
+    carbohydrates: number,
+    calories: number,
+    price: number,
+    image: string,
+    image_mobile: string,
+    image_large: string,
+    __v: number,
+    uuid: string,
+}
+
 export type TConstructorItem = {
     id: string,
     index: number,
@@ -29,7 +45,6 @@ export type TLocation = {
     from: Location;
     background?: Location;
 }
-
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type RootState = ReturnType<typeof rootReducer>; 
+export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type TDispatch = typeof store.dispatch;
