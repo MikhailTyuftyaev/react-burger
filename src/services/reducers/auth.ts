@@ -33,9 +33,41 @@ import {
     UPDATE_TOKEN_SUCCESS,
     UPDATE_TOKEN_FAILED
 } from '../actions/auth';
+import { TauthState } from '../../components/utils/types';
 
-const initialState = {
-    account: null,
+export interface IauthReducer {
+    readonly type: 
+    typeof REGISTER_ACCOUNT_REQUEST | 
+    typeof REGISTER_ACCOUNT_SUCCESS |
+    typeof REGISTER_ACCOUNT_FAILED |
+    typeof LOGIN_ACCOUNT_REQUEST |
+    typeof LOGIN_ACCOUNT_SUCCESS |
+    typeof LOGIN_ACCOUNT_FAILED |
+    typeof SAVE_REGISTER_ACCOUNT |
+    typeof FORGOT_PASSWORD_REQUEST |
+    typeof FORGOT_PASSWORD_SUCCESS |
+    typeof FORGOT_PASSWORD_FAILED |
+    typeof RESET_PASSWORD_REQUEST |
+    typeof RESET_PASSWORD_SUCCESS |
+    typeof RESET_PASSWORD_FAILED |
+    typeof GET_USER_REQUEST|
+    typeof GET_USER_SUCCESS|
+    typeof GET_USER_FAILED|
+    typeof UPDATE_USER_REQUEST|
+    typeof UPDATE_USER_SUCCESS|
+    typeof UPDATE_USER_FAILED|
+    typeof LOGOUT_ACCOUNT_REQUEST|
+    typeof LOGOUT_ACCOUNT_SUCCESS|
+    typeof LOGOUT_ACCOUNT_FAILED|
+    typeof UPDATE_TOKEN_REQUEST|
+    typeof UPDATE_TOKEN_SUCCESS|
+    typeof UPDATE_TOKEN_FAILED;
+    name: string;
+    email: string;
+  }
+
+const initialState: TauthState = {
+    account: {},
 
     isRegistered: false,
     registerAccountRequest: true,
@@ -67,7 +99,7 @@ const initialState = {
     updateTokenFailed: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: IauthReducer): TauthState => {
     switch (action.type) {
         case REGISTER_ACCOUNT_REQUEST: {
             return {
@@ -225,7 +257,7 @@ export const authReducer = (state = initialState, action) => {
         case LOGOUT_ACCOUNT_SUCCESS: {
             return {
                 ...state,
-                account: null,
+                account: {},
                 isRegistered: false,
                 isLoggedIn: false,
                 isLoggedOut: true,

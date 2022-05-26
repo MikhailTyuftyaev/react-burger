@@ -74,9 +74,37 @@ export type TitemsState = {
     orderFailed: boolean,
 }
 
-export type  TGeneralBurgersActions = {
-
+export type TUserData = {
+    name?: string;
+    email?: string;
+    password?: string;
 }
+
+export type TauthState = {
+    account: TUserData,
+    isRegistered: boolean,
+    registerAccountRequest: boolean,
+    registerAccountFailed: boolean,
+    isLoggedIn: boolean,
+    loginAccountRequest: boolean,
+    loginAccountFailed: boolean,
+    isForgotReset: boolean,
+    forgotPasswordRequest: boolean,
+    forgotPasswordFailed: boolean,
+    isPasswordReset: boolean,
+    resetPasswordRequest: boolean,
+    resetPasswordFailed: boolean,
+    getUserRequest: boolean,
+    getUserFailed: boolean,
+    updateAccountRequest: boolean,
+    updateAccountFailed: boolean,
+    isLoggedOut: boolean,
+    logoutAccountRequest: boolean,
+    logoutAccountFailed: boolean,
+    updateTokenRequest: boolean,
+    updateTokenFailed: boolean,
+}
+
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type TDispatch = typeof store.dispatch;
