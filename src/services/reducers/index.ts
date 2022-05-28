@@ -32,7 +32,7 @@ export const initialState: TitemsState = {
 
 
 
-export const getItemsReducer = (state = initialState, action): TitemsState => {
+export const getItemsReducer = (state = initialState, action: any): TitemsState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {

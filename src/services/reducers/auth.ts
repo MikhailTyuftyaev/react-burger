@@ -68,7 +68,7 @@ const initialState: TauthState = {
     updateTokenFailed: false,
 };
 
-export const authReducer = (state = initialState, action): TauthState => {
+export const authReducer = (state = initialState, action: any): TauthState => {
     switch (action.type) {
         case REGISTER_ACCOUNT_REQUEST: {
             return {

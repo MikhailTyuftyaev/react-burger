@@ -13,7 +13,7 @@ const initialState: TmodalState = {
     orderModal: false,
  };
 
-export const getModalItemsReducer = (state = initialState, action) => {
+export const getModalItemsReducer = (state = initialState, action: any) => {
     switch (action.type) {
       case OPEN_MODAL: {
         return  {
