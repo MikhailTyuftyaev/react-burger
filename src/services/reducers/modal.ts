@@ -4,8 +4,10 @@ import {
     ADD_CURRENT_ITEM,
     DELETE_CURRENT_ITEM
 } from "../actions/modal";
+import { TmodalState } from "../../components/utils/types";
 
-const initialState = {
+
+const initialState: TmodalState = {
     currentItem: {},
     ingredientModal: false,
     orderModal: false,

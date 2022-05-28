@@ -105,6 +105,21 @@ export type TauthState = {
     updateTokenFailed: boolean,
 }
 
+export type TmodalItem = {
+    imageLarge: string,
+    title: string,
+    calories: number,
+    proteins: number,
+    fat: number,
+    carbohydrates: number,
+}
+
+export type TmodalState = {
+    currentItem: TmodalItem | {},
+    ingredientModal: boolean,
+    orderModal: boolean;
+}
+
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type TDispatch = typeof store.dispatch;
