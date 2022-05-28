@@ -17,32 +17,7 @@ import {
 import { combineReducers } from "redux";
 import { getModalItemsReducer } from "./modal";
 import { authReducer } from "./auth"
-import { TitemsState, TItem, TOrderObject } from "../../components/utils/types";
-
-export interface IGetItemsReducer {
-  readonly type: 
-  typeof GET_ITEMS_REQUEST | 
-  typeof GET_ITEMS_SUCCESS |
-  typeof GET_ITEMS_FAILED |
-  typeof INCREASE_ITEM |
-  typeof DECREASE_ITEM |
-  typeof ADD_BUN |
-  typeof ADD_ITEM |
-  typeof DELETE_ITEM |
-  typeof MOVE_ITEM |
-  typeof GET_ORDER_REQUEST |
-  typeof GET_ORDER_SUCCESS |
-  typeof GET_ORDER_FAILED |
-  typeof CLEAR_ORDER_ARRAY |
-  typeof CLEAR_ORDER_NUMBER;
-  data: TItem[];
-  item: TItem;
-  id: TItem["_id"];
-  uuid: TItem["uuid"];
-  dragIndex: number;
-  hoverIndex: number;
-  order: TOrderObject[];
-}
+import { TitemsState} from "../../components/utils/types";
 
 export const initialState: TitemsState = {
   data: [],
@@ -57,7 +32,7 @@ export const initialState: TitemsState = {
 
 
 
-export const getItemsReducer = (state = initialState, action: IGetItemsReducer): TitemsState => {
+export const getItemsReducer = (state = initialState, action): TitemsState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {

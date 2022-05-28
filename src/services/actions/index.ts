@@ -24,7 +24,7 @@ export const CLEAR_ORDER_NUMBER = "CLEAR_ORDER_NUMBER";
 
 
 
-export function getItemsRequest() {
+export const getItemsRequest = () => {
   return function (dispatch: TDispatch) {
     dispatch({
       type: GET_ITEMS_REQUEST,
