@@ -17,28 +17,28 @@ export type TModalOverlay = {
 }
 
 export type TItem = {
-    _id: string,
-    name: string,
-    type: string,
-    proteins: number,
-    fat: number,
-    carbohydrates: number,
-    calories: number,
-    price: number,
-    image: string,
-    image_mobile: string,
-    image_large: string,
-    __v: number,
-    uuid: string,
+    _id: string;
+    name: string;
+    type: string;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
+    calories: number;
+    price: number;
+    image: string;
+    image_mobile: string;
+    image_large: string;
+    __v: number;
+    uuid: string;
 }
 
 export type TConstructorItem = {
-    id: string,
-    index: number,
-    name: string,
-    price: number,
-    thumbnail: string,
-    uiKey: string,
+    id: string;
+    index: number;
+    name: string;
+    price: number;
+    thumbnail: string;
+    uiKey: string;
 }
 
 export type TLocation = {
@@ -64,14 +64,14 @@ export type TOrderObject = {
 };
 
 export type TitemsState = {
-    data: TItem[],
-    itemsRequest: boolean,
-    itemsFailed: boolean,
-    buns: object,
-    ingredients: TItem[],
-    order: TOrderObject[],
-    orderRequest: boolean,
-    orderFailed: boolean,
+    data: TItem[];
+    itemsRequest: boolean;
+    itemsFailed: boolean;
+    buns: TItem[];
+    ingredients: TItem[];
+    order: TOrderObject[];
+    orderRequest: boolean;
+    orderFailed: boolean;
 }
 
 export type TUserData = {

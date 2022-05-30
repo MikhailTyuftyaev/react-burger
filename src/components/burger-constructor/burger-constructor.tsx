@@ -8,7 +8,8 @@ import Modal from "../modal/modal";
 import ConstructorList from "./sub-components/constructor-list";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch,  } from "react-redux";
+import { useAppSelector, RootState, TItem } from "../utils/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -27,13 +28,13 @@ import { useHistory } from 'react-router-dom';
 const BurgerConstructor = ({ ...props }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const ingredients = useSelector((state) => state.ingredients.data);
-  const constructorItems = useSelector(
+  const ingredients = useAppSelector((state: RootState) => state.ingredients.data);
+  const constructorItems = useAppSelector(
     (state) => state.ingredients.ingredients
   );
-  const buns = useSelector((state) => state.ingredients.buns);
-  const modal = useSelector((state) => state.modal.orderModal);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const buns = useAppSelector((state: RootState) => state.ingredients.buns);
+  const modal = useAppSelector((state: RootState) => state.modal.orderModal);
+  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
 
   function handleClickBurger() {
     if (!isLoggedIn) {
@@ -65,7 +66,7 @@ const BurgerConstructor = ({ ...props }) => {
   let sum = 0;
   const total = ingredients.map(function (item) {
     if (item.__v > 0) {
-      return sum + parseInt(item.price, 10) * item.__v;
+      return sum + item.price * item.__v;
     } else {
       return 0;
     }
@@ -77,7 +78,7 @@ const BurgerConstructor = ({ ...props }) => {
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: TItem) {
       movePostponedItem(item);
     },
     collect: (monitor) => ({
@@ -85,7 +86,7 @@ const BurgerConstructor = ({ ...props }) => {
     }),
   });
 
-  const movePostponedItem = (item) => {
+  const movePostponedItem = (item: TItem) => {
     const uuid = uuidv4();
     if (item.type === "bun") {
       dispatch({
@@ -115,13 +116,14 @@ const BurgerConstructor = ({ ...props }) => {
         >
           <div className="ml-10 mr-4">
             {buns.length !== 0 ? (
+              buns.map(buns =>
               <ConstructorElement
                 type="top"
                 isLocked={true}
                 text={`${buns.name} (верх)`}
                 price={buns.price}
                 thumbnail={buns.image_mobile}
-              />
+              />)
             ) : (
               <p className="text text_type_main-default text_color_inactive">
                 Пожалуйста, перенесите сюда булку и ингредиенты для создания
@@ -138,13 +140,14 @@ const BurgerConstructor = ({ ...props }) => {
           </div>
           <div className="ml-10 mr-4">
             {buns.length !== 0 ? (
+              buns.map(buns =>
               <ConstructorElement
                 type="bottom"
                 isLocked={true}
                 text={`${buns.name} (низ)`}
                 price={buns.price}
                 thumbnail={buns.image_mobile}
-              />
+              />)
             ) : (
               <p className="text text_type_main-default text_color_inactive">
                 Пожалуйста, перенесите сюда булку и ингредиенты для создания

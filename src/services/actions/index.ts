@@ -51,7 +51,7 @@ export const getItemsRequest = () => {
   };
 }
 
-export function sendOrderRequest(constructorIngredients: Array<string[]>) {
+export function sendOrderRequest(constructorIngredients: Array<string>) {
   return function (dispatch: TDispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
