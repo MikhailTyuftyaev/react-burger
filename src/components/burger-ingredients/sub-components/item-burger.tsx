@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styles from "./item-burger.module.css";
 import {
   Counter,
@@ -11,14 +10,15 @@ import {
   ADD_CURRENT_ITEM,
   OPEN_MODAL,
 } from "../../../services/actions/modal";
+import { TBurgerItem, TItem } from "../../utils/types";
 import { Link, useLocation } from "react-router-dom"
 
-const BurgerItem = ({ item, ...props }) => {
+const BurgerItem = ({ item, ...props }: TBurgerItem) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
 
-  function handleClickBurger(item) {
+  function handleClickBurger(item: TItem) {
     dispatch({
       type: ADD_CURRENT_ITEM,
       item,
@@ -46,7 +46,7 @@ const BurgerItem = ({ item, ...props }) => {
     >
       <div
         className={styles.burger_item}
-        onClick={() => handleClickBurger(props)}
+        onClick={() => handleClickBurger(item)}
         style={{ opacity }}
         ref={dragRef}
       >
@@ -61,31 +61,6 @@ const BurgerItem = ({ item, ...props }) => {
       </div>
     </Link>
   );
-};
-
-BurgerItem.propTypes = {
-  /** Name burger */
-  title: PropTypes.string.isRequired,
-  /** Item _id */
-  id: PropTypes.string.isRequired,
-  /** Item parameters */
-  item: PropTypes.object.isRequired,
-  /** Path for image burger */
-  image: PropTypes.string.isRequired,
-  /** Price burger */
-  price: PropTypes.number.isRequired,
-  /** Path for large image burger */
-  imageLarge: PropTypes.string.isRequired,
-  /** Burger calories */
-  calories: PropTypes.number.isRequired,
-  /** Burger proteins */
-  proteins: PropTypes.number.isRequired,
-  /** Burger fat */
-  fat: PropTypes.number.isRequired,
-  /** Burger count */
-  count: PropTypes.number.isRequired,
-  /** Burger carbohydrates*/
-  carbohydrates: PropTypes.number.isRequired,
 };
 
 export default BurgerItem;

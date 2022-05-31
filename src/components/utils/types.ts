@@ -32,6 +32,21 @@ export type TItem = {
     uuid: string;
 }
 
+export type TBurgerItem = {
+    title: string;
+    key: string;
+    id: string;
+    item: TItem;
+    image: string;
+    price: number;
+    imageLarge: string;
+    calories: number;
+    proteins: number;
+    fat: number;
+    count: number;
+    carbohydrates: number;
+}
+
 export type TConstructorItem = {
     id: string;
     index: number;
