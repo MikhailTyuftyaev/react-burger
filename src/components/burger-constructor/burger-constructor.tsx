@@ -116,13 +116,13 @@ const BurgerConstructor = ({ ...props }) => {
         >
           <div className="ml-10 mr-4">
             {buns.length !== 0 ? (
-              buns.map(buns =>
+              buns.map((bun) =>
               <ConstructorElement
                 type="top"
                 isLocked={true}
-                text={`${buns.name} (верх)`}
-                price={buns.price}
-                thumbnail={buns.image_mobile}
+                text={`${bun.name} (верх)`}
+                price={bun.price}
+                thumbnail={bun.image_mobile}
               />)
             ) : (
               <p className="text text_type_main-default text_color_inactive">
@@ -140,13 +140,13 @@ const BurgerConstructor = ({ ...props }) => {
           </div>
           <div className="ml-10 mr-4">
             {buns.length !== 0 ? (
-              buns.map(buns =>
+              buns.map((bun) =>
               <ConstructorElement
                 type="bottom"
                 isLocked={true}
-                text={`${buns.name} (низ)`}
-                price={buns.price}
-                thumbnail={buns.image_mobile}
+                text={`${bun.name} (низ)`}
+                price={bun.price}
+                thumbnail={bun.image_mobile}
               />)
             ) : (
               <p className="text text_type_main-default text_color_inactive">
