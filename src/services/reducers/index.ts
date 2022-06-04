@@ -23,7 +23,7 @@ export const initialState: TitemsState = {
   data: [],
   itemsRequest: false,
   itemsFailed: false,
-  buns: [],
+  buns: null,
   ingredients: [],
   order: [],
   orderRequest: false,
@@ -139,7 +139,7 @@ export const getItemsReducer = (state = initialState, action: any): TitemsState 
             ? { ...item, __v: 0 }
             : item
         ),
-        buns: [],
+        buns: null,
         ingredients: []
       };
     }

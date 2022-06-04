@@ -82,7 +82,7 @@ export type TitemsState = {
     data: TItem[];
     itemsRequest: boolean;
     itemsFailed: boolean;
-    buns: TItem[];
+    buns: TItem | null;
     ingredients: TItem[];
     order: TOrderObject[];
     orderRequest: boolean;

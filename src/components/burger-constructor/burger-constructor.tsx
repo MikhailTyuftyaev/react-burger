@@ -113,17 +113,17 @@ const BurgerConstructor = ({ ...props }) => {
         <div
           className={`${styles.constructor_container} mt-25`}
           ref={dropTarget}
-        >
+        > 
           <div className="ml-10 mr-4">
-            {buns.length !== 0 ? (
-              buns.map((bun) =>
+            {console.log(buns)}
+            {buns !== null ? (
               <ConstructorElement
                 type="top"
                 isLocked={true}
-                text={`${bun.name} (верх)`}
-                price={bun.price}
-                thumbnail={bun.image_mobile}
-              />)
+                text={`${buns.name} (верх)`}
+                price={buns.price}
+                thumbnail={buns.image_mobile}
+              />
             ) : (
               <p className="text text_type_main-default text_color_inactive">
                 Пожалуйста, перенесите сюда булку и ингредиенты для создания
@@ -139,15 +139,14 @@ const BurgerConstructor = ({ ...props }) => {
             <ConstructorList />
           </div>
           <div className="ml-10 mr-4">
-            {buns.length !== 0 ? (
-              buns.map((bun) =>
+            {buns !== null ? (
               <ConstructorElement
                 type="bottom"
                 isLocked={true}
-                text={`${bun.name} (низ)`}
-                price={bun.price}
-                thumbnail={bun.image_mobile}
-              />)
+                text={`${buns.name} (низ)`}
+                price={buns.price}
+                thumbnail={buns.image_mobile}
+              />
             ) : (
               <p className="text text_type_main-default text_color_inactive">
                 Пожалуйста, перенесите сюда булку и ингредиенты для создания
@@ -167,7 +166,7 @@ const BurgerConstructor = ({ ...props }) => {
             type="primary"
             size="large"
             onClick={handleClickBurger}
-            disabled={buns.length === 0 || constructorItems.length === 0}
+            disabled={buns === null || constructorItems.length === 0}
           >
             Оформить заказ
           </Button>
