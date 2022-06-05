@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import BurgerItem from "./item-burger";
+import { TItem } from "../../utils/types";
 
 const BurgerList = ({ ...props }) => {
-  return props.data.map(function (item) {
+  return props.data.map(function (item: TItem) {
     return (
       <BurgerItem
         title={item.name}
