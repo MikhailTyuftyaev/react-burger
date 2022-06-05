@@ -140,6 +140,10 @@ export type Tsection = {
     sectionRef: any;
 }
 
+export type Tparams = {
+    id?: string;
+}
+
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type TDispatch = typeof store.dispatch;
