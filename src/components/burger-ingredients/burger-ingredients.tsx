@@ -4,10 +4,10 @@ import BurgerList from "./sub-components/burger-list";
 import styles from "./burger-ingredients.module.css";
 import Section from "./sub-components/section";
 import { useInView } from "react-intersection-observer";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../utils/types";
 
 const BurgerIngredients = ({ ...props }) => {
-  const ingredients = useSelector((state) => state.ingredients.data);
+  const ingredients = useAppSelector((state) => state.ingredients.data);
 
   const [current, setCurrent] = useState("bun");
   let buns = [];

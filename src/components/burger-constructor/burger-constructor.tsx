@@ -115,7 +115,6 @@ const BurgerConstructor = ({ ...props }) => {
           ref={dropTarget}
         > 
           <div className="ml-10 mr-4">
-            {console.log(buns)}
             {buns !== null ? (
               <ConstructorElement
                 type="top"
