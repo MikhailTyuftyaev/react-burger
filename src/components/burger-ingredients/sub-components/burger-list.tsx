@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import BurgerItem from "./item-burger";
 import { TItem } from "../../utils/types";
 
@@ -22,11 +21,6 @@ const BurgerList = ({ ...props }) => {
       />
     );
   });
-};
-
-BurgerList.propTypes = {
-  /** Main data */
-  data: PropTypes.array,
 };
 
 export default BurgerList;
