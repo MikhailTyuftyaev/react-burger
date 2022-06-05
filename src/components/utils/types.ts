@@ -135,6 +135,11 @@ export type TmodalState = {
     orderModal: boolean;
 }
 
+export type Tsection = {
+    id: string;
+    sectionRef: any;
+}
+
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type TDispatch = typeof store.dispatch;
