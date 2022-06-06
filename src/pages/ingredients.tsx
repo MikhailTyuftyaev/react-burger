@@ -1,14 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useAppSelector, RootState, Tparams } from '../components/utils/types';
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import styles from "./ingredients.module.css";
 export function IngredientsPage() {
 
-    const { id } = useParams();
-    const ingredients = useSelector((state) => state.ingredients.data);
-    const itemsRequest = useSelector((state)=> state.ingredients.itemsRequest)
-    const itemsFailed = useSelector((state) => state.ingredients.itemsFailed);
+    const { id }: Tparams = useParams();
+    const ingredients = useAppSelector((state: RootState) => state.ingredients.data);
+    const itemsRequest = useAppSelector((state: RootState)=> state.ingredients.itemsRequest)
+    const itemsFailed = useAppSelector((state: RootState) => state.ingredients.itemsFailed);
     const currentItem = ingredients.find(({ _id }) => _id === id);
 
   return (
