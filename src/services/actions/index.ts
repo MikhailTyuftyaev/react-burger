@@ -1,6 +1,6 @@
-import { baseUrl } from "../../components/utils/constants";
-import { checkResponse } from "../../components/utils/utils";
-import { TDispatch } from "../../components/utils/types";
+import { baseUrl } from "../../utils/constants";
+import { checkResponse } from "../../utils/utils";
+import { TDispatch } from "../../utils/types";
 
 export const GET_ITEMS_REQUEST = "GET_ITEMS_REQUEST";
 export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";

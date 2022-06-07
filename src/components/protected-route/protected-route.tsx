@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Route, Redirect, RouteProps } from "react-router-dom";
-import { useAppSelector, RootState } from '../utils/types';
+import { useAppSelector, RootState } from '../../utils/types';
 
 export const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
   const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);

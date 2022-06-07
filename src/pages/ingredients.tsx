@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector, RootState, Tparams } from '../components/utils/types';
+import { useAppSelector, RootState, Tparams } from '../utils/types';
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import styles from "./ingredients.module.css";
 export function IngredientsPage() {

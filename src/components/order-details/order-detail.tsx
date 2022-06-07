@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-detail.module.css";
-import { useAppSelector, RootState } from "../utils/types";
+import { useAppSelector, RootState } from "../../utils/types";
 
 const OrderDetails = ({ ...props }) => {
   const order = useAppSelector((state: RootState) => state.ingredients.order);

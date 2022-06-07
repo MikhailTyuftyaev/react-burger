@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import { Tsection } from "../../utils/types";
+import { Tsection } from "../../../utils/types";
 
 const Section: FC<Tsection> = (({ id, children, sectionRef}) => {
     return (

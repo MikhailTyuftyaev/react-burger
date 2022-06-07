@@ -9,7 +9,7 @@ import ConstructorList from "./sub-components/constructor-list";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
 import { useDispatch,  } from "react-redux";
-import { useAppSelector, RootState, TItem } from "../utils/types";
+import { useAppSelector, RootState, TItem } from "../../utils/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import {

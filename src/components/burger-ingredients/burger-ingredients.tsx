@@ -4,7 +4,7 @@ import BurgerList from "./sub-components/burger-list";
 import styles from "./burger-ingredients.module.css";
 import Section from "./sub-components/section";
 import { useInView } from "react-intersection-observer";
-import { useAppSelector } from "../utils/types";
+import { useAppSelector } from "../../utils/types";
 
 const BurgerIngredients = ({ ...props }) => {
   const ingredients = useAppSelector((state) => state.ingredients.data);

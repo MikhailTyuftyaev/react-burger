@@ -1,6 +1,6 @@
 import React from "react";
 import BurgerItem from "./item-burger";
-import { TItem } from "../../utils/types";
+import { TItem } from "../../../utils/types";
 
 const BurgerList = ({ ...props }) => {
   return props.data.map(function (item: TItem) {

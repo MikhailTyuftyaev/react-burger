@@ -10,7 +10,7 @@ import {
   ADD_CURRENT_ITEM,
   OPEN_MODAL,
 } from "../../../services/actions/modal";
-import { TBurgerItem, TItem } from "../../utils/types";
+import { TBurgerItem, TItem } from "../../../utils/types";
 import { Link, useLocation } from "react-router-dom"
 
 const BurgerItem = ({ item, ...props }: TBurgerItem) => {

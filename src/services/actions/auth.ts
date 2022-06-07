@@ -2,9 +2,9 @@ import {
   checkResponse,
   setCookie,
   getCookie,
-} from "../../components/utils/utils";
-import { baseUrl } from "../../components/utils/constants";
-import { TDispatch } from "../../components/utils/types";
+} from "../../utils/utils";
+import { baseUrl } from "../../utils/constants";
+import { TDispatch } from "../../utils/types";
 
 export const REGISTER_ACCOUNT_REQUEST = "REGISTER_ACCOUNT_REQUEST";
 export const REGISTER_ACCOUNT_SUCCESS = "REGISTER_ACCOUNT_SUCCESS";

@@ -17,7 +17,7 @@ import {
 import { combineReducers } from "redux";
 import { getModalItemsReducer } from "./modal";
 import { authReducer } from "./auth"
-import { TitemsState} from "../../components/utils/types";
+import { TitemsState} from "../../utils/types";
 
 export const initialState: TitemsState = {
   data: [],
