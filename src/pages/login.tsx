@@ -56,7 +56,6 @@ export function LoginPage() {
     return (
       <div className={styles.wrapper}>
         <p className="text text_type_main-medium">Вход</p>
-        {console.log(location.state)}
         <Input 
           type={"email"} 
           placeholder={"E-mail"} 
