@@ -36,7 +36,10 @@ import {
 import { TauthState } from '../../components/utils/types';
 
 const initialState: TauthState = {
-    account: {},
+    account: {
+        name: "",
+        email: ""
+    },
 
     isRegistered: false,
     registerAccountRequest: true,
@@ -226,7 +229,10 @@ export const authReducer = (state = initialState, action: any): TauthState => {
         case LOGOUT_ACCOUNT_SUCCESS: {
             return {
                 ...state,
-                account: {},
+                account: {
+                    name: "",
+                    email: ""
+                },
                 isRegistered: false,
                 isLoggedIn: false,
                 isLoggedOut: true,

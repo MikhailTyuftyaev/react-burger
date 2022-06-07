@@ -5,13 +5,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector, RootState } from "../components/utils/types";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
 
-  const auth = useSelector((state)=> state.auth.account);
+  const auth = useAppSelector((state: RootState)=> state.auth.account);
 
   const [nameValue, setNameValue] = useState(auth ? auth.name : "");
   const [emailValue, setEmailValue] = useState(auth ? auth.email : "");
@@ -19,8 +20,8 @@ export function ProfilePage() {
 
   const dispatch = useDispatch();
 
-  const saveAccountData = (name, email, pass) => {
-    dispatch(saveAccountDataRequest(name, email, pass));
+  const saveAccountData = (name: string, email: string , pass: string) => {
+    dispatch(saveAccountDataRequest(name, email));
   }
 
   const getUserData = () => {
@@ -72,7 +73,6 @@ export function ProfilePage() {
                 icon={"EditIcon"}
                 onChange={(e) => setNameValue(e.target.value)}
                 value={nameValue}
-                className="text_color_inactive"
               />
               <Input
                 type={"email"}
@@ -95,7 +95,7 @@ export function ProfilePage() {
                 <Button 
                   type="primary" 
                   size="medium"
-                  onClick={() => saveAccountData(nameValue, emailValue)}>
+                  onClick={() => saveAccountData(nameValue, emailValue, passValue)}>
                   Сохранить
                 </Button>
               </div>

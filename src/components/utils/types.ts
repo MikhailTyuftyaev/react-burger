@@ -90,9 +90,8 @@ export type TitemsState = {
 }
 
 export type TUserData = {
-    name?: string;
-    email?: string;
-    password?: string;
+    name: string;
+    email: string;
 }
 
 export type TauthState = {
