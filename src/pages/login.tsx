@@ -4,21 +4,29 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect, useLocation } from 'react-router-dom'; 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector, RootState } from "../components/utils/types";
 import { sendLoginRequest } from '../services/actions/auth'
 import styles from "./login.module.css";
 
 export function LoginPage() {
   const dispatch = useDispatch();
   const history = useHistory(); 
-  const location = useLocation();
+
+  interface ILocationState {
+    from: {
+      pathname: string
+    }
+  }
+
+  const location = useLocation<ILocationState>();
 
   const [emailValue, setEmailValue] = useState("");
   const [passValue, setPassValue] = useState("");
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
 
-  const login = (email, pass) => {
+  const login = (email: string, pass: string) => {
     dispatch(sendLoginRequest(email, pass));
   }
 
@@ -48,6 +56,7 @@ export function LoginPage() {
     return (
       <div className={styles.wrapper}>
         <p className="text text_type_main-medium">Вход</p>
+        {console.log(location.state)}
         <Input 
           type={"email"} 
           placeholder={"E-mail"} 
