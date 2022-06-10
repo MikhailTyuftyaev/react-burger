@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {SyntheticEvent, useCallback, useState} from "react";
 import {
   Input,
   Button,
@@ -17,8 +17,9 @@ export function RegisterPage() {
   const [emailValue, setEmailValue] = useState("");
   const [passValue, setPassValue] = useState("");
 
-  const register = (name: string, email: string, pass: string) => {
-    dispatch(sendRegisterRequest(name, email, pass));
+  const register = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(sendRegisterRequest(nameValue, emailValue, passValue));
   }
 
   const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
@@ -37,7 +38,7 @@ export function RegisterPage() {
   } else {
   return (
     <>
-      <div className={styles.wrapper}>
+      <form onSubmit={register} className={styles.wrapper}>
         <p className="text text_type_main-medium">Регистрация</p>
         <Input 
           type={"text"} 
@@ -58,7 +59,7 @@ export function RegisterPage() {
           onChange={(e) => setPassValue(e.target.value)}
           value={passValue}
           />
-        <Button type="primary" size="medium" onClick={() => register(nameValue, emailValue, passValue)}>
+        <Button type="primary" size="medium" onClick={register}>
           Зарегистрироваться
         </Button>
         <div className={`${styles.cta} mt-15`}>
@@ -69,7 +70,7 @@ export function RegisterPage() {
             </Button>
           </p>
         </div>
-      </div>
+      </form>
     </>
   );
 }
