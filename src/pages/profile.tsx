@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { SyntheticEvent, useState} from "react";
 import {
   Input,
   Button,
@@ -20,8 +20,9 @@ export function ProfilePage() {
 
   const dispatch = useDispatch();
 
-  const saveAccountData = (name: string, email: string , pass: string) => {
-    dispatch(saveAccountDataRequest(name, email));
+  const saveAccountData = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(saveAccountDataRequest(nameValue, emailValue));
   }
 
   const getUserData = () => {
@@ -66,7 +67,7 @@ export function ProfilePage() {
         </div>
         <Switch>
           <Route path={`${path}/`} exact={true}>
-            <div className={styles.tabs_container}>
+            <form onSubmit={saveAccountData} className={styles.tabs_container}>
               <Input
                 type={"text"}
                 placeholder={"Имя"}
@@ -95,11 +96,11 @@ export function ProfilePage() {
                 <Button 
                   type="primary" 
                   size="medium"
-                  onClick={() => saveAccountData(nameValue, emailValue, passValue)}>
+                  onClick={saveAccountData}>
                   Сохранить
                 </Button>
               </div>
-            </div>
+            </form>
           </Route>
         </Switch>
       </div>
