@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { SyntheticEvent, useCallback, useState } from "react";
 import {
   Input,
   Button,
@@ -17,7 +17,8 @@ export function ForgotPage() {
   const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
   const isForgotReset = useAppSelector((state: RootState) => state.auth.isForgotReset)
 
-  const sendRequest = (emailValue: string) => {
+  const sendRequest = (e: SyntheticEvent) => {
+    e.preventDefault();
     dispatch(sendForgotPasswordRequest(emailValue));
   };
 
@@ -32,7 +33,7 @@ export function ForgotPage() {
     return <Redirect to='/reset-password' />;
   }else{
   return (
-    <div className={styles.wrapper}>
+    <form onSubmit={sendRequest} className={styles.wrapper}>
       <p className="text text_type_main-medium">Восстановление пароля</p>
       <Input
         type={"email"}
@@ -43,7 +44,6 @@ export function ForgotPage() {
       <Button
         type="primary"
         size="medium"
-        onClick={() => sendRequest(emailValue)}
       >
         Восстановить
       </Button>
@@ -55,7 +55,7 @@ export function ForgotPage() {
           </Button>
         </p>
       </div>
-    </div>
+    </form>
   );
 }
 }
