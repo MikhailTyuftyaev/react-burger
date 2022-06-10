@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {SyntheticEvent, useCallback, useState} from "react";
 import {
   Input,
   Button,
@@ -19,7 +19,8 @@ export function ResetPage() {
   const [passValue, setPassValue] = useState("");
   const [tokenValue, setTokenValue] = useState("");
   
-  const reset = (passValue: string, tokenValue: string) => {
+  const reset = (e: SyntheticEvent) => {
+    e.preventDefault();
     dispatch(sendResetPasswordRequest(passValue, tokenValue))
   }
 
@@ -32,7 +33,7 @@ export function ResetPage() {
   if (isForgotReset){
   return (
     <>
-      <div className={styles.wrapper}>
+      <form onSubmit={reset} className={styles.wrapper}>
         <p className="text text_type_main-medium">Восстановление пароля</p>
         <Input
           type={"password"}
@@ -47,7 +48,7 @@ export function ResetPage() {
           onChange={(e) => setTokenValue(e.target.value)}
           value={tokenValue}
           />
-        <Button type="primary" size="medium" onClick={() => reset(passValue, tokenValue)}>
+        <Button type="primary" size="medium">
           Сохранить
         </Button>
         <div className={`${styles.cta} mt-15`}>
@@ -58,7 +59,7 @@ export function ResetPage() {
             </Button>
           </p>
         </div>
-      </div>
+      </form>
     </>
   );
 }else if (isPasswordReset){
