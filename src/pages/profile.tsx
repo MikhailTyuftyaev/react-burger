@@ -91,13 +91,17 @@ export function ProfilePage() {
                 value={passValue}
               />
               <div className={styles.cta}>
-                <Button type="secondary" size="medium" onClick={getUserData}>
+                <Button 
+                  type="secondary" 
+                  size="medium" 
+                  onClick={getUserData}
+                  htmlType="reset">
                   Отмена
                 </Button>
                 <Button 
                   type="primary" 
                   size="medium"
-                  onClick={saveAccountData}>
+                  htmlType="submit">  
                   Сохранить
                 </Button>
               </div>
