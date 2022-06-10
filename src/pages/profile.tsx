@@ -25,7 +25,8 @@ export function ProfilePage() {
     dispatch(saveAccountDataRequest(nameValue, emailValue));
   }
 
-  const getUserData = () => {
+  const getUserData = (e: SyntheticEvent) => {
+    e.preventDefault();
     setNameValue(auth.name)
     setEmailValue(auth.email)
     setPassValue("")
@@ -90,7 +91,7 @@ export function ProfilePage() {
                 value={passValue}
               />
               <div className={styles.cta}>
-                <Button type="secondary" size="medium" onClick={()=> getUserData()}>
+                <Button type="secondary" size="medium" onClick={getUserData}>
                   Отмена
                 </Button>
                 <Button 
