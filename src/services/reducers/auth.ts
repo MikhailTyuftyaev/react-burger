@@ -33,9 +33,13 @@ import {
     UPDATE_TOKEN_SUCCESS,
     UPDATE_TOKEN_FAILED
 } from '../actions/auth';
+import { TauthState } from '../../utils/types';
 
-const initialState = {
-    account: null,
+const initialState: TauthState = {
+    account: {
+        name: "",
+        email: ""
+    },
 
     isRegistered: false,
     registerAccountRequest: true,
@@ -67,7 +71,7 @@ const initialState = {
     updateTokenFailed: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: any): TauthState => {
     switch (action.type) {
         case REGISTER_ACCOUNT_REQUEST: {
             return {
@@ -225,7 +229,10 @@ export const authReducer = (state = initialState, action) => {
         case LOGOUT_ACCOUNT_SUCCESS: {
             return {
                 ...state,
-                account: null,
+                account: {
+                    name: "",
+                    email: ""
+                },
                 isRegistered: false,
                 isLoggedIn: false,
                 isLoggedOut: true,

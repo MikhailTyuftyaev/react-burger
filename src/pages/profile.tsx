@@ -1,17 +1,18 @@
-import React, {useState} from "react";
+import React, { SyntheticEvent, useState} from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector, RootState } from "../utils/types";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
 
-  const auth = useSelector((state)=> state.auth.account);
+  const auth = useAppSelector((state: RootState)=> state.auth.account);
 
   const [nameValue, setNameValue] = useState(auth ? auth.name : "");
   const [emailValue, setEmailValue] = useState(auth ? auth.email : "");
@@ -19,11 +20,13 @@ export function ProfilePage() {
 
   const dispatch = useDispatch();
 
-  const saveAccountData = (name, email, pass) => {
-    dispatch(saveAccountDataRequest(name, email, pass));
+  const saveAccountData = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(saveAccountDataRequest(nameValue, emailValue));
   }
 
-  const getUserData = () => {
+  const getUserData = (e: SyntheticEvent) => {
+    e.preventDefault();
     setNameValue(auth.name)
     setEmailValue(auth.email)
     setPassValue("")
@@ -65,14 +68,13 @@ export function ProfilePage() {
         </div>
         <Switch>
           <Route path={`${path}/`} exact={true}>
-            <div className={styles.tabs_container}>
+            <form onSubmit={saveAccountData} className={styles.tabs_container}>
               <Input
                 type={"text"}
                 placeholder={"Имя"}
                 icon={"EditIcon"}
                 onChange={(e) => setNameValue(e.target.value)}
                 value={nameValue}
-                className="text_color_inactive"
               />
               <Input
                 type={"email"}
@@ -89,17 +91,21 @@ export function ProfilePage() {
                 value={passValue}
               />
               <div className={styles.cta}>
-                <Button type="secondary" size="medium" onClick={()=> getUserData()}>
+                <Button 
+                  type="secondary" 
+                  size="medium" 
+                  onClick={getUserData}
+                  htmlType="reset">
                   Отмена
                 </Button>
                 <Button 
                   type="primary" 
                   size="medium"
-                  onClick={() => saveAccountData(nameValue, emailValue)}>
+                  htmlType="submit">  
                   Сохранить
                 </Button>
               </div>
-            </div>
+            </form>
           </Route>
         </Switch>
       </div>

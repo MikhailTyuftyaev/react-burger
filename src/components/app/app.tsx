@@ -1,26 +1,28 @@
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404} from '../../pages';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../utils/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
-import { getCookie } from '../utils/utils';
+import { getCookie } from '../../utils/utils';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
 } from '../../services/actions/modal';
+import { TLocation } from '../../utils/types';
 import AppHeader from '../app-header/app-header';
 import Main from "../main/main";
 
-export default function App() {
+const App: FC = () => {
 
   const ModalSwitch = () => {
-    const location = useLocation();
+    const location = useLocation<TLocation>();
     const dispatch = useDispatch();
     const history = useHistory();
     let background = location.state && location.state.background;
-    const modalItem = useSelector((state) => state.modal.currentItem);
+    const modalItem = useAppSelector((state) => state.modal.currentItem);
 
     function onClose() {
       dispatch({
@@ -102,3 +104,4 @@ export default function App() {
     </Router>
   );
 }
+export default App;

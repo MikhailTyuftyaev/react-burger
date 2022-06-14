@@ -15,21 +15,24 @@ import {
   CLEAR_ORDER_NUMBER
 } from "../actions";
 import { combineReducers } from "redux";
-import { getModalItemsReducer } from "../reducers/modal";
-import { authReducer } from "../reducers/auth"
+import { getModalItemsReducer } from "./modal";
+import { authReducer } from "./auth"
+import { TitemsState} from "../../utils/types";
 
-export const initialState = {
+export const initialState: TitemsState = {
   data: [],
   itemsRequest: false,
   itemsFailed: false,
-  buns: [],
+  buns: null,
   ingredients: [],
-  order: null,
+  order: [],
   orderRequest: false,
   orderFailed: false,
 };
 
-export const getItemsReducer = (state = initialState, action) => {
+
+
+export const getItemsReducer = (state = initialState, action: any): TitemsState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {
@@ -58,12 +61,7 @@ export const getItemsReducer = (state = initialState, action) => {
         data: [...state.data].map((item) =>
           item._id === action.item._id && action.item.type !== "bun"
             ? { ...item, __v: ++item.__v }
-            : item
-        ),
-        data: [...state.data].map((item) =>
-          item._id !== action.item._id && action.item.type === "bun"
-            ? { ...item, __v: 0 }
-            : item
+            : { ...item, __v: item.__v }
         ),
       };
     }
@@ -89,7 +87,7 @@ export const getItemsReducer = (state = initialState, action) => {
         data: [...state.data].map((item) =>
           item._id === action.item._id && action.item.type === "bun"
             ? { ...item, __v: 2}
-            : item
+            : { ...item, __v: 0}
         ),
         buns: action.item,
       };
@@ -141,14 +139,14 @@ export const getItemsReducer = (state = initialState, action) => {
             ? { ...item, __v: 0 }
             : item
         ),
-        buns: [],
+        buns: null,
         ingredients: []
       };
     }
     case CLEAR_ORDER_NUMBER: {
       return {
         ...state,
-        order: null,
+        order: [],
       }
     }
     default: {

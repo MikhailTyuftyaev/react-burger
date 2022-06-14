@@ -1,10 +1,11 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { SyntheticEvent, useCallback, useState } from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector, RootState } from "../utils/types";
 import { sendForgotPasswordRequest} from '../services/actions/auth'
 import styles from "./login.module.css";
 
@@ -13,10 +14,11 @@ export function ForgotPage() {
   const [emailValue, setEmailValue] = useState("");
 
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isForgotReset = useSelector((state) => state.auth.isForgotReset)
+  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
+  const isForgotReset = useAppSelector((state: RootState) => state.auth.isForgotReset)
 
-  const sendRequest = (emailValue) => {
+  const sendRequest = (e: SyntheticEvent) => {
+    e.preventDefault();
     dispatch(sendForgotPasswordRequest(emailValue));
   };
 
@@ -31,7 +33,7 @@ export function ForgotPage() {
     return <Redirect to='/reset-password' />;
   }else{
   return (
-    <div className={styles.wrapper}>
+    <form onSubmit={sendRequest} className={styles.wrapper}>
       <p className="text text_type_main-medium">Восстановление пароля</p>
       <Input
         type={"email"}
@@ -42,7 +44,6 @@ export function ForgotPage() {
       <Button
         type="primary"
         size="medium"
-        onClick={() => sendRequest(emailValue)}
       >
         Восстановить
       </Button>
@@ -54,7 +55,7 @@ export function ForgotPage() {
           </Button>
         </p>
       </div>
-    </div>
+    </form>
   );
 }
 }

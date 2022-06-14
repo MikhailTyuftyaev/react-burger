@@ -1,11 +1,12 @@
-import React, {useCallback, useState, useEffect} from "react";
+import React, {SyntheticEvent, useCallback, useState} from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect } from 'react-router-dom'; 
 import styles from "./login.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector, RootState } from "../utils/types";
 import { sendRegisterRequest } from "../services/actions/auth"
 
 export function RegisterPage() {
@@ -16,12 +17,13 @@ export function RegisterPage() {
   const [emailValue, setEmailValue] = useState("");
   const [passValue, setPassValue] = useState("");
 
-  const register = (name, email, pass) => {
-    dispatch(sendRegisterRequest(name, email, pass));
+  const register = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(sendRegisterRequest(nameValue, emailValue, passValue));
   }
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isRegistered = useSelector((state) => state.auth.isRegistered);
+  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
+  const isRegistered = useAppSelector((state: RootState) => state.auth.isRegistered);
 
   const login = useCallback(
     () => {
@@ -36,7 +38,7 @@ export function RegisterPage() {
   } else {
   return (
     <>
-      <div className={styles.wrapper}>
+      <form onSubmit={register} className={styles.wrapper}>
         <p className="text text_type_main-medium">Регистрация</p>
         <Input 
           type={"text"} 
@@ -57,7 +59,7 @@ export function RegisterPage() {
           onChange={(e) => setPassValue(e.target.value)}
           value={passValue}
           />
-        <Button type="primary" size="medium" onClick={() => register(nameValue, emailValue, passValue)}>
+        <Button type="primary" size="medium" onClick={register}>
           Зарегистрироваться
         </Button>
         <div className={`${styles.cta} mt-15`}>
@@ -68,7 +70,7 @@ export function RegisterPage() {
             </Button>
           </p>
         </div>
-      </div>
+      </form>
     </>
   );
 }

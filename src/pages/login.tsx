@@ -1,25 +1,34 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { SyntheticEvent, useCallback, useState } from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect, useLocation } from 'react-router-dom'; 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector, RootState } from "../utils/types";
 import { sendLoginRequest } from '../services/actions/auth'
 import styles from "./login.module.css";
 
 export function LoginPage() {
   const dispatch = useDispatch();
   const history = useHistory(); 
-  const location = useLocation();
+
+  interface ILocationState {
+    from: {
+      pathname: string
+    }
+  }
+
+  const location = useLocation<ILocationState>();
 
   const [emailValue, setEmailValue] = useState("");
   const [passValue, setPassValue] = useState("");
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
 
-  const login = (email, pass) => {
-    dispatch(sendLoginRequest(email, pass));
+  const login =  (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(sendLoginRequest(emailValue, passValue));
   }
 
   const register = useCallback(
@@ -46,7 +55,7 @@ export function LoginPage() {
   }
   else {
     return (
-      <div className={styles.wrapper}>
+      <form onSubmit={login} className={styles.wrapper}>
         <p className="text text_type_main-medium">Вход</p>
         <Input 
           type={"email"} 
@@ -61,7 +70,7 @@ export function LoginPage() {
           onChange={(e) => setPassValue(e.target.value)}
           value={passValue}
           />
-        <Button type="primary" size="medium" onClick={() => login(emailValue, passValue)}>
+        <Button type="primary" size="medium">
           Войти
         </Button>
         <div className={`${styles.cta} mt-15`}>
@@ -78,7 +87,7 @@ export function LoginPage() {
             </Button>
           </p>
         </div>
-      </div>
+      </form>
   );
 }
 }

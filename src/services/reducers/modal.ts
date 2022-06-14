@@ -4,14 +4,16 @@ import {
     ADD_CURRENT_ITEM,
     DELETE_CURRENT_ITEM
 } from "../actions/modal";
+import { TmodalState } from "../../utils/types";
 
-const initialState = {
+
+const initialState: TmodalState = {
     currentItem: {},
     ingredientModal: false,
     orderModal: false,
  };
 
-export const getModalItemsReducer = (state = initialState, action) => {
+export const getModalItemsReducer = (state = initialState, action: any) => {
     switch (action.type) {
       case OPEN_MODAL: {
         return  {
