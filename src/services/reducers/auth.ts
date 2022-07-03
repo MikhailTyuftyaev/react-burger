@@ -32,7 +32,7 @@ import {
     UPDATE_TOKEN_REQUEST,
     UPDATE_TOKEN_SUCCESS,
     UPDATE_TOKEN_FAILED
-} from '../actions/auth';
+} from '../constants/auth';
 import { TauthState } from '../../utils/types';
 
 const initialState: TauthState = {
