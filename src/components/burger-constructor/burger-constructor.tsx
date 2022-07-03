@@ -13,12 +13,14 @@ import { useAppSelector, RootState, TItem } from "../../utils/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import {
+  sendOrderRequest,
+} from "../../services/actions";
+import {
   ADD_ITEM,
   ADD_BUN,
   INCREASE_ITEM,
   CLEAR_ORDER_NUMBER,
-  sendOrderRequest,
-} from "../../services/actions";
+} from "../../services/constants";
 import {
   OPEN_MODAL,
   CLOSE_MODAL,

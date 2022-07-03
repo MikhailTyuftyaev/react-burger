@@ -2,27 +2,15 @@ import { baseUrl } from "../../utils/constants";
 import { checkResponse } from "../../utils/utils";
 import { TDispatch } from "../../utils/types";
 
-export const GET_ITEMS_REQUEST = "GET_ITEMS_REQUEST";
-export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
-export const GET_ITEMS_FAILED = "GET__ITEMS_FAILED";
-
-export const INCREASE_ITEM = "INCREASE_ITEM";
-export const DECREASE_ITEM = "DECREASE_ITEM";
-
-export const ADD_BUN = "ADD_BUN";
-export const ADD_ITEM = "ADD_ITEM";
-export const DELETE_ITEM = "DELETE_ITEM";
-
-export const MOVE_ITEM = "MOVE_ITEM";
-
-export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
-export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
-export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
-
-export const CLEAR_ORDER_ARRAY = "CLEAR_ORDER_ARRAY";
-export const CLEAR_ORDER_NUMBER = "CLEAR_ORDER_NUMBER";
-
-
+import {
+  GET_ITEMS_REQUEST,
+  GET_ITEMS_SUCCESS,
+  GET_ITEMS_FAILED,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
+  CLEAR_ORDER_ARRAY,
+} from "../constants";
 
 export const getItemsRequest = () => {
   return function (dispatch: TDispatch) {

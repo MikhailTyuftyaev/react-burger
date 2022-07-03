@@ -13,7 +13,7 @@ import {
   GET_ORDER_FAILED,
   CLEAR_ORDER_ARRAY,
   CLEAR_ORDER_NUMBER
-} from "../actions";
+} from "../constants";
 import { combineReducers } from "redux";
 import { getModalItemsReducer } from "./modal";
 import { authReducer } from "./auth"
