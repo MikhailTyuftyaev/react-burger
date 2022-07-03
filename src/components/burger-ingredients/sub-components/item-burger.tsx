@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import {
   ADD_CURRENT_ITEM,
   OPEN_MODAL,
-} from "../../../services/actions/modal";
+} from "../../../services/constants/modal";
 import { TBurgerItem, TItem } from "../../../utils/types";
 import { Link, useLocation } from "react-router-dom"
 

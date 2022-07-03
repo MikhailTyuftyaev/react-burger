@@ -10,7 +10,7 @@ import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../../utils/utils';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
-} from '../../services/actions/modal';
+} from '../../services/constants/modal';
 import { TLocation } from '../../utils/types';
 import AppHeader from '../app-header/app-header';
 import Main from "../main/main";

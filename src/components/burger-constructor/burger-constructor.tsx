@@ -22,7 +22,7 @@ import {
 import {
   OPEN_MODAL,
   CLOSE_MODAL,
-} from "../../services/actions/modal";
+} from "../../services/constants/modal";
 import { useHistory } from 'react-router-dom';
 
 const BurgerConstructor = ({ ...props }) => {

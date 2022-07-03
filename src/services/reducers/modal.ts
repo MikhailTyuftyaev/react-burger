@@ -3,7 +3,7 @@ import {
     CLOSE_MODAL,
     ADD_CURRENT_ITEM,
     DELETE_CURRENT_ITEM
-} from "../actions/modal";
+} from "../constants/modal";
 import { TmodalState } from "../../utils/types";
 
 
