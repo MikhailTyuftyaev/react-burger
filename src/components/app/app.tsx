@@ -4,14 +4,14 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404} from '../../pages';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../utils/types';
+import { useAppSelector } from '../../services/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../../utils';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
 } from '../../services/constants/modal';
-import { TLocation } from '../../utils/types';
+import { TLocation } from '../../services/types';
 import AppHeader from '../app-header/app-header';
 import Main from "../main/main";
 

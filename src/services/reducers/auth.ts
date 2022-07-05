@@ -33,7 +33,7 @@ import {
     UPDATE_TOKEN_SUCCESS,
     UPDATE_TOKEN_FAILED
 } from '../constants/auth';
-import { TauthState } from '../../utils/types';
+import { TauthState } from '../types';
 
 const initialState: TauthState = {
     account: {

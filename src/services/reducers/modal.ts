@@ -4,7 +4,7 @@ import {
     ADD_CURRENT_ITEM,
     DELETE_CURRENT_ITEM
 } from "../constants/modal";
-import { TmodalState } from "../../utils/types";
+import { TmodalState } from "../types";
 
 
 const initialState: TmodalState = {

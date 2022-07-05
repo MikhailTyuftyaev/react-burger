@@ -7,7 +7,7 @@ import styles from "./constructor-item.module.css";
 import { useDispatch} from "react-redux";
 import { useDrag, useDrop } from 'react-dnd'
 import { DELETE_ITEM, DECREASE_ITEM, MOVE_ITEM } from "../../../services/constants";
-import { TConstructorItem } from "../../../utils/types";
+import { TConstructorItem } from "../../../services/types";
 
 const ConstructorItem: FC<TConstructorItem> = ({ index, id, name, price, thumbnail, uiKey }) => {
     const ref = useRef<HTMLInputElement>(null);

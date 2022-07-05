@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector, RootState, Tparams } from '../../utils/types';
+import { useAppSelector, RootState, Tparams } from '../../services/types';
 import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ ...props }) => {

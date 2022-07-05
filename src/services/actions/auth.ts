@@ -4,7 +4,7 @@ import {
   getCookie,
 } from "../../utils";
 import { baseUrl } from "../../utils";
-import { TDispatch } from "../../utils/types";
+import { TDispatch } from "../types";
 
 import {
   REGISTER_ACCOUNT_REQUEST,

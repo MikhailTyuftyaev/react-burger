@@ -6,7 +6,7 @@ import {
 import { useHistory, Redirect } from 'react-router-dom'; 
 import styles from "./login.module.css";
 import { useDispatch } from "react-redux";
-import { useAppSelector, RootState } from "../utils/types";
+import { useAppSelector, RootState } from "../services/types";
 import { sendRegisterRequest } from "../services/actions/auth"
 
 export function RegisterPage() {

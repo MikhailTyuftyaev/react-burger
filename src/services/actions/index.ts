@@ -1,6 +1,6 @@
 import { baseUrl } from "../../utils";
 import { checkResponse } from "../../utils";
-import { TDispatch } from "../../utils/types";
+import { TDispatch } from "../types";
 
 import {
   GET_ITEMS_REQUEST,

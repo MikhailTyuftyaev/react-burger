@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppSelector, RootState, TItem } from "../../../utils/types";
+import { useAppSelector, RootState, TItem } from "../../../services/types";
 import ConstructorItem from "./constructor-item";
 
 const ConstructorList = () => {

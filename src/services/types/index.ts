@@ -1,6 +1,6 @@
-import { store } from '../services/store';
+import { store } from '../store';
 import { Location } from "history";
-import { rootReducer } from '../services/reducers';
+import { rootReducer } from '../reducers';
 import {
     TypedUseSelectorHook,
     useSelector as selectorHook

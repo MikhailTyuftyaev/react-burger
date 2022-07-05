@@ -6,7 +6,7 @@ import {
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useDispatch } from "react-redux";
-import { useAppSelector, RootState } from "../utils/types";
+import { useAppSelector, RootState } from "../services/types";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
 
 export function ProfilePage() {
