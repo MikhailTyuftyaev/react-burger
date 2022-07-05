@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../utils/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
-import { getCookie } from '../../utils/utils';
+import { getCookie } from '../../utils';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
 } from '../../services/constants/modal';

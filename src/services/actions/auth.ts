@@ -2,8 +2,8 @@ import {
   checkResponse,
   setCookie,
   getCookie,
-} from "../../utils/utils";
-import { baseUrl } from "../../utils/constants";
+} from "../../utils";
+import { baseUrl } from "../../utils";
 import { TDispatch } from "../../utils/types";
 
 import {

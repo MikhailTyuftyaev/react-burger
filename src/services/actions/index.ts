@@ -1,5 +1,5 @@
-import { baseUrl } from "../../utils/constants";
-import { checkResponse } from "../../utils/utils";
+import { baseUrl } from "../../utils";
+import { checkResponse } from "../../utils";
 import { TDispatch } from "../../utils/types";
 
 import {
