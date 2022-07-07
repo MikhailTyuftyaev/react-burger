@@ -1,5 +1,8 @@
 import { store } from '../store';
 import { Location } from "history";
+import { ThunkAction } from 'redux-thunk';
+import { TAuthAction } from '../actions/auth'
+import { Action, ActionCreator } from 'redux';
 import { rootReducer } from '../reducers';
 import {
     TypedUseSelectorHook,
@@ -145,4 +148,7 @@ export type Tparams = {
 
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
+export type TAppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TAuthAction>
+>; 
 export type TDispatch = typeof store.dispatch;
