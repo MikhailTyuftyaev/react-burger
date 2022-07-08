@@ -18,6 +18,7 @@ import { combineReducers } from "redux";
 import { getModalItemsReducer } from "./modal";
 import { authReducer } from "./auth"
 import { TitemsState} from "../types";
+import { TItemsAction } from "../actions"
 
 export const initialState: TitemsState = {
   data: [],
@@ -32,7 +33,7 @@ export const initialState: TitemsState = {
 
 
 
-export const getItemsReducer = (state = initialState, action: any): TitemsState => {
+export const getItemsReducer = (state = initialState, action: TItemsAction): TitemsState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {

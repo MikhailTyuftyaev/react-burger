@@ -16,15 +16,15 @@ import {
   sendOrderRequest,
 } from "../../services/actions";
 import {
-  ADD_ITEM,
-  ADD_BUN,
-  INCREASE_ITEM,
-  CLEAR_ORDER_NUMBER,
-} from "../../services/constants";
-import {
   OPEN_MODAL,
   CLOSE_MODAL,
 } from "../../services/constants/modal";
+import {
+  increaseItemAction,
+  addBunAction,
+  addItemAction,
+  clearOrderNumberAction
+} from "../../services/actions"
 import { useHistory } from 'react-router-dom';
 
 const BurgerConstructor = ({ ...props }) => {
@@ -55,9 +55,7 @@ const BurgerConstructor = ({ ...props }) => {
       type: CLOSE_MODAL,
       orderModal: false,
     });
-    dispatch({
-      type: CLEAR_ORDER_NUMBER
-    })
+    dispatch(clearOrderNumberAction())
   }
 
   const orderArray = ingredients.filter((item) => item.__v > 0);
@@ -91,20 +89,11 @@ const BurgerConstructor = ({ ...props }) => {
   const movePostponedItem = (item: TItem) => {
     const uuid = uuidv4();
     if (item.type === "bun") {
-      dispatch({
-        type: ADD_BUN,
-        item: { ...item, uuid: uuid },
-      });
+      dispatch(addBunAction({ ...item, uuid: uuid }));
     } else {
-      dispatch({
-        type: ADD_ITEM,
-        item: { ...item, uuid: uuid },
-      });
+      dispatch(addItemAction({ ...item, uuid: uuid }));
     }
-    dispatch({
-      type: INCREASE_ITEM,
-      item: { ...item, uuid: uuid },
-    });
+    dispatch(increaseItemAction({ ...item, uuid: uuid }));
   };
 
   const border = isHover ? "0px 0px 10px 0px rgba(76, 76, 255, 1)" : "none";
