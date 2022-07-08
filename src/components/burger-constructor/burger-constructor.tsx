@@ -16,15 +16,15 @@ import {
   sendOrderRequest,
 } from "../../services/actions";
 import {
-  OPEN_MODAL,
-  CLOSE_MODAL,
-} from "../../services/constants/modal";
-import {
   increaseItemAction,
   addBunAction,
   addItemAction,
   clearOrderNumberAction
 } from "../../services/actions"
+import {
+  openModalAction,
+  closeModalAction
+} from "../../services/actions/modal"
 import { useHistory } from 'react-router-dom';
 
 const BurgerConstructor = ({ ...props }) => {
@@ -44,17 +44,11 @@ const BurgerConstructor = ({ ...props }) => {
       return;
     }
     dispatch(sendOrderRequest(orderRequest));
-    dispatch({
-      type: OPEN_MODAL,
-      orderModal: true,
-    });
+    dispatch(openModalAction(false, true));
   }
 
   function onClose() {
-    dispatch({
-      type: CLOSE_MODAL,
-      orderModal: false,
-    });
+    dispatch(closeModalAction(false, false));
     dispatch(clearOrderNumberAction())
   }
 

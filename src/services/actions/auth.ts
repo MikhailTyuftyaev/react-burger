@@ -416,7 +416,7 @@ export const getUserRequest: TAppThunk = () => {
       })
       .catch((err) => {
         if ((err.message === 'jwt expired') || (err.message === 'Token is invalid')) {
-          dispatch(updateTokenRequest());
+          updateTokenRequest();
           getUserRequest();
         } else {
           console.log(err);
@@ -449,8 +449,8 @@ export const saveAccountDataRequest: TAppThunk = (name: string, email: string) =
       })
       .catch((err) => {
         if ((err.message === 'jwt expired') || (err.message === 'Token is invalid')) {
-          dispatch(updateTokenRequest());
-          dispatch(saveAccountDataRequest(name, email));
+          updateTokenRequest();
+          saveAccountDataRequest(name, email);
         } else{
           console.log(err);
           dispatch(updateUserFailedAction());
@@ -505,7 +505,7 @@ export const updateTokenRequest: TAppThunk = () => {
           setCookie("accessToken", accessToken);
           setCookie("refreshToken", res.refreshToken);
           dispatch(updateTokenSuccessAction());
-          dispatch(getUserRequest());
+          getUserRequest();
         }
       })
       .catch((err) => {

@@ -9,8 +9,7 @@ import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../../utils';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
-} from '../../services/constants/modal';
+import { closeModalAction, deleteCurrentItemAction } from '../../services/actions/modal';
 import { TLocation } from '../../services/types';
 import AppHeader from '../app-header/app-header';
 import Main from "../main/main";
@@ -25,13 +24,8 @@ const App: FC = () => {
     const modalItem = useAppSelector((state) => state.modal.currentItem);
 
     function onClose() {
-      dispatch({
-        type: DELETE_CURRENT_ITEM
-      });
-      dispatch({
-        type: CLOSE_MODAL,
-        ingredientModal: false,
-      });
+      dispatch(deleteCurrentItemAction());
+      dispatch(closeModalAction(false, false));
       history.goBack();
     }
 

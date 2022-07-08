@@ -85,7 +85,7 @@ export const getItemsReducer = (state = initialState, action: TItemsAction): Tit
     case ADD_BUN: {
       return {
         ...state,
-        data: [...state.data].map((item) =>
+        data: state.data.map((item) =>
           item._id === action.item._id && action.item.type === "bun"
             ? { ...item, __v: 2}
             : { ...item, __v: 0}

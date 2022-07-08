@@ -6,10 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
-import {
-  ADD_CURRENT_ITEM,
-  OPEN_MODAL,
-} from "../../../services/constants/modal";
+import { openModalAction, addCurrentItemAction } from "../../../services/actions/modal"
 import { TBurgerItem, TItem } from "../../../services/types";
 import { Link, useLocation } from "react-router-dom"
 
@@ -19,14 +16,8 @@ const BurgerItem = ({ item, ...props }: TBurgerItem) => {
 
 
   function handleClickBurger(item: TItem) {
-    dispatch({
-      type: ADD_CURRENT_ITEM,
-      item,
-    });
-    dispatch({
-      type: OPEN_MODAL,
-      ingredientModal: true,
-    });
+    dispatch(addCurrentItemAction(item));
+    dispatch(openModalAction(true, false));
   }
 
   const [{ opacity }, dragRef] = useDrag({
