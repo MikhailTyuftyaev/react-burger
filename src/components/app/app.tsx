@@ -36,7 +36,6 @@ const App: FC = () => {
         dispatch(getUserRequest());
       }
   }, [dispatch])
-
     return (
       <>
       <AppHeader/>
@@ -75,15 +74,16 @@ const App: FC = () => {
                 header="Детали ингредиента"
                 onClose={onClose}
                 isModal={true}
-              > 
-                <IngredientDetails
-                  image={modalItem.imageLarge}
-                  name={modalItem.title}
-                  calories={modalItem.calories}
-                  proteins={modalItem.proteins}
-                  fat={modalItem.fat}
-                  carbohydrates={modalItem.carbohydrates}
-                />
+              > {modalItem &&
+                  <IngredientDetails
+                    image={modalItem.image_large}
+                    name={modalItem.name}
+                    calories={modalItem.calories}
+                    proteins={modalItem.proteins}
+                    fat={modalItem.fat}
+                    carbohydrates={modalItem.carbohydrates}
+                  />
+                }
               </Modal>
             }
             />

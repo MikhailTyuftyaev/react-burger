@@ -134,7 +134,7 @@ export type TmodalItem = {
 }
 
 export type TmodalState = {
-    currentItem: TmodalItem | {},
+    currentItem:  TItem | null,
     ingredientModal: boolean,
     orderModal: boolean;
 }
