@@ -148,6 +148,20 @@ export type Tparams = {
     id?: string;
 }
 
+export type TorderIngredients = {
+    id: number;
+    image_mobile: string;
+}
+
+export type TorderCard = {
+    number: string;
+    date: string;
+    name: string;
+    status: string;
+    ingredients: TorderIngredients[];
+    price: number;
+}
+
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type TAllActions = TAuthAction | TItemsAction | TModalAction;
