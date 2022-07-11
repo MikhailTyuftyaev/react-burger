@@ -1,4 +1,37 @@
 .wrapper{
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+}
+.tabs{
+    max-width: 320px;
+}
+.tabs p:not(:last-child){
+    cursor: pointer;
+}
+.tabs_container{
+    display: flex;
+  width: 480px;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.cta{
+    display: inline-block;
+    text-align: left;
+}
+
+.cta :global(button){
+    width: fit-content;
+    display: inline-block;
+}
+
+.active {
+  color: #f2f2f3;
+}
+.wrapper_cards{
     overflow-y: auto;
     width: 100%;
     max-height: 80vh;

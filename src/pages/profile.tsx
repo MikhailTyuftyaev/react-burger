@@ -39,7 +39,9 @@ export function ProfilePage() {
   }
   return (
     <>
-      <div className={styles.wrapper}>
+      <Switch>
+          <ProtectedRoute path={`${path}`} exact={true}>
+          <div className={styles.wrapper}>
         <div className={`${styles.tabs} mr-15 mt-30`}>
           <NavLink
             exact
@@ -68,8 +70,7 @@ export function ProfilePage() {
             </p>
           </div>
         </div>
-        <Switch>
-          <ProtectedRoute path={`${path}`} exact={true}>
+        
             <form onSubmit={saveAccountData} className={`${styles.tabs_container} mt-30`}>
               <Input
                 type={"text"}
@@ -108,12 +109,13 @@ export function ProfilePage() {
                 </Button>
               </div>
             </form>
+            </div>
           </ProtectedRoute>
           <ProtectedRoute  path={`${path}/orders`} exact={true}>
               <OrdersPage/>
           </ProtectedRoute>
         </Switch>
-      </div>
+      
     </>
   );
 }

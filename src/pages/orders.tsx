@@ -1,19 +1,50 @@
 import React from "react";
-import {
-  Input,
-  Button,
-  CurrencyIcon
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
+import {  CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink, useRouteMatch } from "react-router-dom";
+import { useDispatch } from "react-redux"
 import styles from "./orders.module.css";
+import { sendLogoutRequest } from "../services/actions/auth";
 
 export function OrdersPage() {
   const { path } = useRouteMatch();
 
-  
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(sendLogoutRequest())
+  }
   return (
     <>
       <div className={`${styles.wrapper} mt-10`}>
+      <div className={`${styles.tabs} mr-15 mt-30`}>
+          <NavLink
+            exact
+            to="/profile"
+            className="text text_type_main-medium text_color_inactive pt-4 pb-4"
+            activeClassName={styles.active}
+          >
+            Профиль
+          </NavLink>
+          <NavLink
+            to={`${path}`}
+            className="text text_type_main-medium text_color_inactive pt-4 pb-4"
+            activeClassName={styles.active}
+          >
+            История заказов
+          </NavLink>
+          <p
+            className="text text_type_main-medium text_color_inactive pt-4 pb-4"
+            onClick={()=> logout()}
+          >
+            Выход
+          </p>
+          <div className={`${styles.cta} mt-20`}>
+            <p className="text text_type_main-default text_color_inactive">
+              В этом разделе вы можете просмотреть свою историю заказов
+            </p>
+          </div>
+        </div>
+      <div className={`${styles.wrapper_cards} mt-10`}>
             <div className={`${styles.card} p-6`}>
               <div className={`${styles.meta}`}>
                 <p className="text text_type_digits-default">#1234567890</p>
@@ -204,6 +235,7 @@ export function OrdersPage() {
                 </div>
               </div>
             </div>
+      </div>
       </div>
     </>
   );
