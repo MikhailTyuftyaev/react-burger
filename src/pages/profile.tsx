@@ -8,6 +8,8 @@ import styles from "./profile.module.css";
 import { useDispatch } from "react-redux";
 import { useAppSelector, RootState } from "../services/types";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
+import { ProtectedRoute } from "../components/protected-route/protected-route";
+import { OrdersPage } from "./orders";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
@@ -38,10 +40,10 @@ export function ProfilePage() {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={`${styles.tabs} mr-15`}>
+        <div className={`${styles.tabs} mr-15 mt-30`}>
           <NavLink
             exact
-            to={`${path}/`}
+            to={path}
             className="text text_type_main-medium text_color_inactive pt-4 pb-4"
             activeClassName={styles.active}
           >
@@ -67,8 +69,8 @@ export function ProfilePage() {
           </div>
         </div>
         <Switch>
-          <Route path={`${path}/`} exact={true}>
-            <form onSubmit={saveAccountData} className={styles.tabs_container}>
+          <ProtectedRoute path={`${path}`} exact={true}>
+            <form onSubmit={saveAccountData} className={`${styles.tabs_container} mt-30`}>
               <Input
                 type={"text"}
                 placeholder={"Имя"}
@@ -106,7 +108,10 @@ export function ProfilePage() {
                 </Button>
               </div>
             </form>
-          </Route>
+          </ProtectedRoute>
+          <ProtectedRoute  path={`${path}/orders`} exact={true}>
+              <OrdersPage/>
+          </ProtectedRoute>
         </Switch>
       </div>
     </>

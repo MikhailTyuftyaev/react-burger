@@ -1,6 +1,6 @@
 .wrapper{
     max-width: 1240px;
-    margin: 120px auto;
+    margin: 0 auto;
     display: flex;
     align-items: flex-start;
 }
