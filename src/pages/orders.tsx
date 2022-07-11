@@ -1,5 +1,4 @@
 import React from "react";
-import {  CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux"
 import styles from "./orders.module.css";

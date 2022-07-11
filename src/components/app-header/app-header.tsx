@@ -23,7 +23,7 @@ function AppHeader() {
           Конструктор
         </NavLink>
         <NavLink
-          to={{ pathname: `/order-list` }}
+          to={{ pathname: `/feed` }}
           className={`${styles.icon_button + " text text_type_main-default"}`}
           activeClassName={styles.active}
         >

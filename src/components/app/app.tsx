@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404} from '../../pages';
+import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404, FeedPage} from '../../pages';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../services/types';
 import { getItemsRequest } from "../../services/actions/index";
@@ -58,6 +58,9 @@ const App: FC = () => {
           <ProtectedRoute path="/profile">
             <ProfilePage />
           </ProtectedRoute>
+          <Route path="/feed" exact={true}>
+            <FeedPage />
+          </Route>
           <Route path="/ingredients/:id" exact={true}>
             <IngredientsPage />
           </Route>
