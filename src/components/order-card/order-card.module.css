@@ -1,9 +1,13 @@
 .card{
     background: #1C1C21;
     border-radius: 40px;
-    margin-top: 24px;
 }
-.card:first-child {
+.link{
+  color: inherit;
+  display: block;
+  margin-top: 24px;
+}
+.link:first-child {
     margin-top: 0;
 }
 .meta,

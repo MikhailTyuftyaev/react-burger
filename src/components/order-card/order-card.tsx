@@ -2,9 +2,19 @@ import React from "react";
 import {  CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-card.module.css"
 import { TorderCard, TorderIngredients } from "../../services/types";
+import { Link, useLocation, useRouteMatch } from "react-router-dom"
 
 const OrderCard = ({number, date, name, status, ingredients, price}: TorderCard) => {
+  const location = useLocation();
+  const { path } = useRouteMatch();
     return(
+      <Link
+        className={styles.link}
+        to={{
+          pathname: `${path}/${number}`,
+          state: { background: location },
+        }}
+      >
         <div className={`${styles.card} p-6`}>
               <div className={`${styles.meta}`}>
                 <p className="text text_type_digits-default">{number}</p>
@@ -33,6 +43,7 @@ const OrderCard = ({number, date, name, status, ingredients, price}: TorderCard)
                 </div>
               </div>
             </div>
+        </Link>
     )
 }
 
