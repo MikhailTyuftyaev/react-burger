@@ -21,7 +21,7 @@ export function FeedPage() {
                 </p>
                 <div className={`${styles.wrapper_cards} pr-2`}>
                     <OrderCard 
-                        number="#1234567890"
+                        number="1234567890"
                         date="Сегодня, 16:20 i-GMT+3"
                         name="Death Star Starship Main бургер"
                         status="Создан"
@@ -29,7 +29,7 @@ export function FeedPage() {
                         price={400}
                     />
                     <OrderCard 
-                        number="#1234567890"
+                        number="1234567890"
                         date="Сегодня, 16:20 i-GMT+3"
                         name="Death Star Starship Main бургер"
                         status="Создан"
@@ -37,7 +37,7 @@ export function FeedPage() {
                         price={400}
                     />
                     <OrderCard 
-                        number="#1234567890"
+                        number="1234567890"
                         date="Сегодня, 16:20 i-GMT+3"
                         name="Death Star Starship Main бургер"
                         status="Создан"
@@ -45,7 +45,7 @@ export function FeedPage() {
                         price={400}
                     />
                     <OrderCard 
-                        number="#1234567890"
+                        number="1234567890"
                         date="Сегодня, 16:20 i-GMT+3"
                         name="Death Star Starship Main бургер"
                         status="Создан"
@@ -53,7 +53,7 @@ export function FeedPage() {
                         price={400}
                     />
                     <OrderCard 
-                        number="#1234567890"
+                        number="1234567890"
                         date="Сегодня, 16:20 i-GMT+3"
                         name="Death Star Starship Main бургер"
                         status="Создан"
@@ -61,7 +61,7 @@ export function FeedPage() {
                         price={400}
                     />
                     <OrderCard 
-                        number="#1234567890"
+                        number="1234567890"
                         date="Сегодня, 16:20 i-GMT+3"
                         name="Death Star Starship Main бургер"
                         status="Создан"

@@ -149,7 +149,6 @@ export type Tparams = {
 }
 
 export type TorderIngredients = {
-    id: number;
     image_mobile: string;
 }
 
