@@ -161,6 +161,13 @@ export type TorderCard = {
     price: number;
 }
 
+export type TfeedState = {
+    orders: [],
+    total: number;
+    totalToday: number;
+}
+
+
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export type TAllActions = TAuthAction | TItemsAction | TModalAction;

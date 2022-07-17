@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./feed.module.css"
 import OrderCard from "../components/order-card/order-card";
+import { useDispatch } from "react-redux";
+import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from "../services/actions/feed";
+import { wsUrl } from "../utils";
 
 export function FeedPage() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(wsFeedConnectionStartAction(`${wsUrl}/all`))
+
+        return () => {
+            dispatch(wsFeedConnectionClosedAction())
+        }
+    }, [dispatch])
 
     const ingredients = [
         {'id': 0, 'image_mobile': "https://code.s3.yandex.net/react/code/meat-01-mobile.png"},
