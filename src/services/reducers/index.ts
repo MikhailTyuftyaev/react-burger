@@ -19,6 +19,7 @@ import { getModalItemsReducer } from "./modal";
 import { authReducer } from "./auth"
 import { TitemsState} from "../types";
 import { TItemsAction } from "../actions"
+import { feedReducer } from "./feed";
 
 export const initialState: TitemsState = {
   data: [],
@@ -159,5 +160,6 @@ export const getItemsReducer = (state = initialState, action: TItemsAction): Tit
 export const rootReducer = combineReducers({
   ingredients: getItemsReducer,
   modal: getModalItemsReducer,
-  auth: authReducer
+  auth: authReducer,
+  feed: feedReducer
 });
