@@ -149,15 +149,16 @@ export type Tparams = {
 }
 
 export type TorderIngredients = {
-    image_mobile: string;
+    id: string;
 }
 
 export type TorderCard = {
+    id: string;
     number: string;
     date: string;
     name: string;
-    status: string;
-    ingredients: TorderIngredients[];
+    status?: string;
+    ingredients: any;
     price: number;
 }
 
