@@ -15,12 +15,12 @@ export function OrdersPage() {
   }
 
   const ingredients = [
-    {'image_mobile': "https://code.s3.yandex.net/react/code/meat-01-mobile.png"},
-    {'image_mobile': "https://code.s3.yandex.net/react/code/sauce-02-mobile.png"},
-    {'image_mobile': "https://code.s3.yandex.net/react/code/sauce-04-mobile.png"},
-    {'image_mobile': "https://code.s3.yandex.net/react/code/sauce-03-mobile.png"},
-    {'image_mobile': "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png"},
-    {'image_mobile': "https://code.s3.yandex.net/react/code/core-mobile.png"}
+    {'id': "123454574657"},
+    {'id': "123454574657"},
+    {'id': "123454574657"},
+    {'id': "123454574657"},
+    {'id': "123454574657"},
+    {'id': "123454574657"}
   ]
   return (
     <>
@@ -55,6 +55,7 @@ export function OrdersPage() {
         </div>
       <div className={`${styles.wrapper_cards} mt-10 pr-2`}>
             <OrderCard 
+              id="1234567890"
               number="1234567890"
               date="Сегодня, 16:20 i-GMT+3"
               name="Death Star Starship Main бургер"
@@ -63,6 +64,7 @@ export function OrdersPage() {
               price={400}
             />
             <OrderCard 
+              id="1234567890"
               number="1234567890"
               date="Сегодня, 16:20 i-GMT+3"
               name="Death Star Starship Main бургер"
@@ -71,6 +73,7 @@ export function OrdersPage() {
               price={400}
             />
             <OrderCard 
+              id="1234567890"
               number="1234567890"
               date="Сегодня, 16:20 i-GMT+3"
               name="Death Star Starship Main бургер"
@@ -79,6 +82,7 @@ export function OrdersPage() {
               price={400}
             />
             <OrderCard 
+              id="1234567890"
               number="1234567890"
               date="Сегодня, 16:20 i-GMT+3"
               name="Death Star Starship Main бургер"
@@ -87,6 +91,7 @@ export function OrdersPage() {
               price={400}
             />
             <OrderCard 
+              id="1234567890"
               number="1234567890"
               date="Сегодня, 16:20 i-GMT+3"
               name="Death Star Starship Main бургер"
