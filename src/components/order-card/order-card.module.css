@@ -29,6 +29,7 @@
     background: -moz-linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%); 
     background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%); 
     border-radius: 50%;
+    position: relative;
 }
 .img_item img{
     width: 64px;
@@ -64,3 +65,9 @@
   .img_item:nth-child(6) {
     z-index: 1;
   }
+
+.remains{
+  position: absolute;
+  z-index: 7;
+  left: calc(50% - 15px);
+}
