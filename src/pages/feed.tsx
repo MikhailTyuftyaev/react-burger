@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import styles from "./feed.module.css"
 import OrderCard from "../components/order-card/order-card";
 import { useDispatch } from "react-redux";
 import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from "../services/actions/feed";
 import { wsUrl } from "../utils";
+import { RootState, useAppSelector } from "../services/types";
 
 export function FeedPage() {
     const dispatch = useDispatch();
@@ -16,14 +17,20 @@ export function FeedPage() {
         }
     }, [dispatch])
 
-    const ingredients = [
-        {'id': 0, 'image_mobile': "https://code.s3.yandex.net/react/code/meat-01-mobile.png"},
-        {'id': 1, 'image_mobile': "https://code.s3.yandex.net/react/code/sauce-02-mobile.png"},
-        {'id': 2, 'image_mobile': "https://code.s3.yandex.net/react/code/sauce-04-mobile.png"},
-        {'id': 3, 'image_mobile': "https://code.s3.yandex.net/react/code/sauce-03-mobile.png"},
-        {'id': 4, 'image_mobile': "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png"},
-        {'id': 5, 'image_mobile': "https://code.s3.yandex.net/react/code/core-mobile.png"}
-      ]
+    const feed = useAppSelector((state: RootState) => state.feed);
+
+    const feedInfo: any | null = useMemo(() => {
+        if(!feed) return null;
+
+            const doneArray = feed.orders.filter((item: any)=> item.status === "done").slice(-15);
+            const pendingArray = feed.orders.filter((item: any)=> item.status === "pending").slice(-15);
+        
+        return {
+            ...feed,
+            doneArray,
+            pendingArray
+        }
+    }, [feed]);
 
     return (
         <div className={styles.wrapper}>
@@ -32,54 +39,22 @@ export function FeedPage() {
                     Лента заказов
                 </p>
                 <div className={`${styles.wrapper_cards} pr-2`}>
-                    <OrderCard 
-                        number="1234567890"
-                        date="Сегодня, 16:20 i-GMT+3"
-                        name="Death Star Starship Main бургер"
-                        status="Создан"
-                        ingredients={ingredients}
-                        price={400}
-                    />
-                    <OrderCard 
-                        number="1234567890"
-                        date="Сегодня, 16:20 i-GMT+3"
-                        name="Death Star Starship Main бургер"
-                        status="Создан"
-                        ingredients={ingredients}
-                        price={400}
-                    />
-                    <OrderCard 
-                        number="1234567890"
-                        date="Сегодня, 16:20 i-GMT+3"
-                        name="Death Star Starship Main бургер"
-                        status="Создан"
-                        ingredients={ingredients}
-                        price={400}
-                    />
-                    <OrderCard 
-                        number="1234567890"
-                        date="Сегодня, 16:20 i-GMT+3"
-                        name="Death Star Starship Main бургер"
-                        status="Создан"
-                        ingredients={ingredients}
-                        price={400}
-                    />
-                    <OrderCard 
-                        number="1234567890"
-                        date="Сегодня, 16:20 i-GMT+3"
-                        name="Death Star Starship Main бургер"
-                        status="Создан"
-                        ingredients={ingredients}
-                        price={400}
-                    />
-                    <OrderCard 
-                        number="1234567890"
-                        date="Сегодня, 16:20 i-GMT+3"
-                        name="Death Star Starship Main бургер"
-                        status="Создан"
-                        ingredients={ingredients}
-                        price={400}
-                    />
+                    {
+                        feed.orders.map(function (item: any){
+                            return (
+                                <OrderCard 
+                                    id={item._id}
+                                    number={item.number}
+                                    date={item.createdAt}
+                                    name={item.name}
+                                    ingredients={item.ingredients}
+                                    price={400}
+                                    key={item._id}
+                                />
+                            )
+                        })
+                    }
+                    
                 </div>
             </div>
             <div className={`${styles.right_section} mt-25`}>
@@ -88,21 +63,27 @@ export function FeedPage() {
                             <p className="text text_type_main-medium mb-6">
                                 Готовы:
                             </p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
+                            <div className={styles.list_done}>
+                                {feedInfo.doneArray.map(function(item: any, index: number) {
+                                    return (
+                                        <p className="text text_type_digits-default mb-2">{item.number}</p>
+                                    )
+                                })}
+                            </div>
+                            
+
                         </div>
                         <div className={styles.order_work}>
                             <p className="text text_type_main-medium mb-6">
                                 В работе:
                             </p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
-                            <p className="text text_type_digits-default mb-2">123456</p>
+                            <div className={styles.list_pending}>
+                                {feedInfo.pendingArray.map(function(item: any, index: number) {
+                                    return (
+                                        <p className="text text_type_digits-default mb-2">{item.number}</p>
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
                     <div className="mb-15">
@@ -110,7 +91,7 @@ export function FeedPage() {
                             Выполнено за все время:
                         </p>
                         <p className={`${styles.main_text} text text_type_digits-large`}>
-                            28 752
+                            {feed.total}
                         </p>
                     </div>
                     <div className="mb-15">
@@ -118,7 +99,7 @@ export function FeedPage() {
                             Выполнено за сегодня:
                         </p>
                         <p className={`${styles.main_text} text text_type_digits-large`}>
-                            28 752
+                            {feed.totalToday}
                         </p>
                     </div>
                 </div>

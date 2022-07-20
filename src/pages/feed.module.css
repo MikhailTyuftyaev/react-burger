@@ -26,9 +26,14 @@
 .order_work{
     width: calc(50% - 18px);
 }
-
-.order_done p:not(:first-child){
+.list_done{
     color: #00CCCC;
+}
+.list_done,
+.list_pending{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 5px;
 }
 
 .main_text {
