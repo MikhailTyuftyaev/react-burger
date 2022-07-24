@@ -29,10 +29,7 @@ const socketMiddleware = (wsActions: TwsFeedActions) => {
                     const parsedData = JSON.parse(data);
                     dispatch({
                         type: onMessage,
-                        payload: {
-                            data: parsedData,
-                            timestamp: new Date().getTime() / 100,
-                        },
+                        payload: parsedData,
                     });
                 }
             }
