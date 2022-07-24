@@ -3,6 +3,7 @@ import styles from "./ingredient-item.module.css"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const IngredientItem = ({ ...props}) => {
+    const itemCount = props.ingredients.filter((id: string) => id === props.ingredient._id).length;
     return (
         <div className={styles.wrapper}>
             <div className={styles.box}>
@@ -14,7 +15,7 @@ const IngredientItem = ({ ...props}) => {
                 </p>
             </div>
             <div className={`${styles.price} ml-4`}>
-                <p className="text text_type_digits-default mr-2">{props.__v} x</p>
+                <p className="text text_type_digits-default mr-2">{itemCount} x</p>
                 
                 <p className="text text_type_digits-default mr-2">{props.price}</p>
                 <CurrencyIcon type="primary" />

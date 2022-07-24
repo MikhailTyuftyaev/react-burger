@@ -1,28 +1,31 @@
 import React, { useMemo } from "react";
 import {  CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-card.module.css"
-import { TorderCard, useAppSelector, RootState } from "../../services/types";
+import { TorderCard, useAppSelector, RootState, TfeedItem } from "../../services/types";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useRouteMatch } from "react-router-dom"
 import { formatDate } from "../../utils";
+import { wsFeedAddCurrentItemAction } from "../../services/actions/feed";
+import { TItem } from "../../services/types";
 
 const OrderCard = ({id, number, date, name, status, ingredients, price}: TorderCard) => {
   const location = useLocation();
   const { path } = useRouteMatch();
+  const dispatch = useDispatch();
 
   const maxIngredietns = 6;
 
   const data = useAppSelector((state: RootState) => state.ingredients.data)
 
   const cardInfo = useMemo(() => {
-    if(!data.length) return null;
 
-    const ingredientsInfo = ingredients.reduce((acc: any, item: any) => {
+    const ingredientsInfo = ingredients.reduce((acc: TItem[], item: string) => {
       const ingredient = data.find((ing) => ing._id === item);
       if (ingredient) acc.push(ingredient);
       return acc;
     }, [])
 
-    const total = ingredientsInfo.reduce((acc: any, item: any) => {
+    const total = ingredientsInfo.reduce((acc: number, item: TItem) => {
       return acc + item.price
     }, 0)
 
@@ -45,6 +48,20 @@ const OrderCard = ({id, number, date, name, status, ingredients, price}: TorderC
     }
   }, [ingredients, data]);
 
+    const item: TfeedItem = {
+      'createdAt': date,
+      'ingredients': ingredients,
+      'name': name,
+      'number': number,
+      'status': status,
+      '_id': id,
+      'total': cardInfo.total
+    }
+
+    function handleClickOrder() {
+      dispatch(wsFeedAddCurrentItemAction(item))
+    }
+
     return(
       <Link
         className={styles.link}
@@ -53,7 +70,8 @@ const OrderCard = ({id, number, date, name, status, ingredients, price}: TorderC
           state: { background: location },
         }}
       >
-        <div className={`${styles.card} p-6`}>
+        <div className={`${styles.card} p-6`}
+          onClick={() => handleClickOrder()}>
               <div className={`${styles.meta}`}>
                 <p className="text text_type_digits-default">#{number}</p>
                 <p className="text text_type_main-default text_color_inactive">{cardInfo.orderDate}</p>
@@ -68,7 +86,7 @@ const OrderCard = ({id, number, date, name, status, ingredients, price}: TorderC
               : null }
               <div className={`${styles.meta} mt-6`}>
                 <div className={styles.img_container}>
-                {cardInfo.ingredientsToShow.map(function (item: any, index: number) {
+                {cardInfo.ingredientsToShow.map(function (item: TItem, index: number) {
                   return (
                     <div 
                       key={index}

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from "../services/actions/feed";
 import { wsUrl } from "../utils";
 import { RootState, useAppSelector } from "../services/types";
+import { TfeedItem } from "../services/types";
 
 export function FeedPage() {
     const dispatch = useDispatch();
@@ -19,11 +20,11 @@ export function FeedPage() {
 
     const feed = useAppSelector((state: RootState) => state.feed);
 
-    const feedInfo: any | null = useMemo(() => {
-        if(!feed) return null;
+    const feedInfo = useMemo(() => {
+        if (!feed) return null 
 
-            const doneArray = feed.orders.filter((item: any)=> item.status === "done").slice(-15);
-            const pendingArray = feed.orders.filter((item: any)=> item.status === "pending").slice(-15);
+        const doneArray = feed.orders && feed.orders.filter((item: TfeedItem)=> item.status === "done").slice(-15);
+        const pendingArray = feed.orders && feed.orders.filter((item: TfeedItem)=> item.status === "pending").slice(-15);
         
         return {
             ...feed,
@@ -39,8 +40,8 @@ export function FeedPage() {
                     Лента заказов
                 </p>
                 <div className={`${styles.wrapper_cards} pr-2`}>
-                    {
-                        feed.orders.map(function (item: any){
+                    {feed.orders &&
+                        feed.orders.map(function (item: TfeedItem){
                             return (
                                 <OrderCard 
                                     id={item._id}
@@ -64,9 +65,9 @@ export function FeedPage() {
                                 Готовы:
                             </p>
                             <div className={styles.list_done}>
-                                {feedInfo.doneArray.map(function(item: any, index: number) {
+                                {feedInfo && feed.orders && feedInfo.doneArray.map(function(item: TfeedItem, index: number) {
                                     return (
-                                        <p className="text text_type_digits-default mb-2">{item.number}</p>
+                                        <p className="text text_type_digits-default mb-2" key={index}>{item.number}</p>
                                     )
                                 })}
                             </div>
@@ -78,9 +79,9 @@ export function FeedPage() {
                                 В работе:
                             </p>
                             <div className={styles.list_pending}>
-                                {feedInfo.pendingArray.map(function(item: any, index: number) {
+                                {feedInfo && feed.orders && feedInfo.pendingArray.map(function(item: TfeedItem, index: number) {
                                     return (
-                                        <p className="text text_type_digits-default mb-2">{item.number}</p>
+                                        <p className="text text_type_digits-default mb-2" key={index}>{item.number}</p>
                                     )
                                 })}
                             </div>
