@@ -159,7 +159,6 @@ export type TorderCard = {
     name: string;
     status?: string;
     ingredients: any;
-    price: number;
 }
 
 export type TfeedItem = {

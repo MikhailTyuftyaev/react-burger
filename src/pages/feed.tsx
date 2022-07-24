@@ -49,7 +49,6 @@ export function FeedPage() {
                                     date={item.createdAt}
                                     name={item.name}
                                     ingredients={item.ingredients}
-                                    price={400}
                                     key={item._id}
                                 />
                             )
