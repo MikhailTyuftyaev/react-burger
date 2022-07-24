@@ -2,9 +2,9 @@ import { FC, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404, FeedPage} from '../../pages';
+import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404, FeedPage, FeedInfoPage} from '../../pages';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../services/types';
+import { useAppSelector, RootState } from '../../services/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../../utils';
@@ -21,7 +21,8 @@ const App: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let background = location.state && location.state.background;
-    const modalItem = useAppSelector((state) => state.modal.currentItem);
+    const modalItem = useAppSelector((state: RootState) => state.modal.currentItem);
+    const feed = useAppSelector((state: RootState) => state.feed.modal);
 
     function onClose() {
       dispatch(deleteCurrentItemAction());
@@ -61,6 +62,9 @@ const App: FC = () => {
           <Route path="/feed" exact={true}>
             <FeedPage />
           </Route>
+          <Route path="/feed/:id" exact={true}>
+            <FeedInfoPage />
+          </Route>
           <Route path="/ingredients/:id" exact={true}>
             <IngredientsPage />
           </Route>
@@ -98,28 +102,16 @@ const App: FC = () => {
               <Modal
                 onClose={onClose}
                 isModal={true}
-              >
+              > {feed &&
                   <FeedDetails
-                    number="123456"
-                    date="Сегодня, 16:20 i-GMT+3"
-                    name="Death Star Starship Main бургер"
-                    status="Создан"
-                    ingredients={[
-                      {
-                        "name": "Флюоресцентная булка R2-D3",
-                        "__v": 1,
-                        "price": 400,
-                        "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png"
-                      },
-                      {
-                        "name": "Флюоресцентная булка R2-D3",
-                        "__v": 1,
-                        "price": 400,
-                        "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png"
-                      },
-                    ]}
-                    price={400}
+                    number={feed.number}
+                    date={feed.createdAt}
+                    name={feed.name}
+                    status={feed.status}
+                    ingredients={feed.ingredients}
+                    price={feed.total}
                   />
+                }
               </Modal>
             }
             />
