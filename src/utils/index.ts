@@ -1,7 +1,7 @@
 export const baseUrl = "https://norma.nomoreparties.space/api";
 export const wsUrl = "wss://norma.nomoreparties.space/orders";
 
-export function formatDate(date: any) {
+export function formatDate(date: string) {
   let t = new Date(date)
   let now = new Date().getDate();
   let hr = ("0" + t.getHours()).slice(-2);

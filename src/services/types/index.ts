@@ -162,11 +162,27 @@ export type TorderCard = {
     price: number;
 }
 
+export type TfeedItem = {
+    createdAt: string;
+    ingredients: TorderIngredients[],
+    name: string;
+    number: string;
+    status?: string;
+    updatedAt?: string;
+    _id: string;
+    total: number;
+}
+
 export type TfeedState = {
-    orders: [],
+    orders: TfeedItem[],
     total: number;
     totalToday: number;
+    isOpen: boolean;
+    error: string | null;
+    modal: TfeedItem | null
 }
+
+
 
 
 export type RootState = ReturnType<typeof rootReducer>; 
