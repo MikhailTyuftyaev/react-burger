@@ -125,27 +125,16 @@ const App: FC = () => {
                 onClose={onClose}
                 isModal={true}
               >
+                {feed &&
                   <FeedDetails
-                    number="123456"
-                    date="Сегодня, 16:20 i-GMT+3"
-                    name="Death Star Starship Main бургер"
-                    status="Создан"
-                    ingredients={[
-                      {
-                        "name": "Флюоресцентная булка R2-D3",
-                        "__v": 1,
-                        "price": 400,
-                        "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png"
-                      },
-                      {
-                        "name": "Флюоресцентная булка R2-D3",
-                        "__v": 1,
-                        "price": 400,
-                        "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png"
-                      },
-                    ]}
-                    price={400}
+                    number={feed.number}
+                    date={feed.createdAt}
+                    name={feed.name}
+                    status={feed.status}
+                    ingredients={feed.ingredients}
+                    price={feed.total}
                   />
+                }
               </Modal>
             }
             />

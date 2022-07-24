@@ -8,7 +8,7 @@ import { formatDate } from "../../utils";
 import { wsFeedAddCurrentItemAction } from "../../services/actions/feed";
 import { TItem } from "../../services/types";
 
-const OrderCard = ({id, number, date, name, status, ingredients, price}: TorderCard) => {
+const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) => {
   const location = useLocation();
   const { path } = useRouteMatch();
   const dispatch = useDispatch();
@@ -81,7 +81,10 @@ const OrderCard = ({id, number, date, name, status, ingredients, price}: TorderC
               </p>
               {status ? 
               <p className="text text_type_main-default mt-2">
-                {status}
+                {status === "done" ? "Выполнен" 
+                : status === "pending" ? "В работе"
+                : status === "created" ? "Создан" 
+                : null}
               </p>
               : null }
               <div className={`${styles.meta} mt-6`}>

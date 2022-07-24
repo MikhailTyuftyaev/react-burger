@@ -1,5 +1,5 @@
 import { baseUrl } from "../../utils";
-import { checkResponse } from "../../utils";
+import { checkResponse, getCookie } from "../../utils";
 import { TAppThunk, TDispatch, TItem, TOrderObject } from "../types";
 
 import {
@@ -196,7 +196,8 @@ export const sendOrderRequest: TAppThunk = (constructorIngredients: Array<string
     fetch(baseUrl + "/orders", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json; charset=utf-8"
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: "Bearer " + getCookie("accessToken")
       },
       body: JSON.stringify({ "ingredients": constructorIngredients}),
     })

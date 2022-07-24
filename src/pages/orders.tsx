@@ -1,27 +1,31 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { NavLink, useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux"
 import styles from "./orders.module.css";
 import { sendLogoutRequest } from "../services/actions/auth";
 import OrderCard from "../components/order-card/order-card";
-
+import { getCookie, wsUrl } from "../utils";
+import { RootState, useAppSelector, TfeedItem } from "../services/types";
+import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from "../services/actions/feed";
 export function OrdersPage() {
   const { path } = useRouteMatch();
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(wsFeedConnectionStartAction(`${wsUrl}?token=${getCookie('accessToken')}`));
+
+    return () => {
+        dispatch(wsFeedConnectionClosedAction())
+    }
+}, [dispatch])
+
+  const ordersArray = useAppSelector((state: RootState) => state.feed);
+
   const logout = () => {
     dispatch(sendLogoutRequest())
   }
 
-  const ingredients = [
-    {'id': "123454574657"},
-    {'id': "123454574657"},
-    {'id': "123454574657"},
-    {'id': "123454574657"},
-    {'id': "123454574657"},
-    {'id': "123454574657"}
-  ]
   return (
     <>
       <div className={`${styles.wrapper} mt-10`}>
@@ -54,51 +58,20 @@ export function OrdersPage() {
           </div>
         </div>
       <div className={`${styles.wrapper_cards} mt-10 pr-2`}>
+        {ordersArray.orders && ordersArray.orders.map(function(item: TfeedItem, index: number){
+          return (
             <OrderCard 
-              id="1234567890"
-              number="1234567890"
-              date="Сегодня, 16:20 i-GMT+3"
-              name="Death Star Starship Main бургер"
-              status="Создан"
-              ingredients={ingredients}
-              price={400}
+              id={item._id}
+              number={item.number}
+              date={item.createdAt}
+              name={item.name}
+              status={item.status}
+              ingredients={item.ingredients}
+              key={index}
             />
-            <OrderCard 
-              id="1234567890"
-              number="1234567890"
-              date="Сегодня, 16:20 i-GMT+3"
-              name="Death Star Starship Main бургер"
-              status="Создан"
-              ingredients={ingredients}
-              price={400}
-            />
-            <OrderCard 
-              id="1234567890"
-              number="1234567890"
-              date="Сегодня, 16:20 i-GMT+3"
-              name="Death Star Starship Main бургер"
-              status="Создан"
-              ingredients={ingredients}
-              price={400}
-            />
-            <OrderCard 
-              id="1234567890"
-              number="1234567890"
-              date="Сегодня, 16:20 i-GMT+3"
-              name="Death Star Starship Main бургер"
-              status="Создан"
-              ingredients={ingredients}
-              price={400}
-            />
-            <OrderCard 
-              id="1234567890"
-              number="1234567890"
-              date="Сегодня, 16:20 i-GMT+3"
-              name="Death Star Starship Main бургер"
-              status="Создан"
-              ingredients={ingredients}
-              price={400}
-            />
+          )
+        })}
+            
       </div>
       </div>
     </>

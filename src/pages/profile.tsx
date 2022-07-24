@@ -10,6 +10,7 @@ import { useAppSelector, RootState } from "../services/types";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
 import { ProtectedRoute } from "../components/protected-route/protected-route";
 import { OrdersPage } from "./orders";
+import { FeedInfoPage } from "./feed-info";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
@@ -113,6 +114,9 @@ export function ProfilePage() {
           </ProtectedRoute>
           <ProtectedRoute  path={`${path}/orders`} exact={true}>
               <OrdersPage/>
+          </ProtectedRoute>
+          <ProtectedRoute path={`${path}/orders/:id`} exact={true}>
+            <FeedInfoPage />
           </ProtectedRoute>
         </Switch>
       
