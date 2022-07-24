@@ -3,8 +3,11 @@ import {
     WS_FEED_CONNECTION_SUCCESS,
     WS_FEED_CONNECTION_ERROR,
     WS_FEED_GET_MESSAGE,
-    WS_FEED_CONNECTION_CLOSED
+    WS_FEED_CONNECTION_CLOSED,
+    WS_FEED_ADD_CURRENT_ITEM
 } from "../constants/feed"
+
+import { TfeedItem, TfeedState } from "../types";
 
 export interface IWsFeedConnectionStartAction {
     readonly type: typeof WS_FEED_CONNECTION_START,
@@ -16,15 +19,22 @@ export interface IWsFeedConnectionSuccessAction {
 }
 
 export interface IWsFeedConnectionErrorAction {
-    readonly type: typeof WS_FEED_CONNECTION_ERROR;
+    readonly type: typeof WS_FEED_CONNECTION_ERROR,
+    payload: string;
 }
 
 export interface IWsFeedGetMessageAction {
-    readonly type: typeof WS_FEED_GET_MESSAGE;
+    readonly type: typeof WS_FEED_GET_MESSAGE,
+    payload: TfeedState;
 }
 
 export interface IWsFeedConnectionClosedAction {
     readonly type: typeof WS_FEED_CONNECTION_CLOSED;
+}
+
+export interface IWsFeedAddCurrentItemAction {
+    readonly type: typeof WS_FEED_ADD_CURRENT_ITEM;
+    item: TfeedItem;
 }
 
 export const wsFeedConnectionStartAction = (payload: string):IWsFeedConnectionStartAction => ({
@@ -36,16 +46,23 @@ export const wsFeedConnectionSuccessAction = ():IWsFeedConnectionSuccessAction =
     type: WS_FEED_CONNECTION_SUCCESS
 });
 
-export const wsFeedConnectionErrorAction = ():IWsFeedConnectionErrorAction => ({
-    type: WS_FEED_CONNECTION_ERROR
+export const wsFeedConnectionErrorAction = (payload: string):IWsFeedConnectionErrorAction => ({
+    type: WS_FEED_CONNECTION_ERROR,
+    payload
 });
 
-export const wsFeedGetMessageAction = ():IWsFeedGetMessageAction => ({
-    type: WS_FEED_GET_MESSAGE
+export const wsFeedGetMessageAction = (payload:  TfeedState):IWsFeedGetMessageAction => ({
+    type: WS_FEED_GET_MESSAGE,
+    payload
 });
 
 export const wsFeedConnectionClosedAction = ():IWsFeedConnectionClosedAction => ({
     type: WS_FEED_CONNECTION_CLOSED
+});
+
+export const wsFeedAddCurrentItemAction = (item: TfeedItem):IWsFeedAddCurrentItemAction => ({
+    type: WS_FEED_ADD_CURRENT_ITEM,
+    item
 });
 
 export type TWSOrdersFeedActions =
@@ -53,7 +70,8 @@ export type TWSOrdersFeedActions =
 | IWsFeedConnectionSuccessAction
 | IWsFeedConnectionErrorAction
 | IWsFeedGetMessageAction
-| IWsFeedConnectionClosedAction;
+| IWsFeedConnectionClosedAction
+| IWsFeedAddCurrentItemAction;
 
 
 export type TwsFeedActions = {
