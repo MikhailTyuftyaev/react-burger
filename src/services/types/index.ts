@@ -177,7 +177,7 @@ export type TfeedState = {
     total: number;
     totalToday: number;
     isOpen: boolean;
-    error: string | null;
+    error: Event | null;
     modal: TfeedItem | null
 }
 

@@ -18,7 +18,7 @@ const initialState: TfeedState = {
     modal: null
 };
 
-export const feedReducer = (state = initialState, action: TWSOrdersFeedActions) => {
+export const feedReducer = (state = initialState, action: TWSOrdersFeedActions): TfeedState => {
     switch (action.type) {
         case WS_FEED_CONNECTION_START: {
             return {

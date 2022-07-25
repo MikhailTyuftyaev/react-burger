@@ -20,7 +20,7 @@ export interface IWsFeedConnectionSuccessAction {
 
 export interface IWsFeedConnectionErrorAction {
     readonly type: typeof WS_FEED_CONNECTION_ERROR,
-    payload: string;
+    payload: Event;
 }
 
 export interface IWsFeedGetMessageAction {
@@ -46,7 +46,7 @@ export const wsFeedConnectionSuccessAction = ():IWsFeedConnectionSuccessAction =
     type: WS_FEED_CONNECTION_SUCCESS
 });
 
-export const wsFeedConnectionErrorAction = (payload: string):IWsFeedConnectionErrorAction => ({
+export const wsFeedConnectionErrorAction = (payload: Event):IWsFeedConnectionErrorAction => ({
     type: WS_FEED_CONNECTION_ERROR,
     payload
 });

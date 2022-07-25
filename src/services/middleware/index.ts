@@ -1,10 +1,12 @@
 import { TwsFeedActions } from "../actions/feed";
+import { Middleware, MiddlewareAPI } from "redux";
+import { TDispatch, RootState } from "../types";
 
-const socketMiddleware = (wsActions: TwsFeedActions) => {
-    return (store: any) => {
+const socketMiddleware = (wsActions: TwsFeedActions): Middleware => {
+    return (store: MiddlewareAPI<TDispatch, RootState>) => {
         let socket = null;
 
-        return (next: any) => (action: any) => {
+        return (next) => (action) => {
             const {dispatch} = store;
             const {type, payload} = action;
             const {
