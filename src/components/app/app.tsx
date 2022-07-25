@@ -107,16 +107,7 @@ const App: FC = () => {
                 onClose={onClose}
                 isModal={true}
               >
-                {feed &&
-                  <FeedDetails
-                    number={feed.number}
-                    date={feed.createdAt}
-                    name={feed.name}
-                    status={feed.status}
-                    ingredients={feed.ingredients}
-                    price={feed.total}
-                  />
-                }
+                  <FeedDetails/>
               </Modal>
             }
             />
