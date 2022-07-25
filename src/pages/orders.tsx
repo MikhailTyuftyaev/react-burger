@@ -1,11 +1,10 @@
 import React, {useEffect} from "react";
 import { NavLink, useRouteMatch } from "react-router-dom";
-import { useDispatch } from "react-redux"
 import styles from "./orders.module.css";
 import { sendLogoutRequest } from "../services/actions/auth";
 import OrderCard from "../components/order-card/order-card";
 import { getCookie, wsUrl } from "../utils";
-import { RootState, useAppSelector, TfeedItem } from "../services/types";
+import { useAppSelector, TfeedItem, useDispatch } from "../services/types";
 import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from "../services/actions/feed";
 export function OrdersPage() {
   const { path } = useRouteMatch();

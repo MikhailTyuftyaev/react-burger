@@ -4,10 +4,8 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-item.module.css";
-import { useDispatch} from "react-redux";
 import { useDrag, useDrop } from 'react-dnd'
-import { MOVE_ITEM } from "../../../services/constants";
-import { TConstructorItem } from "../../../services/types";
+import { TConstructorItem, useDispatch } from "../../../services/types";
 import { decreaseItemAction, deleteItemAction, moveItemAction } from "../../../services/actions"
 
 const ConstructorItem: FC<TConstructorItem> = ({ index, id, name, price, thumbnail, uiKey }) => {

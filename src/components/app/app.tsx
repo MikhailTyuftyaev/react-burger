@@ -3,14 +3,13 @@ import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404, FeedPage, FeedInfoPage} from '../../pages';
-import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../services/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../../utils';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { closeModalAction, deleteCurrentItemAction } from '../../services/actions/modal';
-import { TLocation } from '../../services/types';
+import { TLocation, useDispatch } from '../../services/types';
 import FeedDetails from '../feed-details/feed-detail';
 import AppHeader from '../app-header/app-header';
 import Main from "../main/main";

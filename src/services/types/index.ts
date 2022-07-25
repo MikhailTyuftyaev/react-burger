@@ -8,7 +8,8 @@ import { Action, ActionCreator } from 'redux';
 import { rootReducer } from '../reducers';
 import {
     TypedUseSelectorHook,
-    useSelector as selectorHook
+    useSelector as selectorHook,
+    useDispatch as dispatchHook,
 } from 'react-redux';
 
 export type TModal = {
@@ -189,3 +190,4 @@ export type TAppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TAllActions>
 >; 
 export type TDispatch = typeof store.dispatch;
+export const useDispatch = () => dispatchHook<TDispatch | TAppThunk>();

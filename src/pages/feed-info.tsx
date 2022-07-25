@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import { useAppSelector, Tparams, TfeedItem } from '../services/types';
+import { useAppSelector, Tparams, TfeedItem, useDispatch } from '../services/types';
 import FeedDetails from '../components/feed-details/feed-detail';
 import styles from './ingredients.module.css'
 import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from '../services/actions/feed';

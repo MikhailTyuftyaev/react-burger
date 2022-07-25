@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo } from "react";
 import styles from "./feed.module.css"
 import OrderCard from "../components/order-card/order-card";
-import { useDispatch } from "react-redux";
 import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from "../services/actions/feed";
 import { wsUrl } from "../utils";
-import { useAppSelector } from "../services/types";
+import { useAppSelector, useDispatch } from "../services/types";
 import { TfeedItem } from "../services/types";
 
 export function FeedPage() {

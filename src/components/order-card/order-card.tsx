@@ -2,11 +2,10 @@ import React, { useMemo } from "react";
 import {  CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-card.module.css"
 import { TorderCard, useAppSelector, TfeedItem, TorderIngredients } from "../../services/types";
-import { useDispatch } from "react-redux";
 import { Link, useLocation, useRouteMatch } from "react-router-dom"
 import { formatDate } from "../../utils";
 import { wsFeedAddCurrentItemAction } from "../../services/actions/feed";
-import { TItem } from "../../services/types";
+import { TItem, useDispatch } from "../../services/types";
 
 const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) => {
   const location = useLocation();

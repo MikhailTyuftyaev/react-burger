@@ -5,8 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../services/types";
+import { useAppSelector, useDispatch } from "../services/types";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
 import { ProtectedRoute } from "../components/protected-route/protected-route";
 import { OrdersPage } from "./orders";

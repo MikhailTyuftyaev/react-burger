@@ -5,9 +5,8 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { useDispatch } from "react-redux";
 import { openModalAction, addCurrentItemAction } from "../../../services/actions/modal"
-import { TBurgerItem, TItem } from "../../../services/types";
+import { TBurgerItem, TItem, useDispatch } from "../../../services/types";
 import { Link, useLocation } from "react-router-dom"
 
 const BurgerItem = ({ item, ...props }: TBurgerItem) => {
