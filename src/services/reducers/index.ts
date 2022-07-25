@@ -27,7 +27,7 @@ export const initialState: TitemsState = {
   itemsFailed: false,
   buns: null,
   ingredients: [],
-  order: [],
+  order: null,
   orderRequest: false,
   orderFailed: false,
 };
@@ -148,7 +148,7 @@ export const getItemsReducer = (state = initialState, action: TItemsAction): Tit
     case CLEAR_ORDER_NUMBER: {
       return {
         ...state,
-        order: [],
+        order: null,
       }
     }
     default: {

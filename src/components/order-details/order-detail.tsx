@@ -2,16 +2,24 @@ import React from "react";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-detail.module.css";
 import { useAppSelector } from "../../services/types";
+import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const OrderDetails = ({ ...props }) => {
   const order = useAppSelector((state) => state.ingredients.order);
   return (
-    <>
+    <>{order ?
       <p
         className={`${styles.main_text} text text_type_digits-large mt-4 pr-15 pl-15 `}
       >
-        {order ? order : "Loading"}
+        {order}
       </p>
+      :
+      <div className={`${styles.loader_box}`}>
+        <div className={`${styles.loader}`}>
+          <Logo/>
+        </div>
+      </div>
+      }
       {order && (
         <>
           <p className="text text_type_main-medium mt-8">

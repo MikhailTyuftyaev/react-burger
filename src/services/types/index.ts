@@ -78,19 +78,13 @@ export type TOrder = {
     updatedAt: string;
 };
 
-export type TOrderObject = {
-    name: string;
-    order: TOrder;
-    success: boolean;
-};
-
 export type TitemsState = {
     data: TItem[];
     itemsRequest: boolean;
     itemsFailed: boolean;
     buns: TItem | null;
     ingredients: TItem[];
-    order: TOrderObject[];
+    order: number | null;
     orderRequest: boolean;
     orderFailed: boolean;
 }

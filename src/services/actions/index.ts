@@ -1,6 +1,6 @@
 import { baseUrl } from "../../utils";
 import { checkResponse, getCookie } from "../../utils";
-import { TAppThunk, TDispatch, TItem, TOrderObject } from "../types";
+import { TAppThunk, TDispatch, TItem } from "../types";
 
 import {
   GET_ITEMS_REQUEST,
@@ -40,7 +40,7 @@ export interface IGetOrderRequestAction {
 
 export interface IGetOrderSuccessAction {
   readonly type: typeof GET_ORDER_SUCCESS,
-  order: TOrderObject[];
+  order: number;
 }
 
 export interface IClearOrderArrayAction {
@@ -105,7 +105,7 @@ const getOrderRequestAction = ():IGetOrderRequestAction => ({
   type: GET_ORDER_REQUEST
 });
 
-const getOrderSuccessAction = (order: TOrderObject[]):IGetOrderSuccessAction => ({
+const getOrderSuccessAction = (order: number):IGetOrderSuccessAction => ({
   type: GET_ORDER_SUCCESS,
   order
 });
