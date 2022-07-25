@@ -3,7 +3,7 @@ import styles from "./feed.module.css"
 import OrderCard from "../components/order-card/order-card";
 import { useDispatch } from "react-redux";
 import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from "../services/actions/feed";
-import { wsUrl } from "../utils";
+import { wsUrl, getCookie } from "../utils";
 import { RootState, useAppSelector } from "../services/types";
 import { TfeedItem } from "../services/types";
 
