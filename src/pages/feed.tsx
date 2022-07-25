@@ -3,8 +3,8 @@ import styles from "./feed.module.css"
 import OrderCard from "../components/order-card/order-card";
 import { useDispatch } from "react-redux";
 import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from "../services/actions/feed";
-import { wsUrl, getCookie } from "../utils";
-import { RootState, useAppSelector } from "../services/types";
+import { wsUrl } from "../utils";
+import { useAppSelector } from "../services/types";
 import { TfeedItem } from "../services/types";
 
 export function FeedPage() {
@@ -18,7 +18,7 @@ export function FeedPage() {
         }
     }, [dispatch])
 
-    const feed = useAppSelector((state: RootState) => state.feed);
+    const feed = useAppSelector((state) => state.feed);
 
     const feedInfo = useMemo(() => {
         if (!feed) return null 

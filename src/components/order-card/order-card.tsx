@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import {  CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-card.module.css"
-import { TorderCard, useAppSelector, RootState, TfeedItem } from "../../services/types";
+import { TorderCard, useAppSelector, RootState, TfeedItem, TorderIngredients } from "../../services/types";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useRouteMatch } from "react-router-dom"
 import { formatDate } from "../../utils";
@@ -15,12 +15,12 @@ const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) =>
 
   const maxIngredietns = 6;
 
-  const data = useAppSelector((state: RootState) => state.ingredients.data)
+  const data = useAppSelector((state) => state.ingredients.data)
 
   const cardInfo = useMemo(() => {
 
-    const ingredientsInfo = ingredients.reduce((acc: TItem[], item: string) => {
-      const ingredient = data.find((ing) => ing._id === item);
+    const ingredientsInfo = ingredients.reduce((acc: TItem[], item: TorderIngredients) => {
+      const ingredient = data.find((ing: TItem) => ing._id === item.id);
       if (ingredient) acc.push(ingredient);
       return acc;
     }, [])
@@ -36,7 +36,7 @@ const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) =>
     const remains = 
     ingredientsInfo.length > maxIngredietns
     ? ingredientsInfo.length - maxIngredietns
-    : null;
+    : 0;
 
     return {
       ...ingredients,

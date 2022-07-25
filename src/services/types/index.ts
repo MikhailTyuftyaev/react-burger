@@ -158,7 +158,7 @@ export type TorderCard = {
     date: string;
     name: string;
     status?: string;
-    ingredients: any;
+    ingredients: TorderIngredients[];
 }
 
 export type TfeedItem = {
