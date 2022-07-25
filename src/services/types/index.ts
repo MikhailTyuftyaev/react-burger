@@ -148,9 +148,7 @@ export type Tparams = {
     id?: string;
 }
 
-export type TorderIngredients = {
-    id: string;
-}
+export type TorderIngredients = string;
 
 export type TorderCard = {
     id: string;

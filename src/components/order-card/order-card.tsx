@@ -19,8 +19,8 @@ const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) =>
 
   const cardInfo = useMemo(() => {
 
-    const ingredientsInfo = ingredients.reduce((acc: TItem[], item: TorderIngredients) => {
-      const ingredient = data.find((ing: TItem) => ing._id === item.id);
+    const ingredientsInfo = ingredients.reduce((acc: TItem[], id: TorderIngredients): TItem[] => {
+      const ingredient = data.find((ing: TItem) => ing._id === id);
       if (ingredient) acc.push(ingredient);
       return acc;
     }, [])
