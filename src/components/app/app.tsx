@@ -20,7 +20,6 @@ const App: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let background = location.state && location.state.background;
-    const modalItem = useAppSelector((state) => state.modal.currentItem);
     const feed = useAppSelector((state) => state.feed.modal);
 
     function onClose() {
@@ -80,16 +79,8 @@ const App: FC = () => {
                 header="Детали ингредиента"
                 onClose={onClose}
                 isModal={true}
-              > {modalItem &&
-                  <IngredientDetails
-                    image={modalItem.image_large}
-                    name={modalItem.name}
-                    calories={modalItem.calories}
-                    proteins={modalItem.proteins}
-                    fat={modalItem.fat}
-                    carbohydrates={modalItem.carbohydrates}
-                  />
-                }
+               >
+                <IngredientDetails/>
               </Modal>
             }
             />
