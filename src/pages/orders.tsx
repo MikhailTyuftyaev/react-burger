@@ -20,7 +20,7 @@ export function OrdersPage() {
     }
 }, [dispatch])
 
-  const ordersArray = useAppSelector((state: RootState) => state.feed);
+  const ordersArray = useAppSelector((state) => state.feed);
 
   const logout = () => {
     dispatch(sendLogoutRequest())

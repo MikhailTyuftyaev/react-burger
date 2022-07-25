@@ -9,7 +9,7 @@ import ConstructorList from "./sub-components/constructor-list";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
 import { useDispatch,  } from "react-redux";
-import { useAppSelector, RootState, TItem } from "../../services/types";
+import { useAppSelector, TItem } from "../../services/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -30,13 +30,13 @@ import { useHistory } from 'react-router-dom';
 const BurgerConstructor = ({ ...props }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const ingredients = useAppSelector((state: RootState) => state.ingredients.data);
+  const ingredients = useAppSelector((state) => state.ingredients.data);
   const constructorItems = useAppSelector(
     (state) => state.ingredients.ingredients
   );
-  const buns = useAppSelector((state: RootState) => state.ingredients.buns);
-  const modal = useAppSelector((state: RootState) => state.modal.orderModal);
-  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
+  const buns = useAppSelector((state) => state.ingredients.buns);
+  const modal = useAppSelector((state) => state.modal.orderModal);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   function handleClickBurger() {
     if (!isLoggedIn) {

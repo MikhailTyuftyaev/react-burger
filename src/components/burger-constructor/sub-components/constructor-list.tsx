@@ -1,10 +1,10 @@
 import React from "react";
-import { useAppSelector, RootState, TItem } from "../../../services/types";
+import { useAppSelector, TItem } from "../../../services/types";
 import ConstructorItem from "./constructor-item";
 
 const ConstructorList = () => {
   const constructorItems = useAppSelector(
-    (state: RootState) => state.ingredients.ingredients
+    (state) => state.ingredients.ingredients
   );
 
   return (

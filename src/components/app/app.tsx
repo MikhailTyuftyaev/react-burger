@@ -4,7 +4,7 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404, FeedPage, FeedInfoPage} from '../../pages';
 import { useDispatch } from 'react-redux';
-import { useAppSelector, RootState } from '../../services/types';
+import { useAppSelector } from '../../services/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../../utils';
@@ -21,8 +21,8 @@ const App: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let background = location.state && location.state.background;
-    const modalItem = useAppSelector((state: RootState) => state.modal.currentItem);
-    const feed = useAppSelector((state: RootState) => state.feed.modal);
+    const modalItem = useAppSelector((state) => state.modal.currentItem);
+    const feed = useAppSelector((state) => state.feed.modal);
 
     function onClose() {
       dispatch(deleteCurrentItemAction());

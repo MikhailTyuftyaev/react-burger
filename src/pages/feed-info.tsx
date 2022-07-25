@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { useAppSelector, RootState, Tparams, TfeedItem } from '../services/types';
+import { useAppSelector, Tparams, TfeedItem } from '../services/types';
 import FeedDetails from '../components/feed-details/feed-detail';
 import styles from './ingredients.module.css'
 import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from '../services/actions/feed';
@@ -27,7 +27,7 @@ export function FeedInfoPage() {
     }, [dispatch])
 
     const { id }: Tparams = useParams();
-    const feed: TfeedItem[] = useAppSelector((state: RootState) => state.feed.orders);
+    const feed: TfeedItem[] = useAppSelector((state) => state.feed.orders);
     const currentItem:TfeedItem | undefined  = feed.find(({ _id }: TfeedItem) => _id === id);
 
     return (

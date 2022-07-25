@@ -6,7 +6,7 @@ import {
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
 import { useDispatch } from "react-redux";
-import { useAppSelector, RootState } from "../services/types";
+import { useAppSelector } from "../services/types";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
 import { ProtectedRoute } from "../components/protected-route/protected-route";
 import { OrdersPage } from "./orders";
@@ -15,7 +15,7 @@ import { FeedInfoPage } from "./feed-info";
 export function ProfilePage() {
   const { path } = useRouteMatch();
 
-  const auth = useAppSelector((state: RootState)=> state.auth.account);
+  const auth = useAppSelector((state)=> state.auth.account);
 
   const [nameValue, setNameValue] = useState(auth ? auth.name : "");
   const [emailValue, setEmailValue] = useState(auth ? auth.email : "");

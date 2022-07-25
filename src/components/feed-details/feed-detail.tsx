@@ -2,13 +2,13 @@ import React, {useMemo} from "react";
 import styles from "./feed-detail.module.css"
 import IngredientItem from "./sub-components/ingredient-item";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useAppSelector, RootState } from "../../services/types";
+import { useAppSelector } from "../../services/types";
 import { formatDate } from "../../utils";
 import { TItem } from "../../services/types";
 
 
 const FeedDetails = ({ ...props }) => {
-    const data = useAppSelector((state: RootState) => state.ingredients.data)
+    const data = useAppSelector((state) => state.ingredients.data)
 
     const feedInfo = useMemo(() => {
         if(!props.ingredients) return null;
