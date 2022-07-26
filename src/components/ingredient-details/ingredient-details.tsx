@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector, RootState, Tparams } from '../../utils/types';
+import { useAppSelector, Tparams } from '../../services/types';
 import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ ...props }) => {
 
   const { id }: Tparams = useParams();
-    const ingredients = useAppSelector((state: RootState) => state.ingredients.data);
+    const ingredients = useAppSelector((state) => state.ingredients.data);
     const currentItem = ingredients.find(({ _id }) => _id === id);
 
   return (

@@ -13,11 +13,13 @@ import {
   GET_ORDER_FAILED,
   CLEAR_ORDER_ARRAY,
   CLEAR_ORDER_NUMBER
-} from "../actions";
+} from "../constants";
 import { combineReducers } from "redux";
 import { getModalItemsReducer } from "./modal";
 import { authReducer } from "./auth"
-import { TitemsState} from "../../utils/types";
+import { TitemsState} from "../types";
+import { TItemsAction } from "../actions"
+import { feedReducer } from "./feed";
 
 export const initialState: TitemsState = {
   data: [],
@@ -25,14 +27,14 @@ export const initialState: TitemsState = {
   itemsFailed: false,
   buns: null,
   ingredients: [],
-  order: [],
+  order: null,
   orderRequest: false,
   orderFailed: false,
 };
 
 
 
-export const getItemsReducer = (state = initialState, action: any): TitemsState => {
+export const getItemsReducer = (state = initialState, action: TItemsAction): TitemsState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {
@@ -84,7 +86,7 @@ export const getItemsReducer = (state = initialState, action: any): TitemsState 
     case ADD_BUN: {
       return {
         ...state,
-        data: [...state.data].map((item) =>
+        data: state.data.map((item) =>
           item._id === action.item._id && action.item.type === "bun"
             ? { ...item, __v: 2}
             : { ...item, __v: 0}
@@ -146,7 +148,7 @@ export const getItemsReducer = (state = initialState, action: any): TitemsState 
     case CLEAR_ORDER_NUMBER: {
       return {
         ...state,
-        order: [],
+        order: null,
       }
     }
     default: {
@@ -158,5 +160,6 @@ export const getItemsReducer = (state = initialState, action: any): TitemsState 
 export const rootReducer = combineReducers({
   ingredients: getItemsReducer,
   modal: getModalItemsReducer,
-  auth: authReducer
+  auth: authReducer,
+  feed: feedReducer
 });

@@ -4,8 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useAppSelector, RootState } from "../utils/types";
+import { useAppSelector, useDispatch } from "../services/types";
 import { sendForgotPasswordRequest} from '../services/actions/auth'
 import styles from "./login.module.css";
 
@@ -14,8 +13,8 @@ export function ForgotPage() {
   const [emailValue, setEmailValue] = useState("");
 
   const dispatch = useDispatch();
-  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
-  const isForgotReset = useAppSelector((state: RootState) => state.auth.isForgotReset)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isForgotReset = useAppSelector((state) => state.auth.isForgotReset)
 
   const sendRequest = (e: SyntheticEvent) => {
     e.preventDefault();

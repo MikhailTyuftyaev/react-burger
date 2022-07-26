@@ -2,50 +2,288 @@ import {
   checkResponse,
   setCookie,
   getCookie,
-} from "../../utils/utils";
-import { baseUrl } from "../../utils/constants";
-import { TDispatch } from "../../utils/types";
+} from "../../utils";
+import { baseUrl } from "../../utils";
+import { TAppThunk, TDispatch } from "../types";
 
-export const REGISTER_ACCOUNT_REQUEST = "REGISTER_ACCOUNT_REQUEST";
-export const REGISTER_ACCOUNT_SUCCESS = "REGISTER_ACCOUNT_SUCCESS";
-export const REGISTER_ACCOUNT_FAILED = "REGISTER_ACCOUNT_FAILED";
+import {
+  REGISTER_ACCOUNT_REQUEST,
+  REGISTER_ACCOUNT_SUCCESS,
+  REGISTER_ACCOUNT_FAILED,
 
-export const LOGIN_ACCOUNT_REQUEST = "LOGIN_ACCOUNT_REQUEST";
-export const LOGIN_ACCOUNT_SUCCESS = "LOGIN_ACCOUNT_SUCCESS";
-export const LOGIN_ACCOUNT_FAILED = "LOGIN_ACCOUNT_FAILED";
+  LOGIN_ACCOUNT_REQUEST,
+  LOGIN_ACCOUNT_SUCCESS,
+  LOGIN_ACCOUNT_FAILED,
 
-export const SAVE_REGISTER_ACCOUNT = "SAVE_REGISTER_ACCOUNT";
+  SAVE_REGISTER_ACCOUNT,
 
-export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
-export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
-export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILED,
 
-export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
-export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
-export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
 
-export const GET_USER_REQUEST = "GET_USER_REQUEST";
-export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
-export const GET_USER_FAILED = "GET_USER_FAILED";
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
 
-export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
-export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
-export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED,
 
-export const LOGOUT_ACCOUNT_REQUEST = "LOGOUT_ACCOUNT_REQUEST";
-export const LOGOUT_ACCOUNT_SUCCESS = "LOGOUT_ACCOUNT_SUCCESS";
-export const LOGOUT_ACCOUNT_FAILED = "LOGOUT_ACCOUNT_FAILED";
+  LOGOUT_ACCOUNT_REQUEST,
+  LOGOUT_ACCOUNT_SUCCESS,
+  LOGOUT_ACCOUNT_FAILED,
 
-export const UPDATE_TOKEN_REQUEST = "UPDATE_TOKEN_REQUEST";
-export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
-export const UPDATE_TOKEN_FAILED = "UPDATE_TOKEN_REQUEST";
+  UPDATE_TOKEN_REQUEST,
+  UPDATE_TOKEN_SUCCESS,
+  UPDATE_TOKEN_FAILED
+} from '../constants/auth';
 
+// Interfaces
 
-export function sendForgotPasswordRequest(emailValue: string) {
+export interface IForgotPasswordRequestAction {
+  readonly type: typeof FORGOT_PASSWORD_REQUEST;
+}
+
+export interface IForgotPasswordSuccessAction {
+  readonly type: typeof FORGOT_PASSWORD_SUCCESS;
+}
+
+export interface IForgotPasswordFailedAction {
+  readonly type: typeof FORGOT_PASSWORD_FAILED;
+}
+
+export interface IRegisterAccountRequestAction {
+  readonly type: typeof REGISTER_ACCOUNT_REQUEST;
+}
+
+export interface ISaveAccountAction {
+  readonly type: typeof SAVE_REGISTER_ACCOUNT,
+  email: string,
+  name: string;
+}
+
+export interface IRegisterAccountSuccessAction {
+  readonly type: typeof REGISTER_ACCOUNT_SUCCESS;
+}
+
+export interface IRegisterAccountFailedAction {
+  readonly type: typeof REGISTER_ACCOUNT_FAILED;
+}
+
+export interface ILoginAccountRequestAction {
+  readonly type: typeof LOGIN_ACCOUNT_REQUEST;
+}
+
+export interface ILoginAccountSuccessAction {
+  readonly type: typeof LOGIN_ACCOUNT_SUCCESS;
+}
+
+export interface ILoginAccountFailedAction {
+  readonly type: typeof LOGIN_ACCOUNT_FAILED;
+}
+
+export interface IResetPasswordRequestAction {
+  readonly type: typeof RESET_PASSWORD_REQUEST;
+}
+
+export interface IResetPasswordSuccessAction {
+  readonly type: typeof RESET_PASSWORD_SUCCESS;
+}
+
+export interface IResetPasswordFailedAction {
+  readonly type: typeof RESET_PASSWORD_FAILED;
+}
+
+export interface IGetUserRequestAction {
+  readonly type: typeof GET_USER_REQUEST;
+}
+
+export interface IGetUserSuccessAction {
+  readonly type: typeof GET_USER_SUCCESS;
+}
+
+export interface IGetUserFailedAction {
+  readonly type: typeof GET_USER_FAILED;
+}
+
+export interface IUpdateUserRequestAction {
+  readonly type: typeof UPDATE_USER_REQUEST;
+}
+
+export interface IUpdateUserSuccessAction {
+  readonly type: typeof UPDATE_USER_SUCCESS;
+}
+
+export interface IUpdateUserFailedAction {
+  readonly type: typeof UPDATE_USER_FAILED;
+}
+
+export interface ILogoutAccountRequestAction {
+  readonly type: typeof LOGOUT_ACCOUNT_REQUEST;
+}
+
+export interface ILogoutAccountSuccessAction {
+  readonly type: typeof LOGOUT_ACCOUNT_SUCCESS;
+}
+
+export interface ILogoutAccountFailedAction {
+  readonly type: typeof LOGOUT_ACCOUNT_FAILED;
+}
+
+export interface IUpdateTokenRequestAction {
+  readonly type: typeof UPDATE_TOKEN_REQUEST;
+}
+
+export interface IUpdateTokenSuccessAction {
+  readonly type: typeof UPDATE_TOKEN_SUCCESS;
+}
+
+export interface IUpdateTokenFailedAction {
+  readonly type: typeof UPDATE_TOKEN_FAILED;
+}
+
+// Action creators
+
+const forgotPasswordRequestAction = ():IForgotPasswordRequestAction => ({
+   type: FORGOT_PASSWORD_REQUEST
+});
+
+const forgotPasswordSuccessAction = ():IForgotPasswordSuccessAction => ({
+  type: FORGOT_PASSWORD_SUCCESS
+});
+
+const forgotPasswordFailedAction = ():IForgotPasswordFailedAction => ({
+  type: FORGOT_PASSWORD_FAILED
+});
+
+const registerAccountRequestAction = ():IRegisterAccountRequestAction => ({
+  type: REGISTER_ACCOUNT_REQUEST
+});
+
+const saveAccountAction = (email: string, name:string):ISaveAccountAction => ({
+  type: SAVE_REGISTER_ACCOUNT,
+  email,
+  name
+});
+
+const registerAccountSuccessAction = ():IRegisterAccountSuccessAction => ({
+  type: REGISTER_ACCOUNT_SUCCESS
+});
+
+const registerAccountFailedAction = ():IRegisterAccountFailedAction => ({
+  type: REGISTER_ACCOUNT_FAILED
+});
+
+const loginAccountRequestAction = ():ILoginAccountRequestAction => ({
+  type: LOGIN_ACCOUNT_REQUEST
+});
+
+const loginAccountSuccessAction = ():ILoginAccountSuccessAction => ({
+  type: LOGIN_ACCOUNT_SUCCESS
+});
+
+const loginAccountFailedAction = ():ILoginAccountFailedAction => ({
+  type: LOGIN_ACCOUNT_FAILED
+});
+
+const resetPasswordRequestAction = ():IResetPasswordRequestAction => ({
+  type: RESET_PASSWORD_REQUEST
+});
+
+const resetPasswordSuccessAction = ():IResetPasswordSuccessAction => ({
+  type: RESET_PASSWORD_SUCCESS
+});
+
+const resetPasswordFailedAction = ():IResetPasswordFailedAction => ({
+  type: RESET_PASSWORD_FAILED
+});
+
+const getUserRequestAction = ():IGetUserRequestAction => ({
+  type: GET_USER_REQUEST
+});
+
+const getUserSuccessAction = ():IGetUserSuccessAction => ({
+  type: GET_USER_SUCCESS
+});
+
+const getUserFailedAction = ():IGetUserFailedAction => ({
+  type: GET_USER_FAILED
+});
+
+const updateUserRequestAction = ():IUpdateUserRequestAction => ({
+  type: UPDATE_USER_REQUEST
+});
+
+const updateUserSuccessAction = ():IUpdateUserSuccessAction => ({
+  type: UPDATE_USER_SUCCESS
+});
+
+const updateUserFailedAction = ():IUpdateUserFailedAction => ({
+  type: UPDATE_USER_FAILED
+});
+
+const logoutAccountRequestAction = ():ILogoutAccountRequestAction => ({
+  type: LOGOUT_ACCOUNT_REQUEST
+});
+
+const logoutAccountSuccessAction = ():ILogoutAccountSuccessAction => ({
+  type: LOGOUT_ACCOUNT_SUCCESS
+});
+
+const logoutAccountFailedAction = ():ILogoutAccountFailedAction => ({
+  type: LOGOUT_ACCOUNT_FAILED
+});
+
+const updateTokenRequestAction = ():IUpdateTokenRequestAction => ({
+  type: UPDATE_TOKEN_REQUEST
+});
+
+const updateTokenSuccessAction = ():IUpdateTokenSuccessAction => ({
+  type: UPDATE_TOKEN_SUCCESS
+});
+
+const updateTokenFailedAction = ():IUpdateTokenFailedAction => ({
+  type: UPDATE_TOKEN_FAILED
+});
+
+// Union
+
+export type TAuthAction = 
+| IForgotPasswordRequestAction
+| IForgotPasswordSuccessAction
+| IForgotPasswordFailedAction
+| IRegisterAccountRequestAction
+| ISaveAccountAction
+| IRegisterAccountSuccessAction
+| IRegisterAccountFailedAction
+| ILoginAccountRequestAction
+| ILoginAccountSuccessAction
+| ILoginAccountFailedAction
+| IResetPasswordRequestAction
+| IResetPasswordSuccessAction
+| IResetPasswordFailedAction
+| IGetUserRequestAction
+| IGetUserSuccessAction
+| IGetUserFailedAction
+| IUpdateUserRequestAction
+| IUpdateUserSuccessAction
+| IUpdateUserFailedAction
+| ILogoutAccountRequestAction
+| ILogoutAccountSuccessAction
+| ILogoutAccountFailedAction
+| IUpdateTokenRequestAction
+| IUpdateTokenSuccessAction
+| IUpdateTokenFailedAction;
+
+// Actions
+
+export const sendForgotPasswordRequest:TAppThunk = (emailValue: string) => {
   return function (dispatch: TDispatch) {
-    dispatch({
-      type: FORGOT_PASSWORD_REQUEST,
-    });
+    dispatch(forgotPasswordRequestAction());
     fetch(baseUrl + "/password-reset", {
       method: "POST",
       headers: {
@@ -58,28 +296,20 @@ export function sendForgotPasswordRequest(emailValue: string) {
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
-          dispatch({
-            type: FORGOT_PASSWORD_SUCCESS,
-          });
+          dispatch(forgotPasswordSuccessAction());
         } else {
-          dispatch({
-            type: FORGOT_PASSWORD_FAILED,
-          });
+          dispatch(forgotPasswordFailedAction());
         }
       })
       .catch((err) => {
-        dispatch({
-          type: FORGOT_PASSWORD_FAILED,
-        });
+        dispatch(forgotPasswordFailedAction());
       });
   };
 }
 
-export function sendRegisterRequest(name: string, email: string, pass: string) {
+export const sendRegisterRequest:TAppThunk = (name: string, email: string, pass: string) => {
   return function (dispatch: TDispatch) {
-    dispatch({
-      type: REGISTER_ACCOUNT_REQUEST,
-    });
+    dispatch(registerAccountRequestAction());
     fetch(baseUrl + "/auth/register", {
       method: "POST",
       headers: {
@@ -97,33 +327,21 @@ export function sendRegisterRequest(name: string, email: string, pass: string) {
           let accessToken = res.accessToken.split("Bearer ")[1];
           setCookie("accessToken", accessToken);
           setCookie("refreshToken", res.refreshToken);
-          dispatch({
-            type: SAVE_REGISTER_ACCOUNT,
-            email: res.user.email,
-            name: res.user.name,
-          });
-          dispatch({
-            type: REGISTER_ACCOUNT_SUCCESS,
-          });
+          dispatch(saveAccountAction(res.user.email, res.user.name));
+          dispatch(registerAccountSuccessAction());
         } else {
-          dispatch({
-            type: REGISTER_ACCOUNT_FAILED,
-          });
+          dispatch(registerAccountFailedAction());
         }
       })
       .catch((err) => {
-        dispatch({
-          type: REGISTER_ACCOUNT_FAILED,
-        });
+        dispatch(registerAccountFailedAction());
       });
   };
 }
 
-export function sendLoginRequest(email: string, pass: string) {
+export const sendLoginRequest: TAppThunk = (email: string, pass: string) => {
   return function (dispatch: TDispatch) {
-    dispatch({
-      type: LOGIN_ACCOUNT_REQUEST,
-    });
+    dispatch(loginAccountRequestAction());
     fetch(baseUrl + "/auth/login", {
       method: "POST",
       headers: {
@@ -140,33 +358,21 @@ export function sendLoginRequest(email: string, pass: string) {
           let accessToken = res.accessToken.split("Bearer ")[1];
           setCookie("accessToken", accessToken);
           setCookie("refreshToken", res.refreshToken);
-          dispatch({
-            type: SAVE_REGISTER_ACCOUNT,
-            email: res.user.email,
-            name: res.user.name,
-          });
-          dispatch({
-            type: LOGIN_ACCOUNT_SUCCESS,
-          });
+          dispatch(saveAccountAction(res.user.email, res.user.name));
+          dispatch(loginAccountSuccessAction());
         } else {
-          dispatch({
-            type: LOGIN_ACCOUNT_FAILED,
-          });
+          dispatch(loginAccountFailedAction());
         }
       })
       .catch((err) => {
-        dispatch({
-          type: LOGIN_ACCOUNT_FAILED,
-        });
+        dispatch(loginAccountFailedAction());
       });
   };
 }
 
-export function sendResetPasswordRequest(pass: string, token: string) {
+export const sendResetPasswordRequest: TAppThunk = (pass: string, token: string) => {
   return function (dispatch: TDispatch) {
-    dispatch({
-      type: RESET_PASSWORD_REQUEST,
-    });
+    dispatch(resetPasswordRequestAction());
     fetch(baseUrl + "/password-reset/reset", {
       method: "POST",
       headers: {
@@ -180,28 +386,20 @@ export function sendResetPasswordRequest(pass: string, token: string) {
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
-          dispatch({
-            type: RESET_PASSWORD_SUCCESS,
-          });
+          dispatch(resetPasswordSuccessAction());
         } else {
-          dispatch({
-            type: RESET_PASSWORD_FAILED,
-          });
+          dispatch(resetPasswordFailedAction());
         }
       })
       .catch((err) => {
-        dispatch({
-          type: RESET_PASSWORD_FAILED,
-        });
+        dispatch(resetPasswordFailedAction());
       });
   };
 }
 
-export function getUserRequest() {
+export const getUserRequest: TAppThunk = () => {
   return function (dispatch: TDispatch) {
-    dispatch({
-      type: GET_USER_REQUEST,
-    });
+    dispatch(getUserRequestAction());
     fetch(baseUrl + "/auth/user", {
       method: "GET",
       headers: {
@@ -212,33 +410,25 @@ export function getUserRequest() {
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
-          dispatch({
-            type: SAVE_REGISTER_ACCOUNT,
-            email: res.user.email,
-            name: res.user.name,
-          });
-          dispatch({
-            type: GET_USER_SUCCESS,
-          });
+          dispatch(saveAccountAction(res.user.email, res.user.name));
+          dispatch(getUserSuccessAction());
         }
       })
       .catch((err) => {
         if ((err.message === 'jwt expired') || (err.message === 'Token is invalid')) {
-          dispatch(updateTokenRequest());
+          updateTokenRequest();
           getUserRequest();
         } else {
           console.log(err);
-          dispatch({ type: GET_USER_FAILED });
+          dispatch(getUserFailedAction());
         }
       });
   };
 }
 
-export function saveAccountDataRequest(name: string, email: string) {
+export const saveAccountDataRequest: TAppThunk = (name: string, email: string) => {
   return function (dispatch: TDispatch) {
-    dispatch({
-      type: UPDATE_USER_REQUEST,
-    });
+    dispatch(updateUserRequestAction());
     fetch(baseUrl + "/auth/user", {
       method: "PATCH",
       headers: {
@@ -253,34 +443,26 @@ export function saveAccountDataRequest(name: string, email: string) {
       .then(checkResponse)
       .then((res) => {
         if (res && res.success) {
-          dispatch({
-            type: SAVE_REGISTER_ACCOUNT,
-            email: res.user.email,
-            name: res.user.name,
-          });
-          dispatch({
-            type: UPDATE_USER_SUCCESS,
-          });
+          dispatch(saveAccountAction(res.user.email, res.user.name));
+          dispatch(updateUserSuccessAction());
         }
       })
       .catch((err) => {
         if ((err.message === 'jwt expired') || (err.message === 'Token is invalid')) {
-          dispatch(updateTokenRequest());
-          dispatch(saveAccountDataRequest(name, email));
+          updateTokenRequest();
+          saveAccountDataRequest(name, email);
         } else{
           console.log(err);
-          dispatch({ type: UPDATE_USER_FAILED });
+          dispatch(updateUserFailedAction());
         }
           
       });
   };
 }
 
-export function sendLogoutRequest() {
+export const sendLogoutRequest: TAppThunk = () => {
   return function (dispatch: TDispatch) {
-    dispatch({
-      type: LOGOUT_ACCOUNT_REQUEST,
-    });
+    dispatch(logoutAccountRequestAction());
     fetch(baseUrl + "/auth/logout", {
       method: "POST",
       headers: {
@@ -295,24 +477,18 @@ export function sendLogoutRequest() {
         if (res && res.success) {
           setCookie("accessToken", '', { expires: -1 });
           setCookie("refreshToken", '', { expires: -1 });
-          dispatch({
-            type: LOGOUT_ACCOUNT_SUCCESS,
-          });
+          dispatch(logoutAccountSuccessAction());
         }
       })
       .catch((err) => {
-        dispatch({
-          type: LOGOUT_ACCOUNT_FAILED,
-        });
+        dispatch(logoutAccountFailedAction());
       });
   };
 }
 
-export function updateTokenRequest() {
+export const updateTokenRequest: TAppThunk = () => {
   return function (dispatch: TDispatch) {
-    dispatch({ 
-      type: UPDATE_TOKEN_REQUEST 
-    });
+    dispatch(updateTokenRequestAction());
     return fetch(baseUrl + "/auth/token", {
       method: "POST",
       headers: {
@@ -328,14 +504,12 @@ export function updateTokenRequest() {
           let accessToken = res.accessToken.split("Bearer ")[1];
           setCookie("accessToken", accessToken);
           setCookie("refreshToken", res.refreshToken);
-          dispatch({
-            type: UPDATE_TOKEN_SUCCESS,
-          });
-          dispatch(getUserRequest());
+          dispatch(updateTokenSuccessAction());
+          getUserRequest();
         }
       })
       .catch((err) => {
-        dispatch({ type: UPDATE_TOKEN_FAILED });
+        dispatch(updateTokenFailedAction());
       })
   }
 }

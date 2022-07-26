@@ -5,8 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect } from 'react-router-dom'; 
 import styles from "./login.module.css";
-import { useDispatch } from "react-redux";
-import { useAppSelector, RootState } from "../utils/types";
+import { useAppSelector, useDispatch } from "../services/types";
 import { sendRegisterRequest } from "../services/actions/auth"
 
 export function RegisterPage() {
@@ -22,8 +21,8 @@ export function RegisterPage() {
     dispatch(sendRegisterRequest(nameValue, emailValue, passValue));
   }
 
-  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
-  const isRegistered = useAppSelector((state: RootState) => state.auth.isRegistered);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isRegistered = useAppSelector((state) => state.auth.isRegistered);
 
   const login = useCallback(
     () => {

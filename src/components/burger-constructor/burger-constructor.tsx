@@ -8,33 +8,34 @@ import Modal from "../modal/modal";
 import ConstructorList from "./sub-components/constructor-list";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-detail";
-import { useDispatch,  } from "react-redux";
-import { useAppSelector, RootState, TItem } from "../../utils/types";
+import { useAppSelector, TItem, useDispatch } from "../../services/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import {
-  ADD_ITEM,
-  ADD_BUN,
-  INCREASE_ITEM,
-  CLEAR_ORDER_NUMBER,
   sendOrderRequest,
 } from "../../services/actions";
 import {
-  OPEN_MODAL,
-  CLOSE_MODAL,
-} from "../../services/actions/modal";
+  increaseItemAction,
+  addBunAction,
+  addItemAction,
+  clearOrderNumberAction
+} from "../../services/actions"
+import {
+  openModalAction,
+  closeModalAction
+} from "../../services/actions/modal"
 import { useHistory } from 'react-router-dom';
 
 const BurgerConstructor = ({ ...props }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const ingredients = useAppSelector((state: RootState) => state.ingredients.data);
+  const ingredients = useAppSelector((state) => state.ingredients.data);
   const constructorItems = useAppSelector(
     (state) => state.ingredients.ingredients
   );
-  const buns = useAppSelector((state: RootState) => state.ingredients.buns);
-  const modal = useAppSelector((state: RootState) => state.modal.orderModal);
-  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
+  const buns = useAppSelector((state) => state.ingredients.buns);
+  const modal = useAppSelector((state) => state.modal.orderModal);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   function handleClickBurger() {
     if (!isLoggedIn) {
@@ -42,20 +43,12 @@ const BurgerConstructor = ({ ...props }) => {
       return;
     }
     dispatch(sendOrderRequest(orderRequest));
-    dispatch({
-      type: OPEN_MODAL,
-      orderModal: true,
-    });
+    dispatch(openModalAction(false, true));
   }
 
   function onClose() {
-    dispatch({
-      type: CLOSE_MODAL,
-      orderModal: false,
-    });
-    dispatch({
-      type: CLEAR_ORDER_NUMBER
-    })
+    dispatch(closeModalAction(false, false));
+    dispatch(clearOrderNumberAction())
   }
 
   const orderArray = ingredients.filter((item) => item.__v > 0);
@@ -89,20 +82,11 @@ const BurgerConstructor = ({ ...props }) => {
   const movePostponedItem = (item: TItem) => {
     const uuid = uuidv4();
     if (item.type === "bun") {
-      dispatch({
-        type: ADD_BUN,
-        item: { ...item, uuid: uuid },
-      });
+      dispatch(addBunAction({ ...item, uuid: uuid }));
     } else {
-      dispatch({
-        type: ADD_ITEM,
-        item: { ...item, uuid: uuid },
-      });
+      dispatch(addItemAction({ ...item, uuid: uuid }));
     }
-    dispatch({
-      type: INCREASE_ITEM,
-      item: { ...item, uuid: uuid },
-    });
+    dispatch(increaseItemAction({ ...item, uuid: uuid }));
   };
 
   const border = isHover ? "0px 0px 10px 0px rgba(76, 76, 255, 1)" : "none";

@@ -4,24 +4,17 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-item.module.css";
-import { useDispatch} from "react-redux";
 import { useDrag, useDrop } from 'react-dnd'
-import { DELETE_ITEM, DECREASE_ITEM, MOVE_ITEM } from "../../../services/actions";
-import { TConstructorItem } from "../../../utils/types";
+import { TConstructorItem, useDispatch } from "../../../services/types";
+import { decreaseItemAction, deleteItemAction, moveItemAction } from "../../../services/actions"
 
 const ConstructorItem: FC<TConstructorItem> = ({ index, id, name, price, thumbnail, uiKey }) => {
     const ref = useRef<HTMLInputElement>(null);
     const dispatch = useDispatch();
 
     const deleteItem = (item:string , uuid: string) => {
-        dispatch({
-          type: DELETE_ITEM,
-          uuid,
-        });
-        dispatch({
-          type: DECREASE_ITEM,
-          id: item,
-        });
+        dispatch(deleteItemAction(uuid));
+        dispatch(decreaseItemAction(item));
     };
 
 
@@ -61,11 +54,7 @@ const ConstructorItem: FC<TConstructorItem> = ({ index, id, name, price, thumbna
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-            dispatch({
-                type: MOVE_ITEM,
-                dragIndex,
-                hoverIndex
-            });
+            dispatch(moveItemAction(dragIndex, hoverIndex));
             item.index = hoverIndex;
         },
     });

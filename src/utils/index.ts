@@ -1,3 +1,27 @@
+export const baseUrl = "https://norma.nomoreparties.space/api";
+export const wsUrl = "wss://norma.nomoreparties.space/orders";
+
+export function formatDate(date: string) {
+  let t = new Date(date)
+  let now = new Date().getDate();
+  let hr = ("0" + t.getHours()).slice(-2);
+  let min = ("0" + t.getMinutes()).slice(-2);
+  let totalDate = ""
+  let utc = (t.getTimezoneOffset()/60)*(-1);
+  let diffValue = now - t.getDate();
+  if (diffValue == 0) {
+    totalDate = "Сегодня"
+  } else if (diffValue == 1) {
+    totalDate = "Вчера"
+  }
+  else if (diffValue > 1 && diffValue <= 4) {
+    totalDate = diffValue + "дня назад"
+  } else {
+    totalDate = diffValue + "дней назад"
+  }
+  return totalDate+","+" "+hr+":"+min+" i-GMT+"+utc;
+}
+
 export function checkResponse(res: Response) {
     if (res.ok) {
         return res.json();

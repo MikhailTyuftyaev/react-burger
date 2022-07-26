@@ -1,9 +1,15 @@
-import { store } from '../services/store';
+import { store } from '../store';
 import { Location } from "history";
-import { rootReducer } from '../services/reducers';
+import { ThunkAction } from 'redux-thunk';
+import { TAuthAction } from '../actions/auth'
+import { TItemsAction } from '../actions'
+import { TModalAction } from "../actions/modal"
+import { Action, ActionCreator } from 'redux';
+import { rootReducer } from '../reducers';
 import {
     TypedUseSelectorHook,
-    useSelector as selectorHook
+    useSelector as selectorHook,
+    useDispatch as dispatchHook,
 } from 'react-redux';
 
 export type TModal = {
@@ -72,19 +78,13 @@ export type TOrder = {
     updatedAt: string;
 };
 
-export type TOrderObject = {
-    name: string;
-    order: TOrder;
-    success: boolean;
-};
-
 export type TitemsState = {
     data: TItem[];
     itemsRequest: boolean;
     itemsFailed: boolean;
     buns: TItem | null;
     ingredients: TItem[];
-    order: TOrderObject[];
+    order: number | null;
     orderRequest: boolean;
     orderFailed: boolean;
 }
@@ -129,7 +129,7 @@ export type TmodalItem = {
 }
 
 export type TmodalState = {
-    currentItem: TmodalItem | {},
+    currentItem:  TItem | null,
     ingredientModal: boolean,
     orderModal: boolean;
 }
@@ -143,6 +143,45 @@ export type Tparams = {
     id?: string;
 }
 
+export type TorderIngredients = string;
+
+export type TorderCard = {
+    id: string;
+    number: string;
+    date: string;
+    name: string;
+    status?: string;
+    ingredients: TorderIngredients[];
+}
+
+export type TfeedItem = {
+    createdAt: string;
+    ingredients: TorderIngredients[],
+    name: string;
+    number: string;
+    status?: string;
+    updatedAt?: string;
+    _id: string;
+    total: number;
+}
+
+export type TfeedState = {
+    orders: TfeedItem[],
+    total: number;
+    totalToday: number;
+    isOpen: boolean;
+    error: Event | null;
+    modal: TfeedItem | null
+}
+
+
+
+
 export type RootState = ReturnType<typeof rootReducer>; 
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
+export type TAllActions = TAuthAction | TItemsAction | TModalAction;
+export type TAppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TAllActions>
+>; 
 export type TDispatch = typeof store.dispatch;
+export const useDispatch = () => dispatchHook<TDispatch | TAppThunk>();

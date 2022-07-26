@@ -5,14 +5,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Route, Switch, NavLink, useRouteMatch } from "react-router-dom";
 import styles from "./profile.module.css";
-import { useDispatch } from "react-redux";
-import { useAppSelector, RootState } from "../utils/types";
+import { useAppSelector, useDispatch } from "../services/types";
 import {saveAccountDataRequest, sendLogoutRequest } from "../services/actions/auth";
+import { ProtectedRoute } from "../components/protected-route/protected-route";
+import { OrdersPage } from "./orders";
+import { FeedInfoPage } from "./feed-info";
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
 
-  const auth = useAppSelector((state: RootState)=> state.auth.account);
+  const auth = useAppSelector((state)=> state.auth.account);
 
   const [nameValue, setNameValue] = useState(auth ? auth.name : "");
   const [emailValue, setEmailValue] = useState(auth ? auth.email : "");
@@ -37,11 +39,13 @@ export function ProfilePage() {
   }
   return (
     <>
-      <div className={styles.wrapper}>
-        <div className={`${styles.tabs} mr-15`}>
+      <Switch>
+          <ProtectedRoute path={`${path}`} exact={true}>
+          <div className={styles.wrapper}>
+        <div className={`${styles.tabs} mr-15 mt-30`}>
           <NavLink
             exact
-            to={`${path}/`}
+            to={path}
             className="text text_type_main-medium text_color_inactive pt-4 pb-4"
             activeClassName={styles.active}
           >
@@ -66,9 +70,8 @@ export function ProfilePage() {
             </p>
           </div>
         </div>
-        <Switch>
-          <Route path={`${path}/`} exact={true}>
-            <form onSubmit={saveAccountData} className={styles.tabs_container}>
+        
+            <form onSubmit={saveAccountData} className={`${styles.tabs_container} mt-30`}>
               <Input
                 type={"text"}
                 placeholder={"Имя"}
@@ -106,9 +109,16 @@ export function ProfilePage() {
                 </Button>
               </div>
             </form>
-          </Route>
+            </div>
+          </ProtectedRoute>
+          <ProtectedRoute  path={`${path}/orders`} exact={true}>
+              <OrdersPage/>
+          </ProtectedRoute>
+          <ProtectedRoute path={`${path}/orders/:id`} exact={true}>
+            <FeedInfoPage />
+          </ProtectedRoute>
         </Switch>
-      </div>
+      
     </>
   );
 }

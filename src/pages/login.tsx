@@ -4,8 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect, useLocation } from 'react-router-dom'; 
-import { useDispatch } from "react-redux";
-import { useAppSelector, RootState } from "../utils/types";
+import { useAppSelector, useDispatch } from "../services/types";
 import { sendLoginRequest } from '../services/actions/auth'
 import styles from "./login.module.css";
 
@@ -24,7 +23,7 @@ export function LoginPage() {
   const [emailValue, setEmailValue] = useState("");
   const [passValue, setPassValue] = useState("");
 
-  const isLoggedIn = useAppSelector((state: RootState) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const login =  (e: SyntheticEvent) => {
     e.preventDefault();

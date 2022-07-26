@@ -2,36 +2,29 @@ import { FC, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404} from '../../pages';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../utils/types';
+import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404, FeedPage, FeedInfoPage} from '../../pages';
+import { useAppSelector } from '../../services/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
-import { getCookie } from '../../utils/utils';
+import { getCookie } from '../../utils';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import { CLOSE_MODAL,   DELETE_CURRENT_ITEM,
-} from '../../services/actions/modal';
-import { TLocation } from '../../utils/types';
+import { closeModalAction, deleteCurrentItemAction } from '../../services/actions/modal';
+import { TLocation, useDispatch } from '../../services/types';
+import FeedDetails from '../feed-details/feed-detail';
 import AppHeader from '../app-header/app-header';
 import Main from "../main/main";
 
 const App: FC = () => {
-
   const ModalSwitch = () => {
     const location = useLocation<TLocation>();
     const dispatch = useDispatch();
     const history = useHistory();
     let background = location.state && location.state.background;
-    const modalItem = useAppSelector((state) => state.modal.currentItem);
+    const feed = useAppSelector((state) => state.feed.modal);
 
     function onClose() {
-      dispatch({
-        type: DELETE_CURRENT_ITEM
-      });
-      dispatch({
-        type: CLOSE_MODAL,
-        ingredientModal: false,
-      });
+      dispatch(deleteCurrentItemAction());
+      dispatch(closeModalAction(false, false));
       history.goBack();
     }
 
@@ -42,7 +35,6 @@ const App: FC = () => {
         dispatch(getUserRequest());
       }
   }, [dispatch])
-
     return (
       <>
       <AppHeader/>
@@ -62,9 +54,15 @@ const App: FC = () => {
           <Route path="/reset-password" exact={true}>
             <ResetPage />
           </Route>
-          <ProtectedRoute path="/profile" exact={true}>
+          <ProtectedRoute path="/profile">
             <ProfilePage />
           </ProtectedRoute>
+          <Route path="/feed" exact={true}>
+            <FeedPage />
+          </Route>
+          <Route path="/feed/:id" exact={true}>
+            <FeedInfoPage />
+          </Route>
           <Route path="/ingredients/:id" exact={true}>
             <IngredientsPage />
           </Route>
@@ -81,20 +79,40 @@ const App: FC = () => {
                 header="Детали ингредиента"
                 onClose={onClose}
                 isModal={true}
-              > 
-                <IngredientDetails
-                  image={modalItem.imageLarge}
-                  name={modalItem.title}
-                  calories={modalItem.calories}
-                  proteins={modalItem.proteins}
-                  fat={modalItem.fat}
-                  carbohydrates={modalItem.carbohydrates}
-                />
+               >
+                <IngredientDetails/>
               </Modal>
             }
             />
-          
         )}
+        {background && (
+          <Route
+            path='/feed/:id'
+            children={
+              <Modal
+                onClose={onClose}
+                isModal={true}
+              >
+                  <FeedDetails/>
+              </Modal>
+            }
+            />
+          )
+        }
+        {background && (
+          <ProtectedRoute
+            path='/profile/orders/:id'
+            children={
+              <Modal
+                onClose={onClose}
+                isModal={true}
+              >
+                  <FeedDetails/>
+              </Modal>
+            }
+            />
+          )
+        }
       </>
     );
   };  

@@ -1,0 +1,18 @@
+.feed_detail{
+    min-width: 640px;
+}
+
+.feed_detail p:not(:first-child){
+    text-align: left;
+}
+.container{
+    max-height: 312px;
+    overflow-y: auto;
+}
+
+.price,
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -4,8 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory, Redirect } from 'react-router-dom';
-import { useDispatch} from "react-redux";
-import { useAppSelector, RootState } from "../utils/types";
+import { useAppSelector, useDispatch} from "../services/types";
 import { sendResetPasswordRequest } from "../services/actions/auth";
 import styles from "./login.module.css";
 
@@ -13,8 +12,8 @@ export function ResetPage() {
   const history = useHistory(); 
   const dispatch = useDispatch();
 
-  const isPasswordReset = useAppSelector((state: RootState) => state.auth.isPasswordReset)
-  const isForgotReset = useAppSelector((state:RootState) => state.auth.isForgotReset)
+  const isPasswordReset = useAppSelector((state) => state.auth.isPasswordReset)
+  const isForgotReset = useAppSelector((state) => state.auth.isForgotReset)
 
   const [passValue, setPassValue] = useState("");
   const [tokenValue, setTokenValue] = useState("");
