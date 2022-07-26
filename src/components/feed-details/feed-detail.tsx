@@ -92,7 +92,7 @@ const FeedDetails = ({ ...props }) => {
                     {feedInfo && feedInfo.orderDate}
                 </p>
                 <div className={`${styles.price} ml-4`}>
-                    <p className="text text_type_digits-default mr-2">{price}</p>
+                    <p className="text text_type_digits-default mr-2">{price || feedInfo && feedInfo.total}</p>
                     <CurrencyIcon type="primary" />
                 </div>
             </div>

@@ -100,7 +100,7 @@ const App: FC = () => {
           )
         }
         {background && (
-          <Route
+          <ProtectedRoute
             path='/profile/orders/:id'
             children={
               <Modal
