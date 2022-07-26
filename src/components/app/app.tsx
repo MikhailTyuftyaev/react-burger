@@ -20,7 +20,6 @@ const App: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let background = location.state && location.state.background;
-    const feed = useAppSelector((state) => state.feed.modal);
 
     function onClose() {
       dispatch(deleteCurrentItemAction());
