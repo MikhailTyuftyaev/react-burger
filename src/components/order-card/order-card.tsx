@@ -16,6 +16,8 @@ const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) =>
 
   const data = useAppSelector((state) => state.ingredients.data)
 
+  const numberOrder = path === "/profile/orders" ? number :  path === "/feed" ? id : null
+
   const cardInfo = useMemo(() => {
 
     const ingredientsInfo = ingredients.reduce((acc: TItem[], id: TorderIngredients): TItem[] => {
@@ -65,7 +67,7 @@ const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) =>
       <Link
         className={styles.link}
         to={{
-          pathname: `${path}/${id}`,
+          pathname: `${path}/${numberOrder}`,
           state: { background: location },
         }}
       >

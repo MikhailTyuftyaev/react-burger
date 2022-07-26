@@ -4,7 +4,10 @@ import {
     WS_FEED_CONNECTION_ERROR,
     WS_FEED_GET_MESSAGE,
     WS_FEED_CONNECTION_CLOSED,
-    WS_FEED_ADD_CURRENT_ITEM
+    WS_FEED_ADD_CURRENT_ITEM,
+    GET_NUMBER_ORDER_REQUEST,
+    GET_NUMBER_ORDER_SUCCESS,
+    GET_NUMBER_ORDER_ERROR
 } from "../constants/feed"
 import { TfeedState } from "../types";
 import { TWSOrdersFeedActions } from "../actions/feed";
@@ -15,7 +18,9 @@ const initialState: TfeedState = {
     totalToday: 0,
     isOpen: false,
     error: null,
-    modal: null
+    modal: null,
+    orderRequest: false,
+    orderFailed: false
 };
 
 export const feedReducer = (state = initialState, action: TWSOrdersFeedActions): TfeedState => {
@@ -58,6 +63,29 @@ export const feedReducer = (state = initialState, action: TWSOrdersFeedActions):
                 modal: action.item,
             };
         }
+        case GET_NUMBER_ORDER_REQUEST: {
+            return {
+              ...state,
+              orderRequest: true,
+              orderFailed: false,
+            };
+          }
+          case GET_NUMBER_ORDER_SUCCESS: {
+            return {
+              ...state,
+              orders: action.payload.orders,
+              total: 1,
+              totalToday: 1,
+              orderRequest: false,
+            };
+          }
+          case GET_NUMBER_ORDER_ERROR: {
+            return {
+              ...state,
+              orderFailed: true,
+              orderRequest: false,
+            };
+          }
         default: {
             return state;
         }

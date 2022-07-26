@@ -29,7 +29,7 @@ const FeedDetails = ({ ...props }) => {
     const orders = useAppSelector((state) => state.feed.orders)
     const price = useAppSelector((state) => state.feed.modal?.total)
     
-    const currentItem = orders.find(({ _id }) => _id === id);
+    const currentItem = orders.find(({ _id }) => _id === id) || orders.find(({ number }) => number == id);
     const arrayOrders = props.ingredients || currentItem?.ingredients;
 
     const feedInfo = useMemo(() => {
