@@ -43,11 +43,11 @@ const BurgerConstructor = ({ ...props }) => {
       return;
     }
     dispatch(sendOrderRequest(orderRequest));
-    dispatch(openModalAction(false, true));
+    dispatch(openModalAction());
   }
 
   function onClose() {
-    dispatch(closeModalAction(false, false));
+    dispatch(closeModalAction());
     dispatch(clearOrderNumberAction())
   }
 

@@ -12,12 +12,9 @@ describe('Modal reducer', () => {
           reducer(initialState, 
           {
             type: types.OPEN_MODAL,
-            ingredientModal: false,
-            orderModal: true
           }))
           .toEqual({
             ...initialState,
-            ingredientModal: false,
             orderModal: true
         })
     })

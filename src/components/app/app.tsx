@@ -23,7 +23,7 @@ const App: FC = () => {
 
     function onClose() {
       dispatch(deleteCurrentItemAction());
-      dispatch(closeModalAction(false, false));
+      dispatch(closeModalAction());
       history.goBack();
     }
 

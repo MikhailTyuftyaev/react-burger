@@ -16,7 +16,6 @@ const BurgerItem = ({ item, ...props }: TBurgerItem) => {
 
   function handleClickBurger(item: TItem) {
     dispatch(addCurrentItemAction(item));
-    dispatch(openModalAction(true, false));
   }
 
   const [{ opacity }, dragRef] = useDrag({

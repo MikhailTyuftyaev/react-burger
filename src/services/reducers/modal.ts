@@ -17,17 +17,15 @@ export const initialState: TmodalState = {
 export const getModalItemsReducer = (state = initialState, action: TModalAction):TmodalState  => {
     switch (action.type) {
       case OPEN_MODAL: {
-        const {type, ...restProps}  = action
         return  {
           ...state,
-          ...restProps
+          orderModal: true
         };
       }
       case CLOSE_MODAL: {
-        const {type, ...restProps}  = action
         return  {
           ...state,
-          ...restProps
+          orderModal: false
         };
       }
       case DELETE_CURRENT_ITEM: {

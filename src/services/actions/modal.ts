@@ -10,14 +10,10 @@ import {
 
 export interface IOpenModalAction {
     readonly type: typeof OPEN_MODAL;
-    ingredientModal: boolean;
-    orderModal: boolean;
 }
 
 export interface ICloseModalAction {
     readonly type: typeof CLOSE_MODAL;
-    ingredientModal: boolean;
-    orderModal: boolean;
 }
 
 export interface IAddCurrentItemAction {
@@ -30,16 +26,12 @@ export interface IDeleteCurrentItemAction {
 }
 // Action creators
 
-export const openModalAction = (ingredientModal: boolean, orderModal: boolean):IOpenModalAction => ({
-    type: OPEN_MODAL,
-    ingredientModal,
-    orderModal
+export const openModalAction = ():IOpenModalAction => ({
+    type: OPEN_MODAL
 });
 
-export const closeModalAction = (ingredientModal: boolean, orderModal: boolean):ICloseModalAction => ({
-    type: CLOSE_MODAL,
-    ingredientModal,
-    orderModal
+export const closeModalAction = ():ICloseModalAction => ({
+    type: CLOSE_MODAL
 });
 
 export const addCurrentItemAction = (item: TItem):IAddCurrentItemAction => ({
