@@ -2,6 +2,10 @@ import {getModalItemsReducer as reducer, initialState} from './modal'
 import * as types from '../constants/modal'
 import {TModalAction} from '../actions/modal'
 
+const currentItem = {
+
+}
+
 describe('Modal reducer', () => {
     it('should return the initial state', () => {
         expect(
@@ -16,6 +20,17 @@ describe('Modal reducer', () => {
           .toEqual({
             ...initialState,
             orderModal: true
+        })
+    })
+    it('should handle CLOSE_MODAL', () => {
+        expect(
+          reducer(initialState, 
+          {
+            type: types.CLOSE_MODAL,
+          }))
+          .toEqual({
+            ...initialState,
+            orderModal: false
         })
     })
 })
