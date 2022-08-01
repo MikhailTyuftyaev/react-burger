@@ -8,7 +8,7 @@ import { TModalAction } from "../actions/modal";
 import { TmodalState } from "../types";
 
 
-const initialState: TmodalState = {
+export const initialState: TmodalState = {
     currentItem: null,
     ingredientModal: false,
     orderModal: false,
