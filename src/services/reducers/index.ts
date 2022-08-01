@@ -62,7 +62,7 @@ export const getItemsReducer = (state = initialState, action: TItemsAction): Tit
         ...state,
         data: [...state.data].map((item) =>
           item._id === action.item._id && action.item.type !== "bun"
-            ? { ...item, __v: ++item.__v }
+            ? { ...item, __v: item.__v + 1 }
             : { ...item, __v: item.__v }
         ),
       };
@@ -71,7 +71,7 @@ export const getItemsReducer = (state = initialState, action: TItemsAction): Tit
       return {
         ...state,
         data: [...state.data].map((item) =>
-          item._id === action.id ? { ...item, __v: --item.__v } : item
+          item._id === action.id ? { ...item, __v: item.__v - 1 } : item
         ),
       };
     }
