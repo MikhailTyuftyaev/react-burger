@@ -93,6 +93,7 @@ describe('Index reducer', () => {
       expect(
         reducer({
           ...initialState,
+          data: [{...cropIngredientsList[1]}]
           },
           {
             type: types.INCREASE_ITEM,
@@ -101,19 +102,32 @@ describe('Index reducer', () => {
         ))
         .toEqual({
           ...initialState,
+          data: [
+            {
+              ...cropIngredientsList[1],
+              __v: cropIngredientsList[1].__v + 1
+            }
+          ]
         })
     })
     it('should handle DECREASE_ITEM', () => {
       expect(
         reducer({
           ...initialState,
+          data: [{...cropIngredientsList[1]}]
         }, 
         {
           type: types.DECREASE_ITEM,
-          id: "60d3b41abdacab0026a733c6"
+          id: "60d3b41abdacab0026a733cb"
         }))
         .toEqual({
           ...initialState,
+          data: [
+            {
+              ...cropIngredientsList[1],
+              __v: cropIngredientsList[1].__v - 1
+            }
+          ]
         })
     })
     it('should handle DELETE_ITEM', () => {
