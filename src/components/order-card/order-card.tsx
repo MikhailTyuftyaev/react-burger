@@ -4,7 +4,6 @@ import styles from "./order-card.module.css"
 import { TorderCard, useAppSelector, TfeedItem, TorderIngredients } from "../../services/types";
 import { Link, useLocation, useRouteMatch } from "react-router-dom"
 import { formatDate } from "../../utils";
-import { wsFeedAddCurrentItemAction } from "../../services/actions/feed";
 import { TItem, useDispatch } from "../../services/types";
 
 const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) => {
@@ -59,10 +58,6 @@ const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) =>
       'total': cardInfo.total
     }
 
-    function handleClickOrder() {
-      dispatch(wsFeedAddCurrentItemAction(item))
-    }
-
     return(
       <Link
         className={styles.link}
@@ -71,8 +66,7 @@ const OrderCard = ({id, number, date, name, status, ingredients}: TorderCard) =>
           state: { background: location },
         }}
       >
-        <div className={`${styles.card} p-6`}
-          onClick={() => handleClickOrder()}>
+        <div className={`${styles.card} p-6`}>
               <div className={`${styles.meta}`}>
                 <p className="text text_type_digits-default">#{number}</p>
                 <p className="text text_type_main-default text_color_inactive">{cardInfo.orderDate}</p>

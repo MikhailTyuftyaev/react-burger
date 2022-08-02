@@ -12,13 +12,12 @@ import {
 import { TfeedState } from "../types";
 import { TWSOrdersFeedActions } from "../actions/feed";
 
-const initialState: TfeedState = {
+export const initialState: TfeedState = {
     orders: [],
     total: 0,
     totalToday: 0,
     isOpen: false,
     error: null,
-    modal: null,
     orderRequest: false,
     orderFailed: false
 };
@@ -55,12 +54,6 @@ export const feedReducer = (state = initialState, action: TWSOrdersFeedActions):
                 orders: action.payload.orders,
                 total: action.payload.total,
                 totalToday: action.payload.totalToday,
-            };
-        }
-        case WS_FEED_ADD_CURRENT_ITEM: {
-            return {
-                ...state,
-                modal: action.item,
             };
         }
         case GET_NUMBER_ORDER_REQUEST: {
