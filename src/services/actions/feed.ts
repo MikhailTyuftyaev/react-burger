@@ -12,7 +12,7 @@ import {
 import { baseUrl, checkResponse } from "../../utils";
 import { TAppThunk, TDispatch } from "../types";
 
-import { TfeedItem, TfeedState } from "../types";
+import { Tpayload } from "../types";
 
 export interface IWsFeedConnectionStartAction {
     readonly type: typeof WS_FEED_CONNECTION_START,
@@ -30,7 +30,7 @@ export interface IWsFeedConnectionErrorAction {
 
 export interface IWsFeedGetMessageAction {
     readonly type: typeof WS_FEED_GET_MESSAGE,
-    payload: TfeedState;
+    payload: Tpayload;
 }
 
 export interface IWsFeedConnectionClosedAction {
@@ -43,7 +43,7 @@ export interface IGetNumberOrderRequestAction {
 
 export interface IGetNumberOrderSuccesAction {
     readonly type: typeof GET_NUMBER_ORDER_SUCCESS,
-    payload: TfeedState;
+    payload: Tpayload;
 }
 
 export interface IGetNumberOrderErrorAction {
@@ -64,7 +64,7 @@ export const wsFeedConnectionErrorAction = (payload: Event):IWsFeedConnectionErr
     payload
 });
 
-export const wsFeedGetMessageAction = (payload:  TfeedState):IWsFeedGetMessageAction => ({
+export const wsFeedGetMessageAction = (payload:  Tpayload):IWsFeedGetMessageAction => ({
     type: WS_FEED_GET_MESSAGE,
     payload
 });
@@ -77,7 +77,7 @@ export const getNumberOrderRequestAction = ():IGetNumberOrderRequestAction => ({
     type: GET_NUMBER_ORDER_REQUEST
 });
 
-export const getNumberOrderSuccesAction = (payload: TfeedState):IGetNumberOrderSuccesAction => ({
+export const getNumberOrderSuccesAction = (payload: Tpayload):IGetNumberOrderSuccesAction => ({
     type: GET_NUMBER_ORDER_SUCCESS,
     payload
 });
