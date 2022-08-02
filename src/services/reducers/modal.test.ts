@@ -2,10 +2,6 @@ import {getModalItemsReducer as reducer, initialState} from './modal'
 import * as types from '../constants/modal'
 import {TModalAction} from '../actions/modal'
 
-const currentItem = {
-
-}
-
 describe('Modal reducer', () => {
     it('should return the initial state', () => {
         expect(
