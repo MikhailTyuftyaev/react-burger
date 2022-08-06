@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## [React-burger](https://mikhailtyuftyaev.github.io/react-burger/ "visit current app")
+
 ## Available Scripts
 
 In the project directory, you can run:
