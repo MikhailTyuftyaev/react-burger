@@ -27,7 +27,24 @@ describe('App works correctly with routes', () => {
     cy.get('[class^=modal_modal_header__]').find('svg').first().click();
   });
 
+  it('should open ingredient modal after reload page', function() {
+    cy.get('[class^=item-burger_burger_item__]').first().click();
+    cy.location('pathname').should('eq', '/ingredients/60d3b41abdacab0026a733c6');
+    cy.get('[class^=modal_modal_header__]').first().contains('Детали ингредиента');
+    cy.reload()
+    cy.location('pathname').should('eq', '/ingredients/60d3b41abdacab0026a733c6');
+    cy.get('[class^=modal_modal_header__]').first().contains('Детали ингредиента');
+    cy.get('[class^=modal_modal_header__]').find('svg').first().click();
+  });
+
+  it('should open ingredient page after visit path /ingredients/60d3b41abdacab0026a733c6', function() {
+    cy.visit('http://localhost:3000/ingredients/60d3b41abdacab0026a733c6');
+    cy.contains('Детали ингредиента');
+    cy.location('pathname').should('eq', '/ingredients/60d3b41abdacab0026a733c6');
+  });
+
   it('should close ingredient modal after close click', function() {
+    cy.visit('http://localhost:3000/');
     cy.get('[class^=item-burger_burger_item__]').first().click();
     cy.location('pathname').should('eq', '/ingredients/60d3b41abdacab0026a733c6');
     cy.get('[class^=modal_modal_header__]').first().contains('Детали ингредиента');
@@ -45,6 +62,8 @@ describe('App works correctly with routes', () => {
 describe('Create order', () => {
   beforeEach(() => {
     cy.viewport(1920, 1080)
+    cy.intercept("POST", "https://norma.nomoreparties.space/api/orders", { fixture: "orders.json" }).as("createOrder");
+    cy.intercept("POST", "https://norma.nomoreparties.space/api/auth/login", { fixture: "login.json" }).as("postLogin");
   })
 
   it('should open main page', () => {
@@ -53,22 +72,20 @@ describe('Create order', () => {
   })
 
   it('should drag and drop ingredients in constructor', () => {
-    const dataTransfer = new DataTransfer();
-
     cy.get('[class^=burger-constructor_constructor_container__]').as('constructorContainer')
     cy.get('[class^=burger-constructor_constructor_list__]').as('constructor');
 
-    cy.get('[id^=bun]').find('a[href^="/ingredients/"]').first().trigger('dragstart', { dataTransfer });
-    cy.get('@constructor').trigger('drop', { dataTransfer });
+    cy.get('[id^=bun]').find('a[href^="/ingredients/"]').first().trigger('dragstart');
+    cy.get('@constructor').trigger('drop');
     cy.get('@constructorContainer').find('> div:first > div').should('have.length', 1);
     cy.get('@constructorContainer').find('> div:last > div').should('have.length', 1);
 
-    cy.get('[id^=sauce]').find('a[href^="/ingredients/"]').first().trigger('dragstart', { dataTransfer });
-    cy.get('@constructor').trigger('drop', { dataTransfer });
+    cy.get('[id^=sauce]').find('a[href^="/ingredients/"]').first().trigger('dragstart');
+    cy.get('@constructor').trigger('drop');
     cy.get('@constructor').find('> div[class^=constructor-item_constructor_list__]').should('have.length', 1);
 
-    cy.get('[id^=filling]').find('a[href^="/ingredients/"]').first().trigger('dragstart', { dataTransfer });
-    cy.get('@constructor').trigger('drop', { dataTransfer });
+    cy.get('[id^=filling]').find('a[href^="/ingredients/"]').first().trigger('dragstart');
+    cy.get('@constructor').trigger('drop');
     cy.get('@constructor').find('> div[class^=constructor-item_constructor_list__]').should('have.length', 2); 
   })
 
@@ -82,14 +99,17 @@ describe('Create order', () => {
     cy.get('input[type=email]').click().type('qnr18625@cdfaq.com');
     cy.get('input[type=password]').click().type('123123123');
     cy.get('button').contains('Войти').click();
+    cy.wait("@postLogin").its("request.body").should("deep.equal", {
+      email: "qnr18625@cdfaq.com",
+      password: "123123123",
+    });
     cy.location('pathname').should('eq', '/');
   })
 
   it('should create order after click "Create Order" ', () => {
     cy.get('button').contains('Оформить заказ').click();
-    cy.wait(15000)
-    .then(() => {
-      cy.contains('Ваш заказ начали готовить');
-    })
+    cy.wait("@createOrder").its("request.body").should("deep.equal", {
+      "ingredients": ["60d3b41abdacab0026a733c6", "60d3b41abdacab0026a733c8", "60d3b41abdacab0026a733cc"]
+    });
   })
 })
