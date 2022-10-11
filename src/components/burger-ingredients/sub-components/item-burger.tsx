@@ -5,19 +5,11 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { openModalAction, addCurrentItemAction } from "../../../services/actions/modal"
-import { TBurgerItem, TItem, useDispatch } from "../../../services/types";
+import { TBurgerItem } from "../../../services/types";
 import { Link, useLocation } from "react-router-dom"
 
 const BurgerItem = ({ item, ...props }: TBurgerItem) => {
-  const dispatch = useDispatch();
   const location = useLocation();
-
-
-  function handleClickBurger(item: TItem) {
-    dispatch(addCurrentItemAction(item));
-    dispatch(openModalAction(true, false));
-  }
 
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredient",
@@ -36,7 +28,6 @@ const BurgerItem = ({ item, ...props }: TBurgerItem) => {
     >
       <div
         className={styles.burger_item}
-        onClick={() => handleClickBurger(item)}
         style={{ opacity }}
         ref={dragRef}
       >

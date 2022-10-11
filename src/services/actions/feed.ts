@@ -4,10 +4,15 @@ import {
     WS_FEED_CONNECTION_ERROR,
     WS_FEED_GET_MESSAGE,
     WS_FEED_CONNECTION_CLOSED,
-    WS_FEED_ADD_CURRENT_ITEM
+    WS_FEED_ADD_CURRENT_ITEM,
+    GET_NUMBER_ORDER_REQUEST,
+    GET_NUMBER_ORDER_SUCCESS,
+    GET_NUMBER_ORDER_ERROR
 } from "../constants/feed"
+import { baseUrl, checkResponse } from "../../utils";
+import { TAppThunk, TDispatch } from "../types";
 
-import { TfeedItem, TfeedState } from "../types";
+import { Tpayload } from "../types";
 
 export interface IWsFeedConnectionStartAction {
     readonly type: typeof WS_FEED_CONNECTION_START,
@@ -25,16 +30,24 @@ export interface IWsFeedConnectionErrorAction {
 
 export interface IWsFeedGetMessageAction {
     readonly type: typeof WS_FEED_GET_MESSAGE,
-    payload: TfeedState;
+    payload: Tpayload;
 }
 
 export interface IWsFeedConnectionClosedAction {
     readonly type: typeof WS_FEED_CONNECTION_CLOSED;
 }
 
-export interface IWsFeedAddCurrentItemAction {
-    readonly type: typeof WS_FEED_ADD_CURRENT_ITEM;
-    item: TfeedItem;
+export interface IGetNumberOrderRequestAction {
+    readonly type: typeof GET_NUMBER_ORDER_REQUEST;
+}
+
+export interface IGetNumberOrderSuccesAction {
+    readonly type: typeof GET_NUMBER_ORDER_SUCCESS,
+    payload: Tpayload;
+}
+
+export interface IGetNumberOrderErrorAction {
+    readonly type: typeof GET_NUMBER_ORDER_ERROR;
 }
 
 export const wsFeedConnectionStartAction = (payload: string):IWsFeedConnectionStartAction => ({
@@ -51,7 +64,7 @@ export const wsFeedConnectionErrorAction = (payload: Event):IWsFeedConnectionErr
     payload
 });
 
-export const wsFeedGetMessageAction = (payload:  TfeedState):IWsFeedGetMessageAction => ({
+export const wsFeedGetMessageAction = (payload:  Tpayload):IWsFeedGetMessageAction => ({
     type: WS_FEED_GET_MESSAGE,
     payload
 });
@@ -60,9 +73,17 @@ export const wsFeedConnectionClosedAction = ():IWsFeedConnectionClosedAction => 
     type: WS_FEED_CONNECTION_CLOSED
 });
 
-export const wsFeedAddCurrentItemAction = (item: TfeedItem):IWsFeedAddCurrentItemAction => ({
-    type: WS_FEED_ADD_CURRENT_ITEM,
-    item
+export const getNumberOrderRequestAction = ():IGetNumberOrderRequestAction => ({
+    type: GET_NUMBER_ORDER_REQUEST
+});
+
+export const getNumberOrderSuccesAction = (payload: Tpayload):IGetNumberOrderSuccesAction => ({
+    type: GET_NUMBER_ORDER_SUCCESS,
+    payload
+});
+
+export const getNumberOrderErrorAction = ():IGetNumberOrderErrorAction => ({
+    type: GET_NUMBER_ORDER_ERROR
 });
 
 export type TWSOrdersFeedActions =
@@ -71,7 +92,9 @@ export type TWSOrdersFeedActions =
 | IWsFeedConnectionErrorAction
 | IWsFeedGetMessageAction
 | IWsFeedConnectionClosedAction
-| IWsFeedAddCurrentItemAction;
+| IGetNumberOrderRequestAction
+| IGetNumberOrderSuccesAction
+| IGetNumberOrderErrorAction;
 
 
 export type TwsFeedActions = {
@@ -89,3 +112,26 @@ export const wsFeedActions: TwsFeedActions = {
     onError:  WS_FEED_CONNECTION_ERROR,
     onMessage:  WS_FEED_GET_MESSAGE
 }
+
+export const getNumberOrderRequest: TAppThunk = (number: string) => {
+    return function (dispatch: TDispatch) {
+      dispatch(getNumberOrderRequestAction());
+      fetch(baseUrl + "/orders/" + number, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      })
+        .then(checkResponse)
+        .then((res) => {
+            if (res && res.success) {
+              dispatch(getNumberOrderSuccesAction(res));
+            } else {
+              dispatch(getNumberOrderErrorAction());
+            }
+          })
+          .catch((err) => {
+            dispatch(getNumberOrderErrorAction());
+          });
+    };
+  }

@@ -36,7 +36,7 @@ import {
 import { TauthState } from '../types';
 import { TAuthAction } from "../actions/auth";
 
-const initialState: TauthState = {
+export const initialState: TauthState = {
     account: {
         name: "",
         email: ""

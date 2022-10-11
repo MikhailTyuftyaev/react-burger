@@ -1,14 +1,12 @@
 import {
     OPEN_MODAL,
     CLOSE_MODAL,
-    ADD_CURRENT_ITEM,
-    DELETE_CURRENT_ITEM
 } from "../constants/modal";
 import { TModalAction } from "../actions/modal";
 import { TmodalState } from "../types";
 
 
-const initialState: TmodalState = {
+export const initialState: TmodalState = {
     currentItem: null,
     ingredientModal: false,
     orderModal: false,
@@ -19,25 +17,13 @@ export const getModalItemsReducer = (state = initialState, action: TModalAction)
       case OPEN_MODAL: {
         return  {
           ...state,
-          ...action
+          orderModal: true
         };
       }
       case CLOSE_MODAL: {
         return  {
           ...state,
-          ...action
-        };
-      }
-      case DELETE_CURRENT_ITEM: {
-        return { 
-          ...state, 
-          currentItem:  null
-        };
-      }
-      case ADD_CURRENT_ITEM: {
-        return  {
-          ...state,
-          currentItem:   {...action.item} 
+          orderModal: false
         };
       }
       default: {

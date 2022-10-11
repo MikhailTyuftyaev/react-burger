@@ -3,12 +3,11 @@ import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, IngredientsPage, NotFound404, FeedPage, FeedInfoPage} from '../../pages';
-import { useAppSelector } from '../../services/types';
 import { getItemsRequest } from "../../services/actions/index";
 import { getUserRequest } from "../../services/actions/auth";
 import { getCookie } from '../../utils';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import { closeModalAction, deleteCurrentItemAction } from '../../services/actions/modal';
+import { closeModalAction } from '../../services/actions/modal';
 import { TLocation, useDispatch } from '../../services/types';
 import FeedDetails from '../feed-details/feed-detail';
 import AppHeader from '../app-header/app-header';
@@ -20,11 +19,9 @@ const App: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let background = location.state && location.state.background;
-    const feed = useAppSelector((state) => state.feed.modal);
 
     function onClose() {
-      dispatch(deleteCurrentItemAction());
-      dispatch(closeModalAction(false, false));
+      dispatch(closeModalAction());
       history.goBack();
     }
 

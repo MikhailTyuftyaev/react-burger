@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector, Tparams, TfeedItem, useDispatch } from '../services/types';
 import FeedDetails from '../components/feed-details/feed-detail';
 import styles from './ingredients.module.css'
-import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction } from '../services/actions/feed';
+import { wsFeedConnectionStartAction, wsFeedConnectionClosedAction, getNumberOrderRequest } from '../services/actions/feed';
 import { wsUrl, getCookie } from '../utils';
 import { useRouteMatch } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ export function FeedInfoPage() {
         if(path === "/feed/:id") {
             dispatch(wsFeedConnectionStartAction(`${wsUrl}/all`))
         } else if (path === "/profile/orders/:id") {
-            dispatch(wsFeedConnectionStartAction(`${wsUrl}?token=${getCookie('accessToken')}`))
+            dispatch(getNumberOrderRequest(id))
         } 
 
 
@@ -27,7 +27,7 @@ export function FeedInfoPage() {
 
     const { id }: Tparams = useParams();
     const feed: TfeedItem[] = useAppSelector((state) => state.feed.orders);
-    const currentItem:TfeedItem | undefined  = feed.find(({ _id }: TfeedItem) => _id === id);
+    const currentItem:TfeedItem | undefined  = feed.find(({ _id }: TfeedItem) => _id === id) || feed.find(({ number }) => number == id);
 
     return (
         <>

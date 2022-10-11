@@ -27,9 +27,8 @@ const FeedDetails = ({ ...props }) => {
     }, [dispatch])
     const data = useAppSelector((state) => state.ingredients.data)
     const orders = useAppSelector((state) => state.feed.orders)
-    const price = useAppSelector((state) => state.feed.modal?.total)
     
-    const currentItem = orders.find(({ _id }) => _id === id);
+    const currentItem = orders.find(({ _id }) => _id === id) || orders.find(({ number }) => number == id);
     const arrayOrders = props.ingredients || currentItem?.ingredients;
 
     const feedInfo = useMemo(() => {
@@ -92,7 +91,7 @@ const FeedDetails = ({ ...props }) => {
                     {feedInfo && feedInfo.orderDate}
                 </p>
                 <div className={`${styles.price} ml-4`}>
-                    <p className="text text_type_digits-default mr-2">{price || feedInfo && feedInfo.total}</p>
+                    <p className="text text_type_digits-default mr-2">{feedInfo && feedInfo.total}</p>
                     <CurrencyIcon type="primary" />
                 </div>
             </div>
